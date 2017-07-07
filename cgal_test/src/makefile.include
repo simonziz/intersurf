@@ -1,0 +1,29 @@
+#------------------------------------------------------------------------------
+#
+#  makeinclude - to build the PDBS program
+#
+#  Dave Ritchie, 08/03/13, Inria.
+#
+#------------------------------------------------------------------------------
+
+PDBS_TARGET = ./pdbs
+
+.cpp.o:
+	$(PDBS_CPP) -Dhex_pdbs $(PDBS_COPTS) $(PDBS_INCLUDES) -c $<
+
+# .c.o:
+# 	$(PDBS_CC) -Dhex_pdbs $(PDBS_COPTS) $(PDBS_INCLUDES) -c $<
+
+all:	$(PDBS_TARGET)
+
+PDBS_OBJECTS = main.o \
+
+#        hex_pdb.o \
+#        kids.o \
+
+$(PDBS_TARGET): $(PDBS_OBJECTS)
+	$(PDBS_LD) $(PDBS_LDOPTS) -o $(PDBS_TARGET) $(PDBS_OBJECTS) $(PDBS_LIBS)
+
+clean:
+	rm -rf *.o
+

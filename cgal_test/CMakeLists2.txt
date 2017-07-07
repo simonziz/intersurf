@@ -1,0 +1,71 @@
+# Created by the script cgal_create_cmake_script
+# This is the CMake script for compiling a CGAL application.
+
+
+project( test_cgal )
+
+cmake_minimum_required(VERSION 2.8.10)
+
+#find_package(CGAL QUIET COMPONENTS Core )
+find_package(CGAL COMPONENTS Qt5 Core )
+
+if ( CGAL_FOUND)
+
+  include( ${CGAL_USE_FILE} )
+
+  #include( CGAL_CreateSingleSourceCGALProgram )
+
+  include_directories (AFTER "include/")
+  #include_directories(AFTER "/usr/include/x86_64-linux-gnu/qt5")
+
+  link_directories(${CMAKE_SOURCE_DIR}/lib)
+  link_directories(${CMAKE_SOURCE_DIR}/var/Linux64/lib)
+  #link_directories(${CMAKE_SOURCE_DIR}/var/Linux64/include)
+  #link_directories(/usr/include/x86_64-linux-gnu/qt5)
+  #add_subdirectory(lib)
+
+  #find_package(Qt5Gui)
+  #find_package(Qt5Widgets)
+  find_package(Qt5 COMPONENTS Xml Script OpenGL Svg REQUIRED_FILES)
+  find_package(OpenGL)
+
+  if(Qt5_FOUND)
+    add_definitions(-DQT_NO_KEYWORDS)
+    find_package(QGLViewer)
+  endif(Qt5_FOUND)
+
+
+  file(
+  GLOB_RECURSE
+  source_files
+  src/*.[cht]pp
+  src/*.[cht]
+  include/*.[cht]
+  )
+
+  SET(CMAKE_BUILD_TYPE Debug)
+  ADD_DEFINITIONS( -O2 -Wall -Wextra -std=c++11)
+
+  add_executable(
+    pgm
+    ${source_files}
+  )
+
+ target_link_libraries(pgm hex_8.1.1_Linux_x64
+     gmp
+     bz2 z
+     pthread
+     dl
+     m
+     gcc_s
+     #Qt5::Gui
+     Qt5::Widgets
+     )
+
+
+else()
+
+    message(STATUS "This program requires the CGAL library, and will not be compiled.")
+
+endif()
+
