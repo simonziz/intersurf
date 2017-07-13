@@ -55,14 +55,15 @@ static void savePointsOFF(const char* filename, Delaunay m_dt);
 
 int main(void) {
 
-    /*CGAL::Geomview_stream gv(CGAL::Bbox_3(-100, -100, -100, 60, 60, 60));
+    CGAL::Geomview_stream gv(CGAL::Bbox_3(-100, -100, -100, 60, 60, 60));
     gv.set_line_width(2);
     //gv.set_trace(true);
     gv.set_bg_color(CGAL::Color(200, 200, 200));
-    // gv.clear();*/
+    // gv.clear();
 
 
-    PdbImage *pdb = hex_readPdb("../data/toto.pdb", "new_protein");  // Reading a .pdb file
+    //PdbImage *pdb = hex_readPdb("../data/toto.pdb", "new_protein");  // Reading a .pdb file
+    PdbImage *pdb = hex_readPdb("../data/2n77.pdb", "new_protein");  // Reading a .pdb file
 
 
     std::vector<std::pair< Point, unsigned> > P;  // Vector for the atoms of the protein
@@ -126,18 +127,23 @@ int main(void) {
     // writing file output;
     oFileT << d_t;
 
-    savePointsOFF("output2.off",d_t);
+    savePointsOFF("output2.off",interface_tr);
     //CGAL::output_surface_facets_to_off(oFileT,c2t3);
+    std::cout<<"nb vertices : "<<d_t.number_of_vertices()<<std::endl;
+    std::cout<<"nb edges : "<<d_t.number_of_edges()<<std::endl;
+    std::cout<<"nb faces : "<<d_t.number_of_facets()<<std::endl;
+    std::cout<<"nb cells : "<<d_t.number_of_cells()<<std::endl;
+
     std::cout<<"nb vertices : "<<interface_tr.number_of_vertices()<<std::endl;
     std::cout<<"nb edges : "<<interface_tr.number_of_edges()<<std::endl;
     std::cout<<"nb faces : "<<interface_tr.number_of_facets()<<std::endl;
     std::cout<<"nb cells : "<<interface_tr.number_of_cells()<<std::endl;
 
-    /*std::cout << "Drawing 3D Delaunay triangulation in wired mode.\n";
+    std::cout << "Drawing 3D Delaunay triangulation in wired mode.\n";
     gv.set_wired(true);
-    gv << d_t;
+    gv << interface_tr;
     sleep(100);
-    gv.clear();*/
+    gv.clear();
 
     return 0;
 }

@@ -166,9 +166,9 @@ hex_transform.h
 hex_sys.h
 ../include/hex_sys.h
 
-/home/simon/Documents/pfe/cgal_test/build/pgm_automoc.cpp
+/home/simon/Documents/pfe/intersurf/cgal_test/build/pgm_automoc.cpp
 
-/home/simon/Documents/pfe/cgal_test/src/DelaunayMeshTriangulationGraphicsItem.h
+/home/simon/Documents/pfe/intersurf/cgal_test/src/DelaunayMeshTriangulationGraphicsItem.h
 CGAL/Constrained_voronoi_diagram_2.h
 -
 CGAL/Qt/ConstrainedTriangulationGraphicsItem.h
@@ -182,17 +182,17 @@ QPen
 list
 -
 
-/home/simon/Documents/pfe/cgal_test/src/hex_pdb.cpp
+/home/simon/Documents/pfe/intersurf/cgal_test/src/hex_pdb.cpp
 kids.h
-/home/simon/Documents/pfe/cgal_test/src/kids.h
+/home/simon/Documents/pfe/intersurf/cgal_test/src/kids.h
 hex_util.h
-/home/simon/Documents/pfe/cgal_test/src/hex_util.h
+/home/simon/Documents/pfe/intersurf/cgal_test/src/hex_util.h
 hex_version.h
-/home/simon/Documents/pfe/cgal_test/src/hex_version.h
+/home/simon/Documents/pfe/intersurf/cgal_test/src/hex_version.h
 hex_pdb.h
-/home/simon/Documents/pfe/cgal_test/src/hex_pdb.h
+/home/simon/Documents/pfe/intersurf/cgal_test/src/hex_pdb.h
 
-/home/simon/Documents/pfe/cgal_test/src/main.cpp
+/home/simon/Documents/pfe/intersurf/cgal_test/src/main.cpp
 CGAL/Exact_predicates_inexact_constructions_kernel.h
 -
 CGAL/Delaunay_triangulation_3.h
@@ -218,11 +218,11 @@ CGAL/IO/Triangulation_geomview_ostream_3.h
 QGLViewer/qglviewer.h
 -
 pdbs.h
-/home/simon/Documents/pfe/cgal_test/src/pdbs.h
+/home/simon/Documents/pfe/intersurf/cgal_test/src/pdbs.h
 my_vertex_base.h
-/home/simon/Documents/pfe/cgal_test/src/my_vertex_base.h
+/home/simon/Documents/pfe/intersurf/cgal_test/src/my_vertex_base.h
 DelaunayMeshTriangulationGraphicsItem.h
-/home/simon/Documents/pfe/cgal_test/src/DelaunayMeshTriangulationGraphicsItem.h
+/home/simon/Documents/pfe/intersurf/cgal_test/src/DelaunayMeshTriangulationGraphicsItem.h
 iostream
 -
 fstream
@@ -236,7 +236,7 @@ vector
 map
 -
 
-/home/simon/Documents/pfe/cgal_test/src/my_vertex_base.h
+/home/simon/Documents/pfe/intersurf/cgal_test/src/my_vertex_base.h
 CGAL/Exact_predicates_inexact_constructions_kernel.h
 -
 CGAL/Delaunay_triangulation_3.h
@@ -244,19 +244,19 @@ CGAL/Delaunay_triangulation_3.h
 CGAL/Triangulation_vertex_base_3.h
 -
 
-/home/simon/Documents/pfe/cgal_test/src/pdbs.h
+/home/simon/Documents/pfe/intersurf/cgal_test/src/pdbs.h
 hex_pdb.h
-/home/simon/Documents/pfe/cgal_test/src/hex_pdb.h
+/home/simon/Documents/pfe/intersurf/cgal_test/src/hex_pdb.h
 hex_sys.h
-/home/simon/Documents/pfe/cgal_test/src/hex_sys.h
+/home/simon/Documents/pfe/intersurf/cgal_test/src/hex_sys.h
 hex_util.h
-/home/simon/Documents/pfe/cgal_test/src/hex_util.h
+/home/simon/Documents/pfe/intersurf/cgal_test/src/hex_util.h
 hex_transform.h
-/home/simon/Documents/pfe/cgal_test/src/hex_transform.h
+/home/simon/Documents/pfe/intersurf/cgal_test/src/hex_transform.h
 hex_version.h
-/home/simon/Documents/pfe/cgal_test/src/hex_version.h
+/home/simon/Documents/pfe/intersurf/cgal_test/src/hex_version.h
 kids.h
-/home/simon/Documents/pfe/cgal_test/src/kids.h
+/home/simon/Documents/pfe/intersurf/cgal_test/src/kids.h
 
 /usr/include/x86_64-linux-gnu/asm/socket.h
 asm-generic/socket.h
