@@ -63,7 +63,7 @@ int main(void) {
 
 
     //PdbImage *pdb = hex_readPdb("../data/toto.pdb", "new_protein");  // Reading a .pdb file
-    PdbImage *pdb = hex_readPdb("../data/2n77.pdb", "new_protein");  // Reading a .pdb file
+    PdbImage *pdb = hex_readPdb("../data/2n77_reduced.pdb", "new_protein");  // Reading a .pdb file
 
 
     std::vector<std::pair< Point, unsigned> > P;  // Vector for the atoms of the protein
@@ -141,7 +141,7 @@ int main(void) {
 
     std::cout << "Drawing 3D Delaunay triangulation in wired mode.\n";
     gv.set_wired(true);
-    gv << interface_tr;
+    gv << d_t;
     sleep(100);
     gv.clear();
 
