@@ -215,6 +215,8 @@ CGAL/IO/Geomview_stream.h
 -
 CGAL/IO/Triangulation_geomview_ostream_3.h
 -
+CGAL/Unique_hash_map.h
+-
 QGLViewer/qglviewer.h
 -
 pdbs.h

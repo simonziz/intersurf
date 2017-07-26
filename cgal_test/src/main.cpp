@@ -19,6 +19,8 @@
 //#include <CGAL/IO/Complex_2_in_triangulation_3_file_writer.h>
 //#include <CGAL/make_surface_mesh.h>
 
+#include <CGAL/Unique_hash_map.h>
+
 #include <QGLViewer/qglviewer.h>
 
 
@@ -45,6 +47,7 @@ typedef CGAL::Delaunay_triangulation_3<K,Tds,CGAL::Fast_location>        Delauna
 
 typedef Delaunay::Point                          Point;
 typedef Delaunay::Cell_handle                    Cell_handle;
+typedef Delaunay::Vertex_handle                  Vertex_handle;
 typedef Delaunay::Facet                          Face;
 
 
@@ -142,7 +145,7 @@ int main(void) {
     std::cout << "Drawing 3D Delaunay triangulation in wired mode.\n";
     gv.set_wired(true);
     gv << d_t;
-    sleep(100);
+    sleep(5);
     gv.clear();
 
     return 0;
@@ -180,13 +183,26 @@ static void savePointsOFF(const char* filename, Delaunay m_dt)
                       0,  // number of facets
                       false);  // true: has normals*/
 
-  writer.write_header(*pOut,m_dt.number_of_vertices(),m_dt.number_of_edges(),m_dt.number_of_facets(),false);
+  Delaunay::size_type n_vertices = m_dt.number_of_vertices();
+
+  writer.write_header(*pOut,n_vertices,m_dt.number_of_edges(),m_dt.number_of_facets(),false);
+
+  std::vector<Vertex_handle> TV(n_vertices + 1);
+  Delaunay::size_type i = 0;
 
   // write points (get from point array)
   for(Delaunay::Finite_vertices_iterator vit=m_dt.finite_vertices_begin();
       vit!=m_dt.finite_vertices_end(); ++vit) {
     K::Point_3& p = vit->point();
     writer.write_vertex( p.x(), p.y(), p.z() );
+    TV[i++] = vit;
+  }
+
+  CGAL::Unique_hash_map<Vertex_handle, std::size_t > V;
+
+  V[m_dt.infinite_vertex()] = 0;
+  for (i=1; i <= n_vertices; i++) {
+    V[TV[i]] = i;
   }
 
   writer.write_facet_header();
@@ -196,7 +212,7 @@ static void savePointsOFF(const char* filename, Delaunay m_dt)
     writer.write_facet_begin(3);
     for (int i = 0; i < 4; i++) {
         if (i != fit->second) {
-            writer.write_facet_vertex_index(fit->first->vertex(i)->info());
+            writer.write_facet_vertex_index(V[fit->first->vertex(i)]);
         }
     }
     writer.write_facet_end();
