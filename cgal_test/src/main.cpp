@@ -28,6 +28,9 @@
 #include "my_vertex_base.h"
 #include "DelaunayMeshTriangulationGraphicsItem.h"
 
+#include <CGAL/Simple_cartesian.h>
+#include <CGAL/Polyhedron_3.h>
+
 #include <iostream>
 #include <fstream>
 #include <ostream>
@@ -51,18 +54,23 @@ typedef Delaunay::Vertex_handle                  Vertex_handle;
 typedef Delaunay::Facet                          Face;
 
 
+typedef CGAL::Simple_cartesian<double>     Kernel;
+typedef CGAL::Polyhedron_3<Kernel>         Polyhedron;
+typedef Polyhedron::HalfedgeDS             HalfedgeDS;
+
+
 //typedef CGAL::Complex_2_in_triangulation_3<Delaunay> C2t3;
 
 
-static void savePointsOFF(const char* filename, Delaunay m_dt);
+static void savePointsOFF(const char* filename, Delaunay m_dt, PdbImage *pdb);
 
 int main(void) {
 
-    CGAL::Geomview_stream gv(CGAL::Bbox_3(-100, -100, -100, 60, 60, 60));
+    /*CGAL::Geomview_stream gv(CGAL::Bbox_3(-100, -100, -100, 60, 60, 60));
     gv.set_line_width(2);
     //gv.set_trace(true);
     gv.set_bg_color(CGAL::Color(200, 200, 200));
-    // gv.clear();
+    // gv.clear();*/
 
 
     //PdbImage *pdb = hex_readPdb("../data/toto.pdb", "new_protein");  // Reading a .pdb file
@@ -120,17 +128,42 @@ int main(void) {
     Delaunay interface_tr(reduced_vector.begin(), reduced_vector.end());  // Creating Delaunay triangulation with the coordinates vector
 
     // Check the coordinates and the number of atoms
-    int cpt2 = 1;
-    /*for (auto p : P) {
+    /*int cpt2 = 1;
+    for (auto p : P) {
         std::cout<<cpt2<<" : "<<p<<std::endl;
         cpt2 ++;
     }*/
 
-    std::ofstream oFileT("output.off",std::ios::out);
+    /*std::ofstream oFileT("output.off",std::ios::out);
     // writing file output;
-    oFileT << d_t;
+    oFileT << d_t;*/
 
-    savePointsOFF("output2.off",interface_tr);
+    Delaunay::Finite_edges_iterator eit;
+    Delaunay::Cell_circulator circ;
+    Delaunay::Cell_circulator circ_copy;
+
+    Polyhedron intersurf;
+
+    intersurf.add_vertex(Point( 0, 0, 0));
+
+    std::ofstream fout;
+    fout.open( "interface.off" );
+
+    for (eit = interface_tr.finite_edges_begin(); eit != interface_tr.finite_edges_end(); ++eit) {
+        if((strcmp(pdb->atom[eit->first->vertex(eit->second)->info()].chain, pdb->atom[eit->first->vertex(eit->third)->info()].chain) != 0)){
+            circ = interface_tr.incident_cells(*eit);
+            circ_copy = circ;
+            do {
+                K::Point_3 p = interface_tr.dual(circ);
+                fout<<p.x()<<" "<<p.y()<<" "<<p.z()<<std::endl;
+                circ ++;
+            } while(circ != circ_copy);
+        }
+    }
+    fout.close();
+
+
+    savePointsOFF("output2.off",interface_tr, pdb);
     //CGAL::output_surface_facets_to_off(oFileT,c2t3);
     std::cout<<"nb vertices : "<<d_t.number_of_vertices()<<std::endl;
     std::cout<<"nb edges : "<<d_t.number_of_edges()<<std::endl;
@@ -142,18 +175,18 @@ int main(void) {
     std::cout<<"nb faces : "<<interface_tr.number_of_facets()<<std::endl;
     std::cout<<"nb cells : "<<interface_tr.number_of_cells()<<std::endl;
 
-    std::cout << "Drawing 3D Delaunay triangulation in wired mode.\n";
+    /*std::cout << "Drawing 3D Delaunay triangulation in wired mode.\n";
     gv.set_wired(true);
     gv << d_t;
     sleep(5);
-    gv.clear();
+    gv.clear();*/
 
     return 0;
 }
 
 
 
-static void savePointsOFF(const char* filename, Delaunay m_dt)
+static void savePointsOFF(const char* filename, Delaunay m_dt, PdbImage *pdb)
 {
   std::ofstream fout;
   fout.open( filename );
@@ -179,13 +212,15 @@ static void savePointsOFF(const char* filename, Delaunay m_dt)
   // write header
   /*writer.write_header(*pOut,  // output ostream
                       m_dt.number_of_vertices,  // number of points/vertices
-                      0,  // number of halfedges
                       0,  // number of facets
+                      0,  // number of edges
                       false);  // true: has normals*/
 
   Delaunay::size_type n_vertices = m_dt.number_of_vertices();
 
-  writer.write_header(*pOut,n_vertices,m_dt.number_of_edges(),m_dt.number_of_facets(),false);
+  //writer.write_header(*pOut,n_vertices,m_dt.number_of_facets(),m_dt.number_of_edges(),false);
+  //writer.write_header(*pOut,n_vertices,Delaunay::size_type(128),m_dt.number_of_edges(),false);
+  fout<<"[C]OFF"<<std::endl<<n_vertices<<" "<<m_dt.number_of_edges()<<" "<<m_dt.number_of_facets()<<std::endl<<std::endl;
 
   std::vector<Vertex_handle> TV(n_vertices + 1);
   Delaunay::size_type i = 0;
@@ -194,10 +229,21 @@ static void savePointsOFF(const char* filename, Delaunay m_dt)
   for(Delaunay::Finite_vertices_iterator vit=m_dt.finite_vertices_begin();
       vit!=m_dt.finite_vertices_end(); ++vit) {
     K::Point_3& p = vit->point();
-    writer.write_vertex( p.x(), p.y(), p.z() );
+    //writer.write_vertex( p.x(), p.y(), p.z() );
+    fout<<p.x()<<" "<<p.y()<<" "<<p.z()<<" ";
+    //fout<<"1.000"<<" "<<"0.000"<<" "<<"0.000"<<" "<<0.75;
+    if (strcmp( pdb->atom[vit->info()].chain, "A") == 0) {
+        fout<<CGAL::RED;
+    }
+    else {
+        fout<<CGAL::BLUE;
+    }
+
+    fout<<std::endl;
     TV[i++] = vit;
   }
 
+  fout<<std::endl;
   CGAL::Unique_hash_map<Vertex_handle, std::size_t > V;
 
   V[m_dt.infinite_vertex()] = 0;
@@ -205,17 +251,21 @@ static void savePointsOFF(const char* filename, Delaunay m_dt)
     V[TV[i]] = i;
   }
 
-  writer.write_facet_header();
+  //writer.write_facet_header();
   // write faces (get from point array)
   for(Delaunay::Finite_facets_iterator fit=m_dt.finite_facets_begin();
       fit!=m_dt.finite_facets_end(); ++fit) {
-    writer.write_facet_begin(3);
+    //writer.write_facet_begin(3);
+    fout<<3<<" ";
     for (int i = 0; i < 4; i++) {
         if (i != fit->second) {
-            writer.write_facet_vertex_index(V[fit->first->vertex(i)]);
+            //writer.write_facet_vertex_index(V[fit->first->vertex(i)]);
+            fout<<V[fit->first->vertex(i)]<<" ";
         }
     }
-    writer.write_facet_end();
+    //fout<<CGAL::RED;
+    //writer.write_facet_end();
+    fout<<std::endl;
     //std::cout<<"face : "<<fit->first->vertex(1)->info()<<std::endl;
   }
   /*for(Delaunay::Finite_cells_iterator cit=m_dt.finite_cells_begin();
@@ -229,7 +279,7 @@ static void savePointsOFF(const char* filename, Delaunay m_dt)
     }
   }*/
   // write footer
-  writer.write_footer();
+  //writer.write_footer();
   fout.close();
 }
 

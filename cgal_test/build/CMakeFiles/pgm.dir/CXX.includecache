@@ -225,6 +225,10 @@ my_vertex_base.h
 /home/simon/Documents/pfe/intersurf/cgal_test/src/my_vertex_base.h
 DelaunayMeshTriangulationGraphicsItem.h
 /home/simon/Documents/pfe/intersurf/cgal_test/src/DelaunayMeshTriangulationGraphicsItem.h
+CGAL/Simple_cartesian.h
+-
+CGAL/Polyhedron_3.h
+-
 iostream
 -
 fstream
