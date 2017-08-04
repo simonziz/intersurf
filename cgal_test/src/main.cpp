@@ -74,7 +74,7 @@ int main(void) {
 
 
     //PdbImage *pdb = hex_readPdb("../data/toto.pdb", "new_protein");  // Reading a .pdb file
-    PdbImage *pdb = hex_readPdb("../data/2n77_reduced.pdb", "new_protein");  // Reading a .pdb file
+    PdbImage *pdb = hex_readPdb("../data/2n77.pdb", "new_protein");  // Reading a .pdb file
 
 
     std::vector<std::pair< Point, unsigned> > P;  // Vector for the atoms of the protein
@@ -142,26 +142,92 @@ int main(void) {
     Delaunay::Cell_circulator circ;
     Delaunay::Cell_circulator circ_copy;
 
-    Polyhedron intersurf;
+    //std::vector<std::pair< unsigned int, std::vector<K::Point_3> > > intersurf;
+    //std::vector<K::Point_3> face;
+    //unsigned int nb_points_face;
+    unsigned int index_of_point = 0;
 
-    intersurf.add_vertex(Point( 0, 0, 0));
-
-    std::ofstream fout;
-    fout.open( "interface.off" );
-
+    std::map<K::Point_3, unsigned int > surf_points;
+    std::vector<std::vector<K::Point_3> > all_faces_indexes;
+    std::vector<K::Point_3> face_indexes;
+    int nb_points = -1;
+    K::Point_3 p;
     for (eit = interface_tr.finite_edges_begin(); eit != interface_tr.finite_edges_end(); ++eit) {
+        std::cout<<pdb->atom[eit->first->vertex(eit->second)->info()].chain<<"   "<<pdb->atom[eit->first->vertex(eit->third)->info()].chain<<std::endl;
         if((strcmp(pdb->atom[eit->first->vertex(eit->second)->info()].chain, pdb->atom[eit->first->vertex(eit->third)->info()].chain) != 0)){
             circ = interface_tr.incident_cells(*eit);
             circ_copy = circ;
+            //nb_points_face = 0;
             do {
-                K::Point_3 p = interface_tr.dual(circ);
-                fout<<p.x()<<" "<<p.y()<<" "<<p.z()<<std::endl;
+                p = interface_tr.dual(circ);
+                //fout<<p.x()<<" "<<p.y()<<" "<<p.z()<<std::endl;
+                //face.push_back(p);
+                surf_points[p] = 0;//surf_points[p];
+                /*if (surf_points.size() != nb_points) {
+                    surf_points[p] = surf_points.size() - 1;
+                    //std::cout<<surf_points.size()<<std::endl;
+                }*/
+                face_indexes.push_back(p);
+                nb_points = surf_points.size();
                 circ ++;
+                //nb_points_face ++;
             } while(circ != circ_copy);
+            //intersurf.push_back(std::make_pair(nb_points_face, face));
+            //face.clear();
+            all_faces_indexes.push_back(face_indexes);
+            face_indexes.clear();
         }
     }
-    fout.close();
 
+
+    /*unsigned int total_vertices = 0;
+    for (int i = 0; i < intersurf.size(); i++) {
+        total_vertices += intersurf[i].first;
+    }*/
+
+    std::ofstream fout;
+    fout.open( "interface.off" );
+    //fout<<"OFF"<<std::endl<<total_vertices<<" "<<intersurf.size()<<" "<<0<<std::endl<<std::endl;
+    fout<<"OFF"<<std::endl<<surf_points.size()<<" "<<all_faces_indexes.size()<<" "<<0<<std::endl<<std::endl;
+    //Write vertices into .off file
+    /*for (int i = 0; i < intersurf.size(); i++) {
+        for (int j = 0; j < intersurf[i].second.size(); j++) {
+            fout<<intersurf[i].second[j]<<std::endl;
+        }
+    }*/
+    int cpt_ind = 0;
+    std::map<K::Point_3, unsigned int>::iterator it_surf;
+    for(it_surf = surf_points.begin(); it_surf != surf_points.end(); ++it_surf) {
+        fout<<it_surf->first.x()<<" "<<it_surf->first.y()<<" "<<it_surf->first.z()<<" "<<std::endl;
+        surf_points[it_surf->first] = cpt_ind;
+        cpt_ind++;
+        //std::cout<<it_surf->second<<std::endl;
+    }
+    fout<<std::endl;
+    /*for (int i = 0; i < surf_points.size(); i++) {
+        std::cout<<surf_points.at(i)<<std::endl;
+    }*/
+
+    //Write indexes into .off file
+
+    /*int cpt_index = 0;
+    for (int i = 0; i < intersurf.size(); i++) {
+        fout<<intersurf[i].first<<" ";
+        for (int j = 0; j < intersurf[i].second.size(); j++) {
+            fout<<cpt_index + j<<" ";
+        }
+        cpt_index += intersurf[i].first;
+        fout<<std::endl;
+    }*/
+    for (int i = 0; i < all_faces_indexes.size(); i++) {
+        fout<<all_faces_indexes[i].size()<<" ";;
+        for (int j = 0; j < all_faces_indexes[i].size(); j++) {
+            fout<<surf_points[all_faces_indexes[i][j]]<<" ";
+        }
+        fout<<std::endl;
+    }
+
+    fout.close();
 
     savePointsOFF("output2.off",interface_tr, pdb);
     //CGAL::output_surface_facets_to_off(oFileT,c2t3);
