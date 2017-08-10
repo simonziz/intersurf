@@ -152,8 +152,13 @@ int main(void) {
     std::vector<K::Point_3> face_indexes;
     int nb_points = -1;
     K::Point_3 p;
+    K::Point_3 check_dist;
+    K::Vector_3 dist;
+    bool is_used = true;
+    unsigned int size_lim = 50;
+
     for (eit = interface_tr.finite_edges_begin(); eit != interface_tr.finite_edges_end(); ++eit) {
-        std::cout<<pdb->atom[eit->first->vertex(eit->second)->info()].chain<<"   "<<pdb->atom[eit->first->vertex(eit->third)->info()].chain<<std::endl;
+        //std::cout<<pdb->atom[eit->first->vertex(eit->second)->info()].chain<<"   "<<pdb->atom[eit->first->vertex(eit->third)->info()].chain<<std::endl;
         if((strcmp(pdb->atom[eit->first->vertex(eit->second)->info()].chain, pdb->atom[eit->first->vertex(eit->third)->info()].chain) != 0)){
             circ = interface_tr.incident_cells(*eit);
             circ_copy = circ;
@@ -162,7 +167,9 @@ int main(void) {
                 p = interface_tr.dual(circ);
                 //fout<<p.x()<<" "<<p.y()<<" "<<p.z()<<std::endl;
                 //face.push_back(p);
-                surf_points[p] = 0;//surf_points[p];
+                if (abs(p.x()) < size_lim && abs(p.y()) < size_lim && abs(p.z()) < size_lim) {
+                    surf_points[p] = 0;//surf_points[p];
+                }
                 /*if (surf_points.size() != nb_points) {
                     surf_points[p] = surf_points.size() - 1;
                     //std::cout<<surf_points.size()<<std::endl;
@@ -174,7 +181,19 @@ int main(void) {
             } while(circ != circ_copy);
             //intersurf.push_back(std::make_pair(nb_points_face, face));
             //face.clear();
-            all_faces_indexes.push_back(face_indexes);
+            check_dist = face_indexes[0];
+            for (int j = 0; j < face_indexes.size(); j++) {
+                dist = check_dist - face_indexes[j];
+                if ( dist.squared_length() > 400) {//abs(face_indexes[j].x()) >= size_lim || abs(face_indexes[j].y()) >= size_lim || abs(face_indexes[j].z()) > size_lim) {
+                    is_used = false;
+                    //std::cout<<all_faces_indexes[i][j].x()<<"  "<<all_faces_indexes[i][j].y()<<"  "<<all_faces_indexes[i][j].z()<<std::endl;
+                }
+                check_dist = face_indexes[j];
+            }
+            if (is_used == true) {
+                all_faces_indexes.push_back(face_indexes);
+            }
+            is_used = true;
             face_indexes.clear();
         }
     }
@@ -197,11 +216,15 @@ int main(void) {
     }*/
     int cpt_ind = 0;
     std::map<K::Point_3, unsigned int>::iterator it_surf;
+
     for(it_surf = surf_points.begin(); it_surf != surf_points.end(); ++it_surf) {
-        fout<<it_surf->first.x()<<" "<<it_surf->first.y()<<" "<<it_surf->first.z()<<" "<<std::endl;
-        surf_points[it_surf->first] = cpt_ind;
-        cpt_ind++;
-        //std::cout<<it_surf->second<<std::endl;
+        //if (abs(it_surf->first.x()) < size_lim && abs(it_surf->first.y()) < size_lim && abs(it_surf->first.z()) < size_lim) {
+            fout<<it_surf->first.x()<<" "<<it_surf->first.y()<<" "<<it_surf->first.z()<<" "<<std::endl;
+            surf_points[it_surf->first] = cpt_ind;
+            cpt_ind++;
+            //std::cout<<it_surf->second<<std::endl;
+        //}
+
     }
     fout<<std::endl;
     /*for (int i = 0; i < surf_points.size(); i++) {
@@ -219,12 +242,24 @@ int main(void) {
         cpt_index += intersurf[i].first;
         fout<<std::endl;
     }*/
+
     for (int i = 0; i < all_faces_indexes.size(); i++) {
-        fout<<all_faces_indexes[i].size()<<" ";;
-        for (int j = 0; j < all_faces_indexes[i].size(); j++) {
-            fout<<surf_points[all_faces_indexes[i][j]]<<" ";
-        }
-        fout<<std::endl;
+        //std::cout<<all_faces_indexes[i][1].x()<<std::endl;
+        /*for (int j = 0; j < all_faces_indexes[i].size(); j++) {
+            if (abs(all_faces_indexes[i][j].x()) >= size_lim || abs(all_faces_indexes[i][j].y()) >= size_lim || abs(all_faces_indexes[i][j].z()) > size_lim) {
+                is_used = false;
+                //std::cout<<all_faces_indexes[i][j].x()<<"  "<<all_faces_indexes[i][j].y()<<"  "<<all_faces_indexes[i][j].z()<<std::endl;
+            }
+        }*/
+        //if (is_used == true) {
+            fout<<all_faces_indexes[i].size()<<" ";
+            for (int j = 0; j < all_faces_indexes[i].size(); j++) {
+                fout<<surf_points[all_faces_indexes[i][j]]<<" ";
+            }
+            fout<<std::endl;
+        //}
+        //is_used = true;
+
     }
 
     fout.close();
