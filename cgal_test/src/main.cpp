@@ -155,19 +155,29 @@ int main(void) {
     K::Point_3 check_dist;
     K::Vector_3 dist;
     bool is_used = true;
+    bool is_finite_tetrahedron = true;
     unsigned int size_lim = 50;
 
     for (eit = interface_tr.finite_edges_begin(); eit != interface_tr.finite_edges_end(); ++eit) {
-        //std::cout<<pdb->atom[eit->first->vertex(eit->second)->info()].chain<<"   "<<pdb->atom[eit->first->vertex(eit->third)->info()].chain<<std::endl;
+
         if((strcmp(pdb->atom[eit->first->vertex(eit->second)->info()].chain, pdb->atom[eit->first->vertex(eit->third)->info()].chain) != 0)){
+            //std::cout<<pdb->atom[eit->first->vertex(eit->second)->info()].chain<<"   "<<pdb->atom[eit->first->vertex(eit->third)->info()].chain<<std::endl;
             circ = interface_tr.incident_cells(*eit);
             circ_copy = circ;
+            for (int i = 0; i < 4; i++) {
+                if (fabs(circ->vertex(i)->point().x()) < 0.001 || fabs(circ->vertex(i)->point().y()) < 0.001 || fabs(circ->vertex(i)->point().z()) < 0.001) {
+                    is_finite_tetrahedron = false;
+                    std::cout<<circ->vertex(i)->point()<<std::endl;
+                }
+
+            }
+
             //nb_points_face = 0;
             do {
                 p = interface_tr.dual(circ);
                 //fout<<p.x()<<" "<<p.y()<<" "<<p.z()<<std::endl;
                 //face.push_back(p);
-                if (abs(p.x()) < size_lim && abs(p.y()) < size_lim && abs(p.z()) < size_lim) {
+                if (abs(p.x()) < size_lim && abs(p.y()) < size_lim && abs(p.z()) < size_lim && is_finite_tetrahedron == true) {
                     surf_points[p] = 0;//surf_points[p];
                 }
                 /*if (surf_points.size() != nb_points) {
@@ -184,16 +194,17 @@ int main(void) {
             check_dist = face_indexes[0];
             for (int j = 0; j < face_indexes.size(); j++) {
                 dist = check_dist - face_indexes[j];
-                if ( dist.squared_length() > 400) {//abs(face_indexes[j].x()) >= size_lim || abs(face_indexes[j].y()) >= size_lim || abs(face_indexes[j].z()) > size_lim) {
+                if ( dist.squared_length() > 600) {//abs(face_indexes[j].x()) >= size_lim || abs(face_indexes[j].y()) >= size_lim || abs(face_indexes[j].z()) > size_lim) {
                     is_used = false;
                     //std::cout<<all_faces_indexes[i][j].x()<<"  "<<all_faces_indexes[i][j].y()<<"  "<<all_faces_indexes[i][j].z()<<std::endl;
                 }
                 check_dist = face_indexes[j];
             }
-            if (is_used == true) {
+            if (is_used == true && is_finite_tetrahedron == true) {
                 all_faces_indexes.push_back(face_indexes);
             }
             is_used = true;
+            is_finite_tetrahedron = true;
             face_indexes.clear();
         }
     }
