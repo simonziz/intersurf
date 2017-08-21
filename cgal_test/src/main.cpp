@@ -13,23 +13,20 @@
 #include <CGAL/IO/Geomview_stream.h>
 #include <CGAL/IO/Triangulation_geomview_ostream_3.h>
 
-//#include <CGAL/triangulation_assertions.h>
-
-//#include <CGAL/Complex_2_in_triangulation_3.h>
-//#include <CGAL/IO/Complex_2_in_triangulation_3_file_writer.h>
-//#include <CGAL/make_surface_mesh.h>
-
 #include <CGAL/Unique_hash_map.h>
 
 #include <QGLViewer/qglviewer.h>
 
+#include <CGAL/Simple_cartesian.h>
+#include <CGAL/Polyhedron_3.h>
+#include <CGAL/Subdivision_method_3.h>
+#include <CGAL/IO/Polyhedron_iostream.h>
 
 #include "pdbs.h"
 #include "my_vertex_base.h"
 #include "DelaunayMeshTriangulationGraphicsItem.h"
 
-#include <CGAL/Simple_cartesian.h>
-#include <CGAL/Polyhedron_3.h>
+
 
 #include <iostream>
 #include <fstream>
@@ -74,7 +71,7 @@ int main(void) {
 
 
     //PdbImage *pdb = hex_readPdb("../data/toto.pdb", "new_protein");  // Reading a .pdb file
-    PdbImage *pdb = hex_readPdb("../data/2n77.pdb", "new_protein");  // Reading a .pdb file
+    PdbImage *pdb = hex_readPdb("../data/2n77_reduced.pdb", "new_protein");  // Reading a .pdb file
 
 
     std::vector<std::pair< Point, unsigned> > P;  // Vector for the atoms of the protein
@@ -138,6 +135,21 @@ int main(void) {
     // writing file output;
     oFileT << d_t;*/
 
+    /// Barycenter Calculation
+
+    double x_coord = 0.0;
+    double y_coord = 0.0;
+    double z_coord = 0.0;
+    for (Delaunay::Finite_vertices_iterator vit = interface_tr.finite_vertices_begin(); vit != interface_tr.finite_vertices_end(); ++vit) {
+        x_coord += vit->point().x() / interface_tr.number_of_vertices();
+        y_coord += vit->point().y() / interface_tr.number_of_vertices();
+        z_coord += vit->point().z() / interface_tr.number_of_vertices();
+    }
+    K::Point_3 barycenter(x_coord,y_coord,z_coord);
+    std::cout<<x_coord<<"  "<<y_coord<<"  "<<z_coord<<std::endl;
+
+    ///Calculate interface
+
     Delaunay::Finite_edges_iterator eit;
     Delaunay::Cell_circulator circ;
     Delaunay::Cell_circulator circ_copy;
@@ -145,18 +157,20 @@ int main(void) {
     //std::vector<std::pair< unsigned int, std::vector<K::Point_3> > > intersurf;
     //std::vector<K::Point_3> face;
     //unsigned int nb_points_face;
-    unsigned int index_of_point = 0;
+    //unsigned int index_of_point = 0;
 
-    std::map<K::Point_3, unsigned int > surf_points;
-    std::vector<std::vector<K::Point_3> > all_faces_indexes;
-    std::vector<K::Point_3> face_indexes;
+    std::map<K::Point_3, unsigned int > surf_points; // link between point and index for faces
+    std::vector<std::vector<K::Point_3> > all_faces_indexes; // vector of faces (each line stores n points)
+    std::vector<K::Point_3> face_indexes; //points of one face
     int nb_points = -1;
     K::Point_3 p;
     K::Point_3 check_dist;
     K::Vector_3 dist;
     bool is_used = true;
     bool is_finite_tetrahedron = true;
-    unsigned int size_lim = 50;
+    //unsigned size_lim = 200;
+    double size_lim = 35 * 35;
+    interface_tr = d_t;
 
     for (eit = interface_tr.finite_edges_begin(); eit != interface_tr.finite_edges_end(); ++eit) {
 
@@ -165,7 +179,8 @@ int main(void) {
             circ = interface_tr.incident_cells(*eit);
             circ_copy = circ;
             for (int i = 0; i < 4; i++) {
-                if (fabs(circ->vertex(i)->point().x()) < 0.001 || fabs(circ->vertex(i)->point().y()) < 0.001 || fabs(circ->vertex(i)->point().z()) < 0.001) {
+                //if (fabs(circ->vertex(i)->point().x()) < 0.001 || fabs(circ->vertex(i)->point().y()) < 0.001 || fabs(circ->vertex(i)->point().z()) < 0.001) {
+                if(interface_tr.is_infinite(circ->vertex(i))) { //check if the vertex is the infinite one
                     is_finite_tetrahedron = false;
                     std::cout<<circ->vertex(i)->point()<<std::endl;
                 }
@@ -177,7 +192,8 @@ int main(void) {
                 p = interface_tr.dual(circ);
                 //fout<<p.x()<<" "<<p.y()<<" "<<p.z()<<std::endl;
                 //face.push_back(p);
-                if (abs(p.x()) < size_lim && abs(p.y()) < size_lim && abs(p.z()) < size_lim && is_finite_tetrahedron == true) {
+                //if (abs(p.x()) < size_lim && abs(p.y()) < size_lim && abs(p.z()) < size_lim && is_finite_tetrahedron == true) {
+                if ((barycenter - p).squared_length() <= size_lim) {
                     surf_points[p] = 0;//surf_points[p];
                 }
                 /*if (surf_points.size() != nb_points) {
@@ -191,10 +207,11 @@ int main(void) {
             } while(circ != circ_copy);
             //intersurf.push_back(std::make_pair(nb_points_face, face));
             //face.clear();
-            check_dist = face_indexes[0];
+            //check_dist = face_indexes[0];
             for (int j = 0; j < face_indexes.size(); j++) {
-                dist = check_dist - face_indexes[j];
-                if ( dist.squared_length() > 600) {//abs(face_indexes[j].x()) >= size_lim || abs(face_indexes[j].y()) >= size_lim || abs(face_indexes[j].z()) > size_lim) {
+                //dist = check_dist - face_indexes[j];
+                dist = barycenter - face_indexes[j];
+                if ( dist.squared_length() > size_lim) {//abs(face_indexes[j].x()) >= size_lim || abs(face_indexes[j].y()) >= size_lim || abs(face_indexes[j].z()) > size_lim) {
                     is_used = false;
                     //std::cout<<all_faces_indexes[i][j].x()<<"  "<<all_faces_indexes[i][j].y()<<"  "<<all_faces_indexes[i][j].z()<<std::endl;
                 }
@@ -274,6 +291,28 @@ int main(void) {
     }
 
     fout.close();
+
+
+
+    int d = 8;
+    Polyhedron poly_surf;
+    std::fstream fout_2;
+    std::cout<<"0"<<std::endl;
+    fout_2.open( "interface.off" );
+    std::cout<<"1"<<std::endl;
+    std::cin >> poly_surf;
+    std::cout<<"2"<<std::endl;
+    fout_2.close();
+
+
+    CGAL::Subdivision_method_3::CatmullClark_subdivision(poly_surf,d);
+
+    //std::ofstream fout;
+    fout_2.open( "smoothed_interface.off" );
+    std::cout << poly_surf;
+    fout_2.close();
+
+    std::cout<<"2"<<std::endl;
 
     savePointsOFF("output2.off",interface_tr, pdb);
     //CGAL::output_surface_facets_to_off(oFileT,c2t3);
