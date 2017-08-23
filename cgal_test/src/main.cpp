@@ -34,7 +34,6 @@ typedef Delaunay::Cell_handle                    Cell_handle;
 typedef Delaunay::Vertex_handle                  Vertex_handle;
 typedef Delaunay::Facet                          Face;
 
-
 typedef CGAL::Simple_cartesian<double>     Kernel;
 typedef CGAL::Polyhedron_3<Kernel>         Polyhedron;
 typedef Polyhedron::HalfedgeDS             HalfedgeDS;
@@ -56,7 +55,8 @@ int main(void) {
     std::map<unsigned int, bool> is_interface;
 
     for (int i = 0; i < pdb->n_atoms; i++) {
-        P.push_back(std::make_pair(Point(pdb->atom[i].pt.x, pdb->atom[i].pt.y, pdb->atom[i].pt.z), i) ); // Filling the vector with the coordinates of the atoms and an index
+        // Filling the vector with the coordinates of the atoms and an index
+        P.push_back(std::make_pair(Point(pdb->atom[i].pt.x, pdb->atom[i].pt.y, pdb->atom[i].pt.z), i) );
         is_interface.insert(std::make_pair(i,false)); // Boolean : is the atom in interface cell
         //std::cout<<i<<std::endl;
     }
@@ -67,20 +67,17 @@ int main(void) {
 
     std::cout<<"validité : "<<d_t.is_valid()<<std::endl; //Checking the validity of the Delaunay triangulation
 
-    Delaunay::Finite_cells_iterator cit;
-    //Delaunay::Finite_vertices_iterator vit;
-
     bool is_relevant = false;
-
     std::vector<std::pair< Point, unsigned> > reduced_vector;
 
-    for (cit = d_t.finite_cells_begin(); cit != d_t.finite_cells_end(); ++cit) { //iterating on the cells
-        is_relevant = false;
+    //iterating on the cells
+    for (Delaunay::Finite_cells_iterator cit = d_t.finite_cells_begin(); cit != d_t.finite_cells_end(); ++cit) {
         for (int j = 0; j < 4; j++) {
             for (int k = 0; k < 4; k++) {
-                if (strcmp(pdb->atom[cit->vertex(j)->info()].chain, pdb->atom[cit->vertex(k)->info()].chain) != 0) { //checking if a cell contains 2 different chains
+                //checking if a cell contains 2 different chains
+                if (strcmp(pdb->atom[cit->vertex(j)->info()].chain, pdb->atom[cit->vertex(k)->info()].chain) != 0) {
                     //std::cout<<strcmp(pdb->atom[cit->vertex(j)->info()].chain, pdb->atom[cit->vertex(k)->info()].chain)<<std::endl;
-                    is_relevant = true; // if yes    to be kept
+                    is_relevant = true; // if yes -> to be kept
                     //std::cout<<pdb->atom[cit->vertex(j)->info()].chain<<pdb->atom[cit->vertex(k)->info()].chain<<std::endl;
                 }
             }
@@ -90,16 +87,16 @@ int main(void) {
                 is_interface[cit->vertex(j)->info()] = true;
             }
         }
-        //std::cout<<"is_relevant : "<<is_identical<<std::endl;
     }
-
-    for (int i = 0; i < pdb->n_atoms; i++) { // Filling the vector with the coordinates of the atoms
+    // Filling the vector with the coordinates of the atoms
+    for (int i = 0; i < pdb->n_atoms; i++) {
         if (is_interface[i] == true) {
             reduced_vector.push_back(std::make_pair(Point(pdb->atom[i].pt.x, pdb->atom[i].pt.y, pdb->atom[i].pt.z), i) );
         }
     }
 
-    Delaunay interface_tr(reduced_vector.begin(), reduced_vector.end());  // Creating Delaunay triangulation with the coordinates vector
+    // Creating Delaunay triangulation with the coordinates vector
+    Delaunay interface_tr(reduced_vector.begin(), reduced_vector.end());
 
     // Check the coordinates and the number of atoms
     /*int cpt2 = 1;
@@ -112,8 +109,9 @@ int main(void) {
     // writing file output;
     oFileT << d_t;*/
 
-    /// Barycenter Calculation
+    /// Barycenter + Max Distance Calculation
 
+    // Barycenter
     double x_coord = 0.0;
     double y_coord = 0.0;
     double z_coord = 0.0;
@@ -125,10 +123,22 @@ int main(void) {
     K::Point_3 barycenter(x_coord,y_coord,z_coord);
     std::cout<<"Barycenter : "<<x_coord<<"  "<<y_coord<<"  "<<z_coord<<std::endl;
 
+    // Max distance
+
+    K::Vector_3 max_dist_vec; // 3D vector : distance to be normalized
+    double squared_max_dist = 0.0;
+    for (Delaunay::Finite_vertices_iterator vit = interface_tr.finite_vertices_begin(); vit != interface_tr.finite_vertices_end(); ++vit) {
+        max_dist_vec = vit->point() - barycenter;
+        if (max_dist_vec.squared_length() > squared_max_dist) {
+            squared_max_dist = max_dist_vec.squared_length();
+        }
+    }
+    std::cout<<"max dist : "<<squared_max_dist<<std::endl;
+
+
     ///Calculate interface
 
-    // Initialize iterators
-    Delaunay::Finite_edges_iterator eit; // Edge iterator
+    // Initialize circulators
     Delaunay::Cell_circulator circ; // Circulator for cells around a given edge
     Delaunay::Cell_circulator circ_copy; // Copy to check when all cells have been tested
 
@@ -140,16 +150,18 @@ int main(void) {
     K::Vector_3 dist; // 3D vector : distance to be normalized
     bool is_used = true; // To check if the point is not too far from the barycenter
     bool is_finite_tetrahedron = true; // To check if a tetrahedron contains the infinite point
-    double size_lim = 34 * 34; // Max distance from the barycenter    ***** To be changed *****
+    //double size_lim = 34 * 34; // Max distance from the barycenter    ***** To be changed *****
+    double size_lim = squared_max_dist + 0.3 * squared_max_dist; // Max distance from the barycenter
     interface_tr = d_t; // If we want to work on the whole protein
 
-    for (eit = interface_tr.finite_edges_begin(); eit != interface_tr.finite_edges_end(); ++eit) { // Iterate on the edges of the whole triangulation
-        if((strcmp(pdb->atom[eit->first->vertex(eit->second)->info()].chain, pdb->atom[eit->first->vertex(eit->third)->info()].chain) != 0)){ // Check if the edge is at the interface
+    // Iterate on the edges of the whole triangulation
+    for (Delaunay::Finite_edges_iterator eit = interface_tr.finite_edges_begin(); eit != interface_tr.finite_edges_end(); ++eit) {
+        // Check if the edge is at the interface
+        if((strcmp(pdb->atom[eit->first->vertex(eit->second)->info()].chain, pdb->atom[eit->first->vertex(eit->third)->info()].chain) != 0)){
             //std::cout<<pdb->atom[eit->first->vertex(eit->second)->info()].chain<<"   "<<pdb->atom[eit->first->vertex(eit->third)->info()].chain<<std::endl;
             circ = interface_tr.incident_cells(*eit);
             circ_copy = circ;
             for (int i = 0; i < 4; i++) {
-                //if (fabs(circ->vertex(i)->point().x()) < 0.001 || fabs(circ->vertex(i)->point().y()) < 0.001 || fabs(circ->vertex(i)->point().z()) < 0.001) {
                 if(interface_tr.is_infinite(circ->vertex(i))) { //check if the vertex is the infinite one
                     is_finite_tetrahedron = false; //if yes   the tetrahedron will not be stored
                     //std::cout<<circ->vertex(i)->point()<<std::endl; //display infinite point
@@ -157,9 +169,8 @@ int main(void) {
             }
             do {
                 p = interface_tr.dual(circ); // Find the dual of the cell (Voronoï Diagram)
-                //face.push_back(p);
-                //if (abs(p.x()) < size_lim && abs(p.y()) < size_lim && abs(p.z()) < size_lim && is_finite_tetrahedron == true) {
-                if ((barycenter - p).squared_length() <= size_lim) { // Checking the distance between the barycenter and the point is in the limit
+                // Checking the distance between the barycenter and the point is in the limit
+                if ((barycenter - p).squared_length() <= size_lim) {
                     surf_points[p] = 0; // Store the point in the map with 0 value for the index
                 }
                 face_indexes.push_back(p); // Put the point in the vector of the current face
@@ -178,7 +189,8 @@ int main(void) {
                     //std::cout<<all_faces_indexes[i][j].x()<<"  "<<all_faces_indexes[i][j].y()<<"  "<<all_faces_indexes[i][j].z()<<std::endl;
                 }
             }
-            if (is_used == true && is_finite_tetrahedron == true) { // Check is the face is in the limit and does not contain the infinte point
+            // Check is the face is in the limit and does not contain the infinte point
+            if (is_used == true && is_finite_tetrahedron == true) {
                 all_faces_indexes.push_back(face_indexes); // Add that face to the intersurf vector
             }
             is_used = true;
@@ -196,10 +208,11 @@ int main(void) {
 
     //Write vertices into .off file
     int cpt_ind = 0; // Index following the wrinting order of the points
-    std::map<K::Point_3, unsigned int>::iterator it_surf; //Initialize iterator to go through the surface map
 
-    for(it_surf = surf_points.begin(); it_surf != surf_points.end(); ++it_surf) { // For all the points of the surface map
-        fout<<it_surf->first.x()<<" "<<it_surf->first.y()<<" "<<it_surf->first.z()<<std::endl; // Write the current point int the .off file
+    // For all the points of the surface map
+    for(std::map<K::Point_3, unsigned int>::iterator it_surf = surf_points.begin(); it_surf != surf_points.end(); ++it_surf) {
+        // Write the current point int the .off file
+        fout<<it_surf->first.x()<<" "<<it_surf->first.y()<<" "<<it_surf->first.z()<<std::endl;
         surf_points[it_surf->first] = cpt_ind; // Give the index the value of the counter
         cpt_ind++; // Increment the index
     }
@@ -229,7 +242,8 @@ int main(void) {
     fout_2.close(); // Close file
     std::cout<<"polysurf empty : "<<poly_surf.is_empty()<<std::endl; // Check if Polyhedron is empty
 
-    CGAL::Subdivision_method_3::CatmullClark_subdivision(poly_surf,degree); // Apply Catmull/Clark subdividion method to the polyhedron
+    // Apply Catmull/Clark subdivision method to the polyhedron
+    CGAL::Subdivision_method_3::CatmullClark_subdivision(poly_surf,degree);
 
     std::ofstream fout_3; // Open a new file for the smoothed interface
     fout_3.open( "smoothed_interface.off" );
@@ -254,57 +268,62 @@ int main(void) {
 }
 
 
+/// Function to write a CGAL::Delaunay_3 structure into a .off file
+/// with the image of the .pdb to identify the chains
 
 static void savePointsOFF(const char* filename, Delaunay m_dt, PdbImage *pdb)
 {
   // Open file to write .off
   std::ofstream fout;
   fout.open( filename );
-  if( !fout ) {
-      std::cout<<"Error"<<std::endl;
-    return;
+  if( !fout ) { // Print message if failure to open
+    std::cout<<"Error"<<std::endl;
+    //return; // To kill the program if needed
   }
 
-  Delaunay::size_type n_vertices = m_dt.number_of_vertices();
+  Delaunay::size_type n_vertices = m_dt.number_of_vertices(); // Returns the number of vertices of the triangulation
+
+  // Write the .off header
   fout<<"[C]OFF"<<std::endl<<n_vertices<<" "<<m_dt.number_of_edges()<<" "<<m_dt.number_of_facets()<<std::endl<<std::endl;
 
-  std::vector<Vertex_handle> TV(n_vertices + 1);
+  std::vector<Vertex_handle> TV(n_vertices + 1); // Vector to store the indexes of the points
   Delaunay::size_type i = 0;
 
   // write points (get from point array)
-  for(Delaunay::Finite_vertices_iterator vit=m_dt.finite_vertices_begin();
-      vit!=m_dt.finite_vertices_end(); ++vit) {
-    K::Point_3& p = vit->point();
-    fout<<p.x()<<" "<<p.y()<<" "<<p.z()<<" ";
-    if (strcmp( pdb->atom[vit->info()].chain, "A") == 0) {
+  // Iterate on the vertices of the triangulation
+  for(Delaunay::Finite_vertices_iterator vit=m_dt.finite_vertices_begin(); vit!=m_dt.finite_vertices_end(); ++vit) {
+      K::Point_3& p = vit->point(); // Current vertex
+      fout<<p.x()<<" "<<p.y()<<" "<<p.z()<<" "; // Write its coordinates
+      // Choose color regarding the chain
+      if (strcmp( pdb->atom[vit->info()].chain, "A") == 0) {
         fout<<CGAL::RED;
-    }
-    else {
+      }
+      else {
         fout<<CGAL::BLUE;
-    }
-    fout<<std::endl;
-    TV[i++] = vit;
+      }
+      fout<<std::endl; // Break
+      TV[i++] = vit; // Store the vertex handle (pointer to the current vertex) at its index
   }
-  fout<<std::endl;
+  fout<<std::endl; // Break
 
-  CGAL::Unique_hash_map<Vertex_handle, std::size_t > V;
+  CGAL::Unique_hash_map<Vertex_handle, std::size_t > V; // Map with unique indexes
+  V[m_dt.infinite_vertex()] = 0; // Same size as the triangulation
 
-  V[m_dt.infinite_vertex()] = 0;
-  for (i=1; i <= n_vertices; i++) {
-    V[TV[i]] = i;
+  for (i=1; i <= n_vertices; i++) { // Go through the vertices
+    V[TV[i]] = i; // And give each point its corresponding index
   }
 
   // write faces (get from point array)
-  for(Delaunay::Finite_facets_iterator fit=m_dt.finite_facets_begin();
-      fit!=m_dt.finite_facets_end(); ++fit) {
-    fout<<3<<" ";
-    for (int i = 0; i < 4; i++) {
-        if (i != fit->second) {
-            fout<<V[fit->first->vertex(i)]<<" ";
+  // Iterate on the faces of the triangulation
+  for(Delaunay::Finite_facets_iterator fit=m_dt.finite_facets_begin(); fit!=m_dt.finite_facets_end(); ++fit) {
+    fout<<3<<" "; // 3 because there are only triangles + Spacing
+    for (int i = 0; i < 4; i++) { // Go through the 4 points of the cell
+        if (i != fit->second) { // Check which vertex is opposed to the current face
+            fout<<V[fit->first->vertex(i)]<<" "; // Write the remaining veritces into the .off
         }
     }
-    fout<<std::endl;
+    fout<<std::endl; // Break
   }
-  fout.close();
+  fout.close(); // Close file
 }
 
