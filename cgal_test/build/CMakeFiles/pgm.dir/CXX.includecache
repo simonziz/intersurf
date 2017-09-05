@@ -168,6 +168,16 @@ hex_sys.h
 
 /home/simon/Documents/pfe/intersurf/cgal_test/build/pgm_automoc.cpp
 
+/home/simon/Documents/pfe/intersurf/cgal_test/src/calculations.cpp
+calculations.h
+/home/simon/Documents/pfe/intersurf/cgal_test/src/calculations.h
+
+/home/simon/Documents/pfe/intersurf/cgal_test/src/calculations.h
+includes.h
+/home/simon/Documents/pfe/intersurf/cgal_test/src/includes.h
+typedefs.cpp
+/home/simon/Documents/pfe/intersurf/cgal_test/src/typedefs.cpp
+
 /home/simon/Documents/pfe/intersurf/cgal_test/src/hex_pdb.cpp
 kids.h
 /home/simon/Documents/pfe/intersurf/cgal_test/src/kids.h
@@ -178,7 +188,17 @@ hex_version.h
 hex_pdb.h
 /home/simon/Documents/pfe/intersurf/cgal_test/src/hex_pdb.h
 
-/home/simon/Documents/pfe/intersurf/cgal_test/src/main.cpp
+/home/simon/Documents/pfe/intersurf/cgal_test/src/in_out_functions.cpp
+in_out_functions.h
+/home/simon/Documents/pfe/intersurf/cgal_test/src/in_out_functions.h
+
+/home/simon/Documents/pfe/intersurf/cgal_test/src/in_out_functions.h
+includes.h
+/home/simon/Documents/pfe/intersurf/cgal_test/src/includes.h
+typedefs.cpp
+/home/simon/Documents/pfe/intersurf/cgal_test/src/typedefs.cpp
+
+/home/simon/Documents/pfe/intersurf/cgal_test/src/includes.h
 CGAL/Exact_predicates_inexact_constructions_kernel.h
 -
 CGAL/Delaunay_triangulation_3.h
@@ -212,6 +232,16 @@ vector
 map
 -
 
+/home/simon/Documents/pfe/intersurf/cgal_test/src/main.cpp
+includes.h
+/home/simon/Documents/pfe/intersurf/cgal_test/src/includes.h
+typedefs.cpp
+/home/simon/Documents/pfe/intersurf/cgal_test/src/typedefs.cpp
+in_out_functions.h
+/home/simon/Documents/pfe/intersurf/cgal_test/src/in_out_functions.h
+calculations.h
+/home/simon/Documents/pfe/intersurf/cgal_test/src/calculations.h
+
 /home/simon/Documents/pfe/intersurf/cgal_test/src/pdbs.h
 hex_pdb.h
 /home/simon/Documents/pfe/intersurf/cgal_test/src/hex_pdb.h
@@ -225,6 +255,10 @@ hex_version.h
 /home/simon/Documents/pfe/intersurf/cgal_test/src/hex_version.h
 kids.h
 /home/simon/Documents/pfe/intersurf/cgal_test/src/kids.h
+
+/home/simon/Documents/pfe/intersurf/cgal_test/src/typedefs.cpp
+includes.h
+/home/simon/Documents/pfe/intersurf/cgal_test/src/includes.h
 
 /usr/include/x86_64-linux-gnu/asm/socket.h
 asm-generic/socket.h

@@ -81,9 +81,57 @@ CMakeFiles/pgm.dir/src/hex_pdb.cpp.o.provides: CMakeFiles/pgm.dir/src/hex_pdb.cp
 CMakeFiles/pgm.dir/src/hex_pdb.cpp.o.provides.build: CMakeFiles/pgm.dir/src/hex_pdb.cpp.o
 
 
+CMakeFiles/pgm.dir/src/typedefs.cpp.o: CMakeFiles/pgm.dir/flags.make
+CMakeFiles/pgm.dir/src/typedefs.cpp.o: ../src/typedefs.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/simon/Documents/pfe/intersurf/cgal_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/pgm.dir/src/typedefs.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/pgm.dir/src/typedefs.cpp.o -c /home/simon/Documents/pfe/intersurf/cgal_test/src/typedefs.cpp
+
+CMakeFiles/pgm.dir/src/typedefs.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pgm.dir/src/typedefs.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/simon/Documents/pfe/intersurf/cgal_test/src/typedefs.cpp > CMakeFiles/pgm.dir/src/typedefs.cpp.i
+
+CMakeFiles/pgm.dir/src/typedefs.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pgm.dir/src/typedefs.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/simon/Documents/pfe/intersurf/cgal_test/src/typedefs.cpp -o CMakeFiles/pgm.dir/src/typedefs.cpp.s
+
+CMakeFiles/pgm.dir/src/typedefs.cpp.o.requires:
+
+.PHONY : CMakeFiles/pgm.dir/src/typedefs.cpp.o.requires
+
+CMakeFiles/pgm.dir/src/typedefs.cpp.o.provides: CMakeFiles/pgm.dir/src/typedefs.cpp.o.requires
+	$(MAKE) -f CMakeFiles/pgm.dir/build.make CMakeFiles/pgm.dir/src/typedefs.cpp.o.provides.build
+.PHONY : CMakeFiles/pgm.dir/src/typedefs.cpp.o.provides
+
+CMakeFiles/pgm.dir/src/typedefs.cpp.o.provides.build: CMakeFiles/pgm.dir/src/typedefs.cpp.o
+
+
+CMakeFiles/pgm.dir/src/in_out_functions.cpp.o: CMakeFiles/pgm.dir/flags.make
+CMakeFiles/pgm.dir/src/in_out_functions.cpp.o: ../src/in_out_functions.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/simon/Documents/pfe/intersurf/cgal_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/pgm.dir/src/in_out_functions.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/pgm.dir/src/in_out_functions.cpp.o -c /home/simon/Documents/pfe/intersurf/cgal_test/src/in_out_functions.cpp
+
+CMakeFiles/pgm.dir/src/in_out_functions.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pgm.dir/src/in_out_functions.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/simon/Documents/pfe/intersurf/cgal_test/src/in_out_functions.cpp > CMakeFiles/pgm.dir/src/in_out_functions.cpp.i
+
+CMakeFiles/pgm.dir/src/in_out_functions.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pgm.dir/src/in_out_functions.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/simon/Documents/pfe/intersurf/cgal_test/src/in_out_functions.cpp -o CMakeFiles/pgm.dir/src/in_out_functions.cpp.s
+
+CMakeFiles/pgm.dir/src/in_out_functions.cpp.o.requires:
+
+.PHONY : CMakeFiles/pgm.dir/src/in_out_functions.cpp.o.requires
+
+CMakeFiles/pgm.dir/src/in_out_functions.cpp.o.provides: CMakeFiles/pgm.dir/src/in_out_functions.cpp.o.requires
+	$(MAKE) -f CMakeFiles/pgm.dir/build.make CMakeFiles/pgm.dir/src/in_out_functions.cpp.o.provides.build
+.PHONY : CMakeFiles/pgm.dir/src/in_out_functions.cpp.o.provides
+
+CMakeFiles/pgm.dir/src/in_out_functions.cpp.o.provides.build: CMakeFiles/pgm.dir/src/in_out_functions.cpp.o
+
+
 CMakeFiles/pgm.dir/src/main.cpp.o: CMakeFiles/pgm.dir/flags.make
 CMakeFiles/pgm.dir/src/main.cpp.o: ../src/main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/simon/Documents/pfe/intersurf/cgal_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/pgm.dir/src/main.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/simon/Documents/pfe/intersurf/cgal_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/pgm.dir/src/main.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/pgm.dir/src/main.cpp.o -c /home/simon/Documents/pfe/intersurf/cgal_test/src/main.cpp
 
 CMakeFiles/pgm.dir/src/main.cpp.i: cmake_force
@@ -105,9 +153,33 @@ CMakeFiles/pgm.dir/src/main.cpp.o.provides: CMakeFiles/pgm.dir/src/main.cpp.o.re
 CMakeFiles/pgm.dir/src/main.cpp.o.provides.build: CMakeFiles/pgm.dir/src/main.cpp.o
 
 
+CMakeFiles/pgm.dir/src/calculations.cpp.o: CMakeFiles/pgm.dir/flags.make
+CMakeFiles/pgm.dir/src/calculations.cpp.o: ../src/calculations.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/simon/Documents/pfe/intersurf/cgal_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/pgm.dir/src/calculations.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/pgm.dir/src/calculations.cpp.o -c /home/simon/Documents/pfe/intersurf/cgal_test/src/calculations.cpp
+
+CMakeFiles/pgm.dir/src/calculations.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pgm.dir/src/calculations.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/simon/Documents/pfe/intersurf/cgal_test/src/calculations.cpp > CMakeFiles/pgm.dir/src/calculations.cpp.i
+
+CMakeFiles/pgm.dir/src/calculations.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pgm.dir/src/calculations.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/simon/Documents/pfe/intersurf/cgal_test/src/calculations.cpp -o CMakeFiles/pgm.dir/src/calculations.cpp.s
+
+CMakeFiles/pgm.dir/src/calculations.cpp.o.requires:
+
+.PHONY : CMakeFiles/pgm.dir/src/calculations.cpp.o.requires
+
+CMakeFiles/pgm.dir/src/calculations.cpp.o.provides: CMakeFiles/pgm.dir/src/calculations.cpp.o.requires
+	$(MAKE) -f CMakeFiles/pgm.dir/build.make CMakeFiles/pgm.dir/src/calculations.cpp.o.provides.build
+.PHONY : CMakeFiles/pgm.dir/src/calculations.cpp.o.provides
+
+CMakeFiles/pgm.dir/src/calculations.cpp.o.provides.build: CMakeFiles/pgm.dir/src/calculations.cpp.o
+
+
 CMakeFiles/pgm.dir/pgm_automoc.cpp.o: CMakeFiles/pgm.dir/flags.make
 CMakeFiles/pgm.dir/pgm_automoc.cpp.o: pgm_automoc.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/simon/Documents/pfe/intersurf/cgal_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/pgm.dir/pgm_automoc.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/simon/Documents/pfe/intersurf/cgal_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/pgm.dir/pgm_automoc.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/pgm.dir/pgm_automoc.cpp.o -c /home/simon/Documents/pfe/intersurf/cgal_test/build/pgm_automoc.cpp
 
 CMakeFiles/pgm.dir/pgm_automoc.cpp.i: cmake_force
@@ -132,14 +204,20 @@ CMakeFiles/pgm.dir/pgm_automoc.cpp.o.provides.build: CMakeFiles/pgm.dir/pgm_auto
 # Object files for target pgm
 pgm_OBJECTS = \
 "CMakeFiles/pgm.dir/src/hex_pdb.cpp.o" \
+"CMakeFiles/pgm.dir/src/typedefs.cpp.o" \
+"CMakeFiles/pgm.dir/src/in_out_functions.cpp.o" \
 "CMakeFiles/pgm.dir/src/main.cpp.o" \
+"CMakeFiles/pgm.dir/src/calculations.cpp.o" \
 "CMakeFiles/pgm.dir/pgm_automoc.cpp.o"
 
 # External object files for target pgm
 pgm_EXTERNAL_OBJECTS =
 
 pgm: CMakeFiles/pgm.dir/src/hex_pdb.cpp.o
+pgm: CMakeFiles/pgm.dir/src/typedefs.cpp.o
+pgm: CMakeFiles/pgm.dir/src/in_out_functions.cpp.o
 pgm: CMakeFiles/pgm.dir/src/main.cpp.o
+pgm: CMakeFiles/pgm.dir/src/calculations.cpp.o
 pgm: CMakeFiles/pgm.dir/pgm_automoc.cpp.o
 pgm: CMakeFiles/pgm.dir/build.make
 pgm: /usr/lib/x86_64-linux-gnu/libmpfr.so
@@ -178,7 +256,7 @@ pgm: /usr/lib/x86_64-linux-gnu/libQt5Widgets.so.5.6.1
 pgm: /usr/lib/x86_64-linux-gnu/libQt5Gui.so.5.6.1
 pgm: /usr/lib/x86_64-linux-gnu/libQt5Core.so.5.6.1
 pgm: CMakeFiles/pgm.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/simon/Documents/pfe/intersurf/cgal_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable pgm"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/simon/Documents/pfe/intersurf/cgal_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable pgm"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/pgm.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -187,7 +265,10 @@ CMakeFiles/pgm.dir/build: pgm
 .PHONY : CMakeFiles/pgm.dir/build
 
 CMakeFiles/pgm.dir/requires: CMakeFiles/pgm.dir/src/hex_pdb.cpp.o.requires
+CMakeFiles/pgm.dir/requires: CMakeFiles/pgm.dir/src/typedefs.cpp.o.requires
+CMakeFiles/pgm.dir/requires: CMakeFiles/pgm.dir/src/in_out_functions.cpp.o.requires
 CMakeFiles/pgm.dir/requires: CMakeFiles/pgm.dir/src/main.cpp.o.requires
+CMakeFiles/pgm.dir/requires: CMakeFiles/pgm.dir/src/calculations.cpp.o.requires
 CMakeFiles/pgm.dir/requires: CMakeFiles/pgm.dir/pgm_automoc.cpp.o.requires
 
 .PHONY : CMakeFiles/pgm.dir/requires

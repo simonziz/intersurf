@@ -3,6 +3,64 @@
 
 CMakeFiles/pgm.dir/pgm_automoc.cpp.o
  /home/simon/Documents/pfe/intersurf/cgal_test/build/pgm_automoc.cpp
+CMakeFiles/pgm.dir/src/calculations.cpp.o
+ ../include/bzlib.h
+ ../include/hex_cmplx.h
+ ../include/hex_geom.h
+ ../include/hex_gmp.h
+ ../include/hex_math.h
+ ../include/hex_pdb.h
+ ../include/hex_sys.h
+ ../include/hex_transform.h
+ ../include/hex_types.h
+ ../include/hex_util.h
+ ../include/hex_version.h
+ ../include/kids.h
+ /home/simon/Documents/pfe/intersurf/cgal_test/src/calculations.cpp
+ /home/simon/Documents/pfe/intersurf/cgal_test/src/calculations.h
+ /home/simon/Documents/pfe/intersurf/cgal_test/src/includes.h
+ /home/simon/Documents/pfe/intersurf/cgal_test/src/pdbs.h
+ /home/simon/Documents/pfe/intersurf/cgal_test/src/typedefs.cpp
+ /usr/include/x86_64-linux-gnu/asm/socket.h
+ /usr/include/x86_64-linux-gnu/bits/ipc.h
+ /usr/include/x86_64-linux-gnu/bits/ipctypes.h
+ /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h
+ /usr/include/x86_64-linux-gnu/bits/select.h
+ /usr/include/x86_64-linux-gnu/bits/select2.h
+ /usr/include/x86_64-linux-gnu/bits/sem.h
+ /usr/include/x86_64-linux-gnu/bits/shm.h
+ /usr/include/x86_64-linux-gnu/bits/siginfo.h
+ /usr/include/x86_64-linux-gnu/bits/sigset.h
+ /usr/include/x86_64-linux-gnu/bits/sockaddr.h
+ /usr/include/x86_64-linux-gnu/bits/socket.h
+ /usr/include/x86_64-linux-gnu/bits/socket2.h
+ /usr/include/x86_64-linux-gnu/bits/socket_type.h
+ /usr/include/x86_64-linux-gnu/bits/stat.h
+ /usr/include/x86_64-linux-gnu/bits/sysctl.h
+ /usr/include/x86_64-linux-gnu/bits/time.h
+ /usr/include/x86_64-linux-gnu/bits/timex.h
+ /usr/include/x86_64-linux-gnu/bits/types.h
+ /usr/include/x86_64-linux-gnu/bits/typesizes.h
+ /usr/include/x86_64-linux-gnu/bits/uio.h
+ /usr/include/x86_64-linux-gnu/bits/waitflags.h
+ /usr/include/x86_64-linux-gnu/bits/waitstatus.h
+ /usr/include/x86_64-linux-gnu/bits/wordsize.h
+ /usr/include/x86_64-linux-gnu/gmp.h
+ /usr/include/x86_64-linux-gnu/sys/cdefs.h
+ /usr/include/x86_64-linux-gnu/sys/ipc.h
+ /usr/include/x86_64-linux-gnu/sys/select.h
+ /usr/include/x86_64-linux-gnu/sys/sem.h
+ /usr/include/x86_64-linux-gnu/sys/shm.h
+ /usr/include/x86_64-linux-gnu/sys/socket.h
+ /usr/include/x86_64-linux-gnu/sys/stat.h
+ /usr/include/x86_64-linux-gnu/sys/sysctl.h
+ /usr/include/x86_64-linux-gnu/sys/sysmacros.h
+ /usr/include/x86_64-linux-gnu/sys/time.h
+ /usr/include/x86_64-linux-gnu/sys/times.h
+ /usr/include/x86_64-linux-gnu/sys/types.h
+ /usr/include/x86_64-linux-gnu/sys/uio.h
+ /usr/include/x86_64-linux-gnu/sys/un.h
+ /usr/include/x86_64-linux-gnu/sys/wait.h
 CMakeFiles/pgm.dir/src/hex_pdb.cpp.o
  ../include/bzlib.h
  ../include/hex_cmplx.h
@@ -57,6 +115,64 @@ CMakeFiles/pgm.dir/src/hex_pdb.cpp.o
  /usr/include/x86_64-linux-gnu/sys/uio.h
  /usr/include/x86_64-linux-gnu/sys/un.h
  /usr/include/x86_64-linux-gnu/sys/wait.h
+CMakeFiles/pgm.dir/src/in_out_functions.cpp.o
+ ../include/bzlib.h
+ ../include/hex_cmplx.h
+ ../include/hex_geom.h
+ ../include/hex_gmp.h
+ ../include/hex_math.h
+ ../include/hex_pdb.h
+ ../include/hex_sys.h
+ ../include/hex_transform.h
+ ../include/hex_types.h
+ ../include/hex_util.h
+ ../include/hex_version.h
+ ../include/kids.h
+ /home/simon/Documents/pfe/intersurf/cgal_test/src/in_out_functions.cpp
+ /home/simon/Documents/pfe/intersurf/cgal_test/src/in_out_functions.h
+ /home/simon/Documents/pfe/intersurf/cgal_test/src/includes.h
+ /home/simon/Documents/pfe/intersurf/cgal_test/src/pdbs.h
+ /home/simon/Documents/pfe/intersurf/cgal_test/src/typedefs.cpp
+ /usr/include/x86_64-linux-gnu/asm/socket.h
+ /usr/include/x86_64-linux-gnu/bits/ipc.h
+ /usr/include/x86_64-linux-gnu/bits/ipctypes.h
+ /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h
+ /usr/include/x86_64-linux-gnu/bits/select.h
+ /usr/include/x86_64-linux-gnu/bits/select2.h
+ /usr/include/x86_64-linux-gnu/bits/sem.h
+ /usr/include/x86_64-linux-gnu/bits/shm.h
+ /usr/include/x86_64-linux-gnu/bits/siginfo.h
+ /usr/include/x86_64-linux-gnu/bits/sigset.h
+ /usr/include/x86_64-linux-gnu/bits/sockaddr.h
+ /usr/include/x86_64-linux-gnu/bits/socket.h
+ /usr/include/x86_64-linux-gnu/bits/socket2.h
+ /usr/include/x86_64-linux-gnu/bits/socket_type.h
+ /usr/include/x86_64-linux-gnu/bits/stat.h
+ /usr/include/x86_64-linux-gnu/bits/sysctl.h
+ /usr/include/x86_64-linux-gnu/bits/time.h
+ /usr/include/x86_64-linux-gnu/bits/timex.h
+ /usr/include/x86_64-linux-gnu/bits/types.h
+ /usr/include/x86_64-linux-gnu/bits/typesizes.h
+ /usr/include/x86_64-linux-gnu/bits/uio.h
+ /usr/include/x86_64-linux-gnu/bits/waitflags.h
+ /usr/include/x86_64-linux-gnu/bits/waitstatus.h
+ /usr/include/x86_64-linux-gnu/bits/wordsize.h
+ /usr/include/x86_64-linux-gnu/gmp.h
+ /usr/include/x86_64-linux-gnu/sys/cdefs.h
+ /usr/include/x86_64-linux-gnu/sys/ipc.h
+ /usr/include/x86_64-linux-gnu/sys/select.h
+ /usr/include/x86_64-linux-gnu/sys/sem.h
+ /usr/include/x86_64-linux-gnu/sys/shm.h
+ /usr/include/x86_64-linux-gnu/sys/socket.h
+ /usr/include/x86_64-linux-gnu/sys/stat.h
+ /usr/include/x86_64-linux-gnu/sys/sysctl.h
+ /usr/include/x86_64-linux-gnu/sys/sysmacros.h
+ /usr/include/x86_64-linux-gnu/sys/time.h
+ /usr/include/x86_64-linux-gnu/sys/times.h
+ /usr/include/x86_64-linux-gnu/sys/types.h
+ /usr/include/x86_64-linux-gnu/sys/uio.h
+ /usr/include/x86_64-linux-gnu/sys/un.h
+ /usr/include/x86_64-linux-gnu/sys/wait.h
 CMakeFiles/pgm.dir/src/main.cpp.o
  ../include/bzlib.h
  ../include/hex_cmplx.h
@@ -70,8 +186,68 @@ CMakeFiles/pgm.dir/src/main.cpp.o
  ../include/hex_util.h
  ../include/hex_version.h
  ../include/kids.h
+ /home/simon/Documents/pfe/intersurf/cgal_test/src/calculations.h
+ /home/simon/Documents/pfe/intersurf/cgal_test/src/in_out_functions.h
+ /home/simon/Documents/pfe/intersurf/cgal_test/src/includes.h
  /home/simon/Documents/pfe/intersurf/cgal_test/src/main.cpp
  /home/simon/Documents/pfe/intersurf/cgal_test/src/pdbs.h
+ /home/simon/Documents/pfe/intersurf/cgal_test/src/typedefs.cpp
+ /usr/include/x86_64-linux-gnu/asm/socket.h
+ /usr/include/x86_64-linux-gnu/bits/ipc.h
+ /usr/include/x86_64-linux-gnu/bits/ipctypes.h
+ /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h
+ /usr/include/x86_64-linux-gnu/bits/select.h
+ /usr/include/x86_64-linux-gnu/bits/select2.h
+ /usr/include/x86_64-linux-gnu/bits/sem.h
+ /usr/include/x86_64-linux-gnu/bits/shm.h
+ /usr/include/x86_64-linux-gnu/bits/siginfo.h
+ /usr/include/x86_64-linux-gnu/bits/sigset.h
+ /usr/include/x86_64-linux-gnu/bits/sockaddr.h
+ /usr/include/x86_64-linux-gnu/bits/socket.h
+ /usr/include/x86_64-linux-gnu/bits/socket2.h
+ /usr/include/x86_64-linux-gnu/bits/socket_type.h
+ /usr/include/x86_64-linux-gnu/bits/stat.h
+ /usr/include/x86_64-linux-gnu/bits/sysctl.h
+ /usr/include/x86_64-linux-gnu/bits/time.h
+ /usr/include/x86_64-linux-gnu/bits/timex.h
+ /usr/include/x86_64-linux-gnu/bits/types.h
+ /usr/include/x86_64-linux-gnu/bits/typesizes.h
+ /usr/include/x86_64-linux-gnu/bits/uio.h
+ /usr/include/x86_64-linux-gnu/bits/waitflags.h
+ /usr/include/x86_64-linux-gnu/bits/waitstatus.h
+ /usr/include/x86_64-linux-gnu/bits/wordsize.h
+ /usr/include/x86_64-linux-gnu/gmp.h
+ /usr/include/x86_64-linux-gnu/sys/cdefs.h
+ /usr/include/x86_64-linux-gnu/sys/ipc.h
+ /usr/include/x86_64-linux-gnu/sys/select.h
+ /usr/include/x86_64-linux-gnu/sys/sem.h
+ /usr/include/x86_64-linux-gnu/sys/shm.h
+ /usr/include/x86_64-linux-gnu/sys/socket.h
+ /usr/include/x86_64-linux-gnu/sys/stat.h
+ /usr/include/x86_64-linux-gnu/sys/sysctl.h
+ /usr/include/x86_64-linux-gnu/sys/sysmacros.h
+ /usr/include/x86_64-linux-gnu/sys/time.h
+ /usr/include/x86_64-linux-gnu/sys/times.h
+ /usr/include/x86_64-linux-gnu/sys/types.h
+ /usr/include/x86_64-linux-gnu/sys/uio.h
+ /usr/include/x86_64-linux-gnu/sys/un.h
+ /usr/include/x86_64-linux-gnu/sys/wait.h
+CMakeFiles/pgm.dir/src/typedefs.cpp.o
+ ../include/bzlib.h
+ ../include/hex_cmplx.h
+ ../include/hex_geom.h
+ ../include/hex_gmp.h
+ ../include/hex_math.h
+ ../include/hex_pdb.h
+ ../include/hex_sys.h
+ ../include/hex_transform.h
+ ../include/hex_types.h
+ ../include/hex_util.h
+ ../include/hex_version.h
+ ../include/kids.h
+ /home/simon/Documents/pfe/intersurf/cgal_test/src/includes.h
+ /home/simon/Documents/pfe/intersurf/cgal_test/src/pdbs.h
+ /home/simon/Documents/pfe/intersurf/cgal_test/src/typedefs.cpp
  /usr/include/x86_64-linux-gnu/asm/socket.h
  /usr/include/x86_64-linux-gnu/bits/ipc.h
  /usr/include/x86_64-linux-gnu/bits/ipctypes.h

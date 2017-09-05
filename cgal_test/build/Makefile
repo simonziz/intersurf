@@ -163,6 +163,33 @@ pgm_automoc.cpp.s:
 	$(MAKE) -f CMakeFiles/pgm.dir/build.make CMakeFiles/pgm.dir/pgm_automoc.cpp.s
 .PHONY : pgm_automoc.cpp.s
 
+src/calculations.o: src/calculations.cpp.o
+
+.PHONY : src/calculations.o
+
+# target to build an object file
+src/calculations.cpp.o:
+	$(MAKE) -f CMakeFiles/pgm.dir/build.make CMakeFiles/pgm.dir/src/calculations.cpp.o
+.PHONY : src/calculations.cpp.o
+
+src/calculations.i: src/calculations.cpp.i
+
+.PHONY : src/calculations.i
+
+# target to preprocess a source file
+src/calculations.cpp.i:
+	$(MAKE) -f CMakeFiles/pgm.dir/build.make CMakeFiles/pgm.dir/src/calculations.cpp.i
+.PHONY : src/calculations.cpp.i
+
+src/calculations.s: src/calculations.cpp.s
+
+.PHONY : src/calculations.s
+
+# target to generate assembly for a file
+src/calculations.cpp.s:
+	$(MAKE) -f CMakeFiles/pgm.dir/build.make CMakeFiles/pgm.dir/src/calculations.cpp.s
+.PHONY : src/calculations.cpp.s
+
 src/hex_pdb.o: src/hex_pdb.cpp.o
 
 .PHONY : src/hex_pdb.o
@@ -189,6 +216,33 @@ src/hex_pdb.s: src/hex_pdb.cpp.s
 src/hex_pdb.cpp.s:
 	$(MAKE) -f CMakeFiles/pgm.dir/build.make CMakeFiles/pgm.dir/src/hex_pdb.cpp.s
 .PHONY : src/hex_pdb.cpp.s
+
+src/in_out_functions.o: src/in_out_functions.cpp.o
+
+.PHONY : src/in_out_functions.o
+
+# target to build an object file
+src/in_out_functions.cpp.o:
+	$(MAKE) -f CMakeFiles/pgm.dir/build.make CMakeFiles/pgm.dir/src/in_out_functions.cpp.o
+.PHONY : src/in_out_functions.cpp.o
+
+src/in_out_functions.i: src/in_out_functions.cpp.i
+
+.PHONY : src/in_out_functions.i
+
+# target to preprocess a source file
+src/in_out_functions.cpp.i:
+	$(MAKE) -f CMakeFiles/pgm.dir/build.make CMakeFiles/pgm.dir/src/in_out_functions.cpp.i
+.PHONY : src/in_out_functions.cpp.i
+
+src/in_out_functions.s: src/in_out_functions.cpp.s
+
+.PHONY : src/in_out_functions.s
+
+# target to generate assembly for a file
+src/in_out_functions.cpp.s:
+	$(MAKE) -f CMakeFiles/pgm.dir/build.make CMakeFiles/pgm.dir/src/in_out_functions.cpp.s
+.PHONY : src/in_out_functions.cpp.s
 
 src/main.o: src/main.cpp.o
 
@@ -217,6 +271,33 @@ src/main.cpp.s:
 	$(MAKE) -f CMakeFiles/pgm.dir/build.make CMakeFiles/pgm.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/typedefs.o: src/typedefs.cpp.o
+
+.PHONY : src/typedefs.o
+
+# target to build an object file
+src/typedefs.cpp.o:
+	$(MAKE) -f CMakeFiles/pgm.dir/build.make CMakeFiles/pgm.dir/src/typedefs.cpp.o
+.PHONY : src/typedefs.cpp.o
+
+src/typedefs.i: src/typedefs.cpp.i
+
+.PHONY : src/typedefs.i
+
+# target to preprocess a source file
+src/typedefs.cpp.i:
+	$(MAKE) -f CMakeFiles/pgm.dir/build.make CMakeFiles/pgm.dir/src/typedefs.cpp.i
+.PHONY : src/typedefs.cpp.i
+
+src/typedefs.s: src/typedefs.cpp.s
+
+.PHONY : src/typedefs.s
+
+# target to generate assembly for a file
+src/typedefs.cpp.s:
+	$(MAKE) -f CMakeFiles/pgm.dir/build.make CMakeFiles/pgm.dir/src/typedefs.cpp.s
+.PHONY : src/typedefs.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -230,12 +311,21 @@ help:
 	@echo "... pgm_automoc.o"
 	@echo "... pgm_automoc.i"
 	@echo "... pgm_automoc.s"
+	@echo "... src/calculations.o"
+	@echo "... src/calculations.i"
+	@echo "... src/calculations.s"
 	@echo "... src/hex_pdb.o"
 	@echo "... src/hex_pdb.i"
 	@echo "... src/hex_pdb.s"
+	@echo "... src/in_out_functions.o"
+	@echo "... src/in_out_functions.i"
+	@echo "... src/in_out_functions.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/typedefs.o"
+	@echo "... src/typedefs.i"
+	@echo "... src/typedefs.s"
 .PHONY : help
 
 

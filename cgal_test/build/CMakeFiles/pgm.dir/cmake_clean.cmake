@@ -1,7 +1,10 @@
 file(REMOVE_RECURSE
   "pgm_automoc.cpp"
   "CMakeFiles/pgm.dir/src/hex_pdb.cpp.o"
+  "CMakeFiles/pgm.dir/src/typedefs.cpp.o"
+  "CMakeFiles/pgm.dir/src/in_out_functions.cpp.o"
   "CMakeFiles/pgm.dir/src/main.cpp.o"
+  "CMakeFiles/pgm.dir/src/calculations.cpp.o"
   "CMakeFiles/pgm.dir/pgm_automoc.cpp.o"
   "pgm.pdb"
   "pgm"
