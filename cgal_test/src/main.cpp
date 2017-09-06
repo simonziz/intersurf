@@ -65,17 +65,32 @@ int main(void) {
 
 
     /// Remove useless triangles
-    K::Point_3 p;
+    K::Point_3 p_surf;
+    K::Point_3 p_triang;
+    double min_dist = 20000;
+    double current_dist = 0;
     for (Polyhedron::Vertex_iterator vit = poly_surf.vertices_begin(); vit != poly_surf.vertices_end(); ++vit) {
         //std::cout<<fit->halfedge()->vertex()->point()<<std::endl;
-        p = vit->point();
-        if( ( p - barycenter).squared_length() >= squared_max_dist * 0.6) {
+        p_surf = vit->point();
+        for (Delaunay::Finite_vertices_iterator vit_tr = d_t.finite_vertices_begin();
+             vit_tr != d_t.finite_vertices_end(); ++vit_tr) {
+            p_triang = vit_tr->point();
+            current_dist = sqrt((p_triang - p_surf).squared_length());
+            min_dist = std::min(current_dist, min_dist);
+        }
+        if(min_dist > 12) {
+            std::cout<<"min distance : "<<min_dist<<std::endl;
+        }
+        //if( ( p - barycenter).squared_length() >= squared_max_dist * 0.6) {
+        if( min_dist > 12 ) {
             if(vit->halfedge()->is_border() == false)
             {
                 poly_surf.erase_facet(vit->halfedge());
             }
         }
+        min_dist = 20000;
     }
+    CGAL::Subdivision_method_3::CatmullClark_subdivision(poly_surf);
 
     std::ofstream fout_4; // Open a new file for the reduced smoothed interface
     fout_4.open( "reduced_interface.off" );
