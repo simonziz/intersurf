@@ -28,10 +28,10 @@ void savePointsOFF(const char* filename, Delaunay m_dt, PdbImage *pdb)
       fout<<p.x()<<" "<<p.y()<<" "<<p.z()<<" "; // Write its coordinates
       // Choose color regarding the chain
       if (strcmp( pdb->atom[vit->info()].chain, "A") == 0) {
-        fout<<CGAL::RED;
+        fout<<CGAL::BLUE;
       }
       else {
-        fout<<CGAL::BLUE;
+        fout<<CGAL::RED;
       }
       fout<<std::endl; // Break
       TV[i++] = vit; // Store the vertex handle (pointer to the current vertex) at its index

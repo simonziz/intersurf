@@ -67,6 +67,9 @@
 \RequirePackage{enumitem}
 
 
+\usepackage{subcaption}
+
+
 
 
 

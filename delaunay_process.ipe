@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70107" creator="Ipe 7.1.10">
-<info created="D:20170727105401" modified="D:20170727115102"/>
+<info created="D:20170727105401" modified="D:20170914143448"/>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
 <path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
@@ -260,7 +260,7 @@ h
 <view layers="alpha beta" active="alpha"/>
 <view layers="beta gamma" active="alpha"/>
 <view layers="beta gamma delta epsilon" active="alpha"/>
-<view layers="beta delta epsilon" active="alpha"/>
+<view layers="beta delta epsilon" active="gamma"/>
 <view layers="beta epsilon" active="epsilon"/>
 <use layer="alpha" name="mark/square(sx)" pos="128 768" size="large" stroke="red"/>
 <use name="mark/square(sx)" pos="192 704" size="large" stroke="red"/>
@@ -620,147 +620,147 @@ h
 </path>
 </group>
 <group layer="gamma">
-<path stroke="darkgreen">
+<path stroke="orange" pen="heavier">
 416 752 m
 400 608 l
 </path>
-<path stroke="darkgreen">
+<path stroke="orange" pen="heavier">
 240 560 m
 304 544 l
 </path>
-<path stroke="darkgreen">
+<path stroke="orange" pen="heavier">
 480 624 m
 400 608 l
 </path>
-<path stroke="darkgreen">
+<path stroke="orange" pen="heavier">
 352 576 m
 304 544 l
 </path>
-<path stroke="darkgreen">
+<path stroke="orange" pen="heavier">
 480 624 m
 352 576 l
 </path>
-<path stroke="darkgreen">
+<path stroke="orange" pen="heavier">
 304 544 m
 480 624 l
 </path>
-<path stroke="darkgreen">
+<path stroke="orange" pen="heavier">
 416 752 m
 480 624 l
 </path>
-<path stroke="darkgreen">
+<path stroke="orange" pen="heavier">
 512 688 m
 480 624 l
 </path>
-<path stroke="darkgreen">
+<path stroke="orange" pen="heavier">
 400 608 m
 288 720 l
 </path>
-<path stroke="darkgreen">
+<path stroke="orange" pen="heavier">
 352 576 m
 400 608 l
 </path>
-<path stroke="darkgreen">
+<path stroke="orange" pen="heavier">
 288 720 m
 416 752 l
 </path>
-<path stroke="darkgreen">
+<path stroke="orange" pen="heavier">
 352 576 m
 288 720 l
 </path>
-<path stroke="darkgreen">
+<path stroke="orange" pen="heavier">
 288 720 m
 352 800 l
 </path>
-<path stroke="darkgreen">
+<path stroke="orange" pen="heavier">
 352 576 m
 208 640 l
 </path>
-<path stroke="darkgreen">
+<path stroke="orange" pen="heavier">
 240 560 m
 352 576 l
 </path>
-<path stroke="darkgreen">
+<path stroke="orange" pen="heavier">
 288 720 m
 48 768 l
 </path>
-<path stroke="darkgreen">
+<path stroke="orange" pen="heavier">
 288 720 m
 96 704 l
 </path>
-<path stroke="darkgreen">
+<path stroke="orange" pen="heavier">
 208 640 m
 288 720 l
 </path>
-<path stroke="darkgreen">
+<path stroke="orange" pen="heavier">
 96 704 m
 48 768 l
 </path>
-<path stroke="darkgreen">
+<path stroke="orange" pen="heavier">
 48 768 m
 352 800 l
 </path>
-<path stroke="darkgreen">
+<path stroke="orange" pen="heavier">
 208 640 m
 96 704 l
 </path>
-<path stroke="darkgreen">
+<path stroke="orange" pen="heavier">
 416 752 m
 512 688 l
 </path>
-<path stroke="darkgreen">
+<path stroke="orange" pen="heavier">
 352 800 m
 416 752 l
 </path>
-<path stroke="darkgreen">
+<path stroke="orange" pen="heavier">
 512 688 m
 352 800 l
 </path>
-<path stroke="darkgreen">
+<path stroke="orange" pen="heavier">
 208 640 m
 128 640 l
 </path>
-<path stroke="darkgreen">
+<path stroke="orange" pen="heavier">
 240 560 m
 208 640 l
 </path>
-<path stroke="darkgreen">
+<path stroke="orange" pen="heavier">
 208 640 m
 144 576 l
 </path>
-<path stroke="darkgreen">
+<path stroke="orange" pen="heavier">
 304 544 m
 112 544 l
 </path>
-<path stroke="darkgreen">
+<path stroke="orange" pen="heavier">
 128 640 m
 96 704 l
 </path>
-<path stroke="darkgreen">
+<path stroke="orange" pen="heavier">
 96 704 m
 112 544 l
 </path>
-<path stroke="darkgreen">
+<path stroke="orange" pen="heavier">
 112 544 m
 48 768 l
 </path>
-<path stroke="darkgreen">
+<path stroke="orange" pen="heavier">
 112 544 m
 240 560 l
 </path>
-<path stroke="darkgreen">
+<path stroke="orange" pen="heavier">
 240 560 m
 144 576 l
 </path>
-<path stroke="darkgreen">
+<path stroke="orange" pen="heavier">
 128 640 m
 112 544 l
 </path>
-<path stroke="darkgreen">
+<path stroke="orange" pen="heavier">
 144 576 m
 128 640 l
 </path>
-<path stroke="darkgreen">
+<path stroke="orange" pen="heavier">
 112 544 m
 144 576 l
 </path>
