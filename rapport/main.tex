@@ -1,0 +1,84 @@
+\documentclass{main}
+
+% mise en place du glossaire
+%\setglossarystyle{altlist} % apparence du glossaire
+%\makenoidxglossaries % génération du glossaire
+%\input{content/glossaire.tex} % appel du fichier contenant le glossaire
+
+\begin{document}
+
+\makeatletter
+\patchcmd{\ttlh@hang}{\parindent\z@}{\parindent\z@\leavevmode}{}{}
+\patchcmd{\ttlh@hang}{\noindent}{}{}{}
+\makeatother
+
+\pagenumbering{roman}
+
+\maketitle
+
+%définition du template du document
+\renewcommand{\baselinestretch}{1.0}\normalsize
+\newcommand{\itab}[1]{\hspace{0em}\rlap{#1}}
+\newcommand{\tab}[1]{\hspace{.2\textwidth}\rlap{#1}}
+\renewcommand{\bibname}{Bibliographie} % définir le titre de la bibliographie
+
+\insertAntiPlagiarismAgreement{Warnet, Nicolas}{31415793}
+
+\cleardoublepage
+
+\makesecondtitle
+
+\section*{Remerciements} % l'étoile permet de ne pas numéroter sur la toc
+\input{content/remerciements.tex}
+\cleardoublepage
+
+%table des matières
+\renewcommand{\baselinestretch}{0.5}\normalsize
+\tableofcontents
+\renewcommand{\baselinestretch}{1.0}\normalsize
+\cleardoublepage
+
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+%% INTRODUCTION
+\input{content/introduction.tex}
+\cleardoublepage
+
+\input{content/chapter1.tex}
+
+\input{content/chapter2.tex}
+
+%% CONCLUSION`
+\input{content/conclusion.tex}
+\cleardoublepage
+
+%%  GLOSSAIRE
+%\printnoidxglossary[sort=def] % affichage du glossaire
+%\cleardoublepage
+
+%liste des illustrations
+\listoffigures
+\cleardoublepage
+
+%% BIBLIO
+\bibliography{content/ref.bib}
+\bibliographystyle{apalike-fr}
+\cleardoublepage
+
+% ANNEXES
+\appendix % permet d'indiquer que l'on passe dans les annexes, change la numérotation
+
+\part*{Annexes} % nouvelle partie
+\addcontentsline{toc}{part}{Annexes} % ajout de l'annexe dans la toc
+
+%\input{content/annexes/classification.tex}
+\cleardoublepage
+%\input{content/annexes/questionnaireMmeB.tex}
+\cleardoublepage
+%\input{content/annexes/agenda.tex}
+
+%%  ABSTRACT
+\input{content/abstract.tex}
+
+\end{document}
