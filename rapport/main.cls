@@ -47,6 +47,7 @@
 % dessins et autres symboles
 % symbole
 \RequirePackage{tipa}
+\RequirePackage{siunitx}
 % drawing
 \RequirePackage{tikz}
 \usetikzlibrary{arrows.meta}
