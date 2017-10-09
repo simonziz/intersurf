@@ -11,12 +11,12 @@ et l'affichage (voir figure \ref{fig::flow_chart}).
   \label{fig::flow_chart}
 \end{figure}
 
-
-
 \section{Architecture Logicielle}
 \begin{itemize}
   \item C / C++ / Libraries
+  \item Compilation Cmake
 \end{itemize}
+Les différentes étapes
 
 
 \section{Récupération de données + stockage}
@@ -25,6 +25,13 @@ et l'affichage (voir figure \ref{fig::flow_chart}).
   \item Tableau et méthode de stockage (C++ structures)
   \item CGAL structures : Delaunay + Polyhedron
 \end{itemize}
+
+Le point de départ du projet est de lire un fichier \textit{.pdb} et de le stocker
+de manière créer les structures fournies par CGAL. Nous avons utilisé une partie du programme
+\textbf{Hex} développé en C par David Ritchie qui permet de \textit{parser} le fichier
+\textit{.pdb} pour récupérer les données utiles du complexe étudié. Ces informations constituent
+la référence utilisée lors de la construction de l'interface lorsque des détails
+() 
 
 \section{Construction de la surface}
 \begin{itemize}
