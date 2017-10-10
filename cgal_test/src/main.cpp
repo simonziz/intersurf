@@ -8,7 +8,7 @@
 int main(void) {
 
     /// Read a .pdb file into an array
-    PdbImage *pdb = hex_readPdb("../data/2n77_reduced.pdb", "new_protein");  // Reading a .pdb file
+    PdbImage *pdb = hex_readPdb("../data/2n77.pdb", "new_protein");  // Reading a .pdb file
 
     std::map<unsigned int, bool> is_interface;
     Delaunay d_t = readPdb(pdb, is_interface);
