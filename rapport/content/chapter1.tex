@@ -6,7 +6,7 @@ L'objectif du projet étant de modéliser l'interface de contact entre deux prot
 il est important de comprendre la structure d'une protéine. Nous verrons également
 comment sont stockées ces structures, grâce au fichiers \textit{.pdb}.
 
-\subsection{Structure}
+\subsection*{Structure}
 
 Les protéines sont des molécules biologiques présentes dans toutes les cellules vivantes.
 Elles sont constituées d'un enchaînement d'acides aminés.
@@ -24,7 +24,7 @@ médicament. La cristallographie est utilisée pour étudier la structure des pr
 l'échelle atomique. Elle s'appuie sur le phénomène physique de diffraction des ondes
 électromagnétiques (rayons X).
 
-\subsection{Fichier de stockage}
+\subsection*{Fichier de stockage}
 
 Les données utilisables d'une protéine (ou d'un complexe) sont stockées grâce aux
 fichiers \textit{.pdb}. Ces fichiers, leur lecture et l'interprétation des données
@@ -38,6 +38,9 @@ l'atome, son acide aminé ou ses coordonnées dans l'espace (en $\si{\angstrom}$
   \caption{Exemple de fichier .pdb}
   \label{fig::pdb_file}
 \end{figure}
+
+Dans la suite du projet, nous considérerons que les atomes sont des points de l'espace
+de masses identiques.
 
 
 
@@ -60,7 +63,7 @@ ce nuage de points et de modéliser l'interface entre les deux protéines,
   \label{fig::explication_delaunay}
 \end{figure}
 
-\subsection{Dimension 2}
+\subsection*{Dimension 2}
 
 Il faut appliquer cette triangulation au complexe dont on veut déterminer l'interface, c'est-à dire
 aux points donnés par les coordonnées des atomes qui composent le complexe
@@ -127,7 +130,7 @@ au diagramme de Voronoï.
 
 Ce diagramme est le dual de la triangulation de Delaunay et représente les points à
 égale distance des points de la triangulation (voir figure \ref{fig::process_d_3}).
-En ne gardant que les parties du giagramme de Voronoï qui correspondent au arêtes sélectionnées
+En ne gardant que les parties du diagramme de Voronoï qui correspondent au arêtes sélectionnées
 précédemment (voir figure \ref{fig::process_d_4}), nous obtenons une doite par morceau
 qui approxime l'interface de contact en dimension 2.
 
@@ -154,7 +157,7 @@ qui approxime l'interface de contact en dimension 2.
 \end{figure}
 
 
-\subsection{Dimension 3}
+\subsection*{Dimension 3}
 
 Si nous transposons la méthode vue ci-dessus en dimension 3, les triangles formés
 par les points deviennent des tetrahèdres sur lesquels nous travaillerons pour vérifier
@@ -205,7 +208,7 @@ stockage de nuages de points sous forme de triangulations de Delaunay. L'avantag
 de cette bibliothèque réside dans les structure et les méthodes accélérant les différentes
 étapes du calcul de l'interface entre deux protéines.
 
-\subsection{Structures}
+\subsection*{Structures}
 
 
 En effet, CGAL comprend notamment une structure \textit{Delaunay\_Triangulation\_3},
@@ -229,6 +232,7 @@ Un tetrahèdre est représenté par quatre entités :
   \item Cell : un tetrahèdre qui donne accès à quatre vertex et quatre cellules adjacentes
 \end{itemize}
 
+Il existe également une seconde strucure de données, \textit{Polyhedron}, 
 
 
 
@@ -237,7 +241,8 @@ Un tetrahèdre est représenté par quatre entités :
 
 
 
-\subsection{Itérateurs}
+
+\subsection*{Itérateurs}
 
 Les itérateurs sont une généralisation de pointeur qui permettent de travailler sur
 différentes structures de données.
@@ -246,4 +251,4 @@ selon chacune des entités formant celle-ci : vertice, arête, face, cellule. Qu
 que soit l'entité utilisée, il est possible d'accéder au trois autres entités et
 aux données qu'elle contiennent.
 
-\subsection{Compilation}
+\subsection*{Compilation}

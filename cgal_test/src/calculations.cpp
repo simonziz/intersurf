@@ -138,11 +138,7 @@ void calculateInterface(PdbImage *pdb, Delaunay interface_tr, K::Point_3 barycen
             face_indexes.clear(); // Clear the current face vector for the next iteration
         }
     }
-
-    //std::cout<<"point : "<<surf_points->empty()<<std::endl;
-    //std::cout<<"faces : "<<all_faces_indexes->empty()<<std::endl;
 }
-
 
 /// Function to smooth the surface with the Catmull/Clark subdivision algorithm
 

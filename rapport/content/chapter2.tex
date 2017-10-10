@@ -99,7 +99,86 @@ pour sélectionner les tétrahèdres présents à l'interface (voir figure \ref{
   \item smoothing
 \end{itemize}
 
+Lorsque les strucures de Delaunay ont été créées, il devient possible de calculer l'interface
+entre les deux protéines du complexe, ce qui constitue la partie centrale du projet.
+En implémentant la méthode vue dans la partie Triangulation de Delaunay, nous pouvons générer
+une surface qui pourra être affichée. Cette surface est un regroupement de polyhèdres
+de nombre de côtés variable.
 
+
+
+Dans la première partie de l'implémentation, nous stockons la surface dans \textit{vecteur}
+(\textit{all\_faces\_indexes})
+et une \textit{map} (\textit{surf\_points}) (voir figure \ref{fig::init_surf_vector}) qui permettent de garder
+en mémoire les coordonnées des points
+et les indices permettant d'afficher les faces. La \textit{map} recense tous les points
+de la surface une fois, c'est-à-dire que les points utilisés dans différentes face de la surface
+ne sont présent qu'une seule fois dans la map. Cela permet de réduire considérablement
+la quantité de données et d'accélerer l'affichage. A chaque point de la map correspond
+un indice initialisé à 0 et qui sera mis à jour lors de l'écriture des fichiers utilisés
+pour l'affichage. Ensuite, le \textit{vecteur} regroupe toutes les faces de la surface
+sous forme de vecteurs de point 3D. Le vecteur \textit{all\_faces\_indexes} contiendra
+donc autant de vecteurs que le nombre de faces de la surface.
+
+
+\begin{figure}[ht]
+\centering
+  \includegraphics[width=\textwidth]{figures/init_surf_vect.png}
+  \caption{Déclaration des vecteurs stockant la surface}
+  \label{fig::init_surf_vector}
+\end{figure}
+
+Nous allons maintenant détailler les différentes parties de la fonction écrite pour
+le calcul de l'interface (\textit{calculateInterface()}) qui est disponible en
+annexe (voir figure \ref{fig::calculate_interface}).
+
+Dans un premier temps, nous utilisons un itérateur fourni par CGAL pour parcourir
+les arêtes de la triangulation (voir figure \ref{fig::iter_edges}).
+\begin{figure}[ht]
+\centering
+  \includegraphics[width=\textwidth]{figures/iter_edges.png}
+  \caption{Itération sur les arêtes}
+  \label{fig::iter_edges}
+\end{figure}
+Dans cette itération, on vérifie pour chaque arête si elle est à l'interface, c'est-à-dire
+si elle possède un atome de chaque chaîne. Pour cela, nous nous référons à l'\textit{Image pdb}
+grâce à l'indice stocké dans l'attribut \textit{info()} de chaque vertice. Il est possible
+d'accéder à la valeur de la chaîne (A ou B) avec la commande en figure \ref{fig::init_surf_vector}.
+\begin{figure}[ht]
+\centering
+  \includegraphics[width=0.6\textwidth]{figures/access_chain.png}
+  \caption{Accès à la chaîne à laquelle appartient une vertice}
+  \label{fig::access_chain}
+\end{figure}
+Dans cette commande, \textit{first} correspond à la cellule en cours d'accès et
+\textit{second} à l'indice de la première vertice de l'arête (\textit{third} permettra
+d'accéder à la seconde vertice de l'arête).
+
+Après cette vérification, nous utilisons un circulateur pour "tourner" autour de l'arête
+concernée. En effet, le dual de Voronoï d'une arête dans un espace en trois dimension
+est un polyèdre. Celui-ci est composé des points qui sont les duaux des cellules (tétrahèdres)
+adjacentes à l'arête étudiée. Le circulateur permet donc de parcourir les cellules adjacentes
+des arêtes à l'interface. Chacun de ces point est alors stockés dans le \textit{vecteur} et
+la \textit{map} de la manière expliquée plus haut.
+
+Il est important d'expliquer d'autres vérifications qui sont efféctuées avant de stocker
+chaque point. Par exemple, il existe dans la structure \textit{Delaunay} de CGAL
+un point "infini" permettant de "fermer" la triangulation dans l'espace. Ce point, bien
+qu'utile aux calculs effectués par CGAL, ne doit pas être pris en compte car il n'est pas réel.
+Nous vérifions donc qu'aucun des tetrahèdres adjacents à l'arête parcourue ne contient
+ce point spécifique. De plus, si l'on récupère tous les points générés par le calcul du
+diagramme de Voronoï, certains d'entre eux se trouveront en dehors de la zone utile à l'analyse
+de l'interface. Pour éliminer ces points, nous avons procédé en amont au calcul
+du barycentre de la protéine puis nous avons recensé la distance maximale entre un point du complexe
+et son barycentre. Si la distance entre un point d'une face et le barycentre calculé
+est supérieure à un certain pourcentage (ici 130\%) de la distance maximale, alors
+la face ne sera pas gardée (voir figure \ref{fig::check_max_dist}).
+\begin{figure}[ht]
+\centering
+  \includegraphics[width=\textwidth]{figures/check_max_dist.png}
+  \caption{Vérification de la distance au barycentre}
+  \label{fig::check_max_dist}
+\end{figure}
 
 \section{Affichage}
 \begin{itemize}
