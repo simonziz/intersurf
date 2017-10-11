@@ -1,46 +1,36 @@
-\chapter{Méthode + Théorie}
+\chapter{Theoretical Method}
 
-\section{Structure d'une protéine et d'un complexe}
+\section{Structure of proteic complex}
 
-L'objectif du projet étant de modéliser l'interface de contact entre deux protéines,
-il est important de comprendre la structure d'une protéine. Nous verrons également
-comment sont stockées ces structures, grâce au fichiers \textit{.pdb}.
+Proteins are biological molecules found in all the living cells.
+They are formed of a chain of amino acids.
+Proteins realize many functions within the living cells.
+They can have an enzymatic, structural role, they allow the mobility of molecules,
+ the regulation of the genetic expression or to pass on cellular signals.
+The protein chains forming the proteins are synthesized in the cell.
+ The genetic material of the cell determines the order of the amino acids.
 
-\subsection*{Structure}
+ The proteins have a structure in three dimensions which allows them
+ to realize their biological function. Proteins can interact together to
+ carry out some biological functions. These interactions form protein
+  complexes. The structures of the proteins and their interactions are particularly used
+   in medicinal chemistry.
+ The study of surfaces and available spaces can guide the research for new medicine.
+  Crystallography is used to study the structure of proteins at
+   the atomic scale. It is based on the physical phenomenon of diffraction
+    of the electromagnetic waves (X-rays).
 
-Les protéines sont des molécules biologiques présentes dans toutes les cellules vivantes.
-Elles sont constituées d'un enchaînement d'acides aminés.
-Les protéines assurent diverses fonctions au sein de la cellule vivante et dans les tissus.
-Elles peuvent avoir un rôle enzymatique, structurel, permettre la mobilité des molécules, la
-régulation de l'expression génétique ou encore transmettre des signaux cellulaires.
-Les chaînes protéiques constituant les protéines sont synthétisées dans la cellule. Le
-matériel génétique de la cellule détermine l'ordre d'enchainement des acides aminés.
-Les protéines adoptent alors une structure en trois dimensions qui leur permet d'assurer
- leur fonction biologique. Les protéines peuvent interagir ensemble afin d'assurer certaines
-fonctions biologiques. Ces interactions forment des complexes protéiques. Les structures
- des protéines et leurs interactions sont particulièrement utilisées en chimie médicinale.
-L'étude des surfaces et des espaces disponibles peut guider la recherche d'un nouveau
-médicament. La cristallographie est utilisée pour étudier la structure des protéines à
-l'échelle atomique. Elle s'appuie sur le phénomène physique de diffraction des ondes
-électromagnétiques (rayons X).
-
-Le complexe que nous étudions dans ce projet est le rassemblement de
-deux protéines. La structure de ce comlexe peut être analysée en étudiant l'interface
-entre les deux protéines le composant. On comprend dès lors que modéliser cette interface
-pour la visualiser peut avoir une importance cruciale en recherche biologique et médicinale.
-
-\subsection*{Fichier de stockage}
-
-Les données utilisables d'une protéine (ou d'un complexe) sont stockées grâce aux
-fichiers \textit{.pdb} (voir figure \ref{fig::pdb_file}). Ces fichiers, leur lecture et l'interprétation des données
-qu'ils contiennent, sont essentiels à l'observation des protéines. En effet, chaque
-ligne, exceptée la première, correspond à un atome composant la protéine étudiée.
-Ces lignes contiennent des informations telles que la chaîne à laquelle appartient
-l'atome, son acide aminé ou ses coordonnées dans l'espace (en $\si{\angstrom}$).
+The data from a protein that we can us is stored in \textit{.pdb} files
+(see figure\ref{fig:: pdb_file}). These files, the reading and the interpretation
+ of the data they contain, are essential to the observation of proteins.
+ Indeed, every line, excepted the first one, corresponds to an atom of protein
+ being studied.
+These lines contain information such as the chain to which the atom belongs,
+its amino acid or its address and coordinates in space ($\si{\angstrom}$).
 
 \begin{figure}[ht]
   \includegraphics[width=\textwidth]{figures/pdb_example.png}
-  \caption{Exemple de fichier .pdb}
+  \caption{Example of a .pdb file}
   \label{fig::pdb_file}
 \end{figure}
 

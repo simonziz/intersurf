@@ -38,6 +38,11 @@ void savePointsOFF(const char* filename, Delaunay m_dt, PdbImage *pdb)
   }
   fout<<std::endl; // Break
 
+  // Iterate on the vertices of the triangulation
+  for(Delaunay::Finite_vertices_iterator vit=m_dt.finite_vertices_begin(); vit!=m_dt.finite_vertices_end(); ++vit) {
+      vit->info();
+  }
+
   CGAL::Unique_hash_map<Vertex_handle, std::size_t > V; // Map with unique indexes
   V[m_dt.infinite_vertex()] = 0; // Same size as the triangulation
 
