@@ -5,4 +5,20 @@
   \def\url#1{{\tt #1}}%
     \message{You should include the url package}\fi
 
+\bibitem[CGA, ]{CGAL}
+Documentation cgal.
+\newblock \url{https://doc.cgal.org/latest/Manual/packages.html}.
+\newblock Accessed: 2017-09-15.
+
+\bibitem[Pro, ]{Prot}
+Structure d'une protéine.
+\newblock
+  \url{http://www2.cegep-ste-foy.qc.ca/profs/gbourbonnais/pascal/fya/chimcell/notesmolecules/proteines_2.htm}.
+\newblock Accessed: 2017-09-30.
+
+\bibitem[Devillers, 2014]{Triangulation}
+\bgroup\fonteauteurs\bgroup Devillers\egroup\egroup{}, O. (2014).
+\newblock Delaunay triangulation and randomized constructions. encyclopedia of
+  al- gorithms, springer.
+
 \end{thebibliography}

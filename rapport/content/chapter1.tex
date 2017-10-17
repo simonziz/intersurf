@@ -9,7 +9,7 @@ comment sont stockées ces structures, grâce au fichiers \textit{.pdb}.
 \subsection*{Structure}
 
 Les protéines sont des molécules biologiques présentes dans toutes les cellules vivantes.
-Elles sont constituées d'un enchaînement d'acides aminés.
+Elles sont constituées d'un enchaînement d'acides aminés \cite{Prot}.
 Les protéines assurent diverses fonctions au sein de la cellule vivante et dans les tissus.
 Elles peuvent avoir un rôle enzymatique, structurel, permettre la mobilité des molécules, la
 régulation de l'expression génétique ou encore transmettre des signaux cellulaires.
@@ -61,7 +61,7 @@ le complexe), pour lui appliquer la triangulation de Delaunay.
 Une protéine est donc représentée comme un nuage de points où chacun de ces points
 représente un atome de la protéine. Dans le but d'optimiser les temps de parcours dans
 ce nuage de points et de modéliser l'interface entre les deux protéines,
- on utilise la triangulation de Delaunay.
+ on utilise la triangulation de Delaunay \cite{Triangulation}.
 
  Cette triangulation est unique et peut être expliquée de la manière suivante :
  chaque cercle circonscrit à un triangle du nuage de point ne contient que les points
@@ -214,14 +214,9 @@ d'un complexe donne la figure \ref{fig::delaunays_3d}.
 \end{figure}
 
 \section{CGAL}
-\begin{itemize}
-  \item Structures
-  \item Iterateurs
-  \item Compilation -> Cmake
-\end{itemize}
 
 Pour développer la méthode vue précédemment, nous avons choisi d'utiliser CGAL
-(Computational Geometry Algorithms Library).
+(Computational Geometry Algorithms Library) \cite{CGAL}.
 CGAL est un projet logiciel qui fournit un accès libre à de nombreux algorithmes géométriques
 efficaces et fiables sous forme d'une bibliothèque C++. CGAL est utilisé dans des
 domaines diverses ayant besoin de calcul géométrique, tels que des systèmes
@@ -264,7 +259,7 @@ nous travaillons sur les arêtes pour rechercher l'interface, nous avons besoin 
 connaître les vertices qui la compose.
 
 Il existe également une seconde strucure de données, \textit{Polyhedron}, qui sera
-utilisée pour stockée la surface. Cette classe permet de travailler sur des surfaces
+utilisée pour stocker la surface. Cette classe permet de travailler sur des surfaces
 en trois dimensions c'est-à-dire que les morceaux des cette surface sont en deux dimensions.
 Le fonctionnement est sensiblement identique à la classe \textit{Delaunay\_Triangulation\_3}.
 
@@ -278,7 +273,7 @@ dans les nuages de points via les itérateurs.
 
 \subsection*{Itérateurs}
 
-Les itérateurs sont une généralisation de pointeur qui permettent de travailler sur
+Les itérateurs sont une généralisation de pointeurs qui permettent de travailler sur
 différentes structures de données.
 Il existe des itérateurs permettant de parcourir une triangulation de Delaunay
 selon chacune des entités formant celle-ci : vertice, arête, face, cellule. Quelle
@@ -298,10 +293,10 @@ fournie en figure \ref{fig::tetrahedron_cgal}.
 \end{figure}
 
 
-Il existe également des circulateurs qui, bien que semblables au itérateurs par le fait
-qu'ils parcourent des structures de données, fonctionne différemment. Commme leur nom
+Il existe également des circulateurs qui, bien que semblables aux itérateurs par le fait
+qu'ils parcourent des structures de données, fonctionnent différemment. Commme leur nom
 l'indique , ils permettent de "tourner" autour d'une entité. Par exemple ils peuvent
-servir à parcourir toutes les cellules adjacentes d'une cellule données. Ils s'utilisent
+servir à parcourir toutes les cellules adjacentes d'une cellule donnée. Ils s'utilisent
 sous la forme d'une boucle \textit{do...while} (voir figure \ref{fig::circ_ex}).
 \begin{figure}[ht]
 \centering
@@ -317,3 +312,6 @@ effectué un "tour" complet autour de l'entité de notre choix.
 Nous verrons, lors de l'implémentation, qu'un bon usage des circulateurs, et plus encore des itérateurs,
 est absolument crucial pour l'optimisation des temps de parcours et la validité
 des résultats obtenus. Ils permettent également de rendre le code plus générique.
+
+Nous verrons également comment la méthode théorique a été implémentée grâce en partie à CGAL
+dans la suite de notre projet.

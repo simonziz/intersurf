@@ -1,16 +1,11 @@
 \BOOKMARK [0][-]{chapter*.2}{Introduction}{}% 1
-\BOOKMARK [0][-]{chapter.1}{Theoretical Method}{}% 2
-\BOOKMARK [1][-]{section.1.1}{Structure of proteic complex}{chapter.1}% 3
-\BOOKMARK [1][-]{section.1.2}{Triangulation de Delaunay}{chapter.1}% 4
-\BOOKMARK [1][-]{section.1.3}{CGAL}{chapter.1}% 5
-\BOOKMARK [0][-]{chapter.2}{D\351veloppement Logiciel}{}% 6
-\BOOKMARK [1][-]{section.2.1}{Architecture Logicielle}{chapter.2}% 7
-\BOOKMARK [1][-]{section.2.2}{R\351cup\351ration de donn\351es + stockage}{chapter.2}% 8
-\BOOKMARK [1][-]{section.2.3}{Construction de la surface}{chapter.2}% 9
-\BOOKMARK [1][-]{section.2.4}{Affichage}{chapter.2}% 10
-\BOOKMARK [0][-]{chapter.3}{R\351sultats et perspectives}{}% 11
-\BOOKMARK [1][-]{section.3.1}{R\351sultats}{chapter.3}% 12
-\BOOKMARK [1][-]{section.3.2}{Perspectives}{chapter.3}% 13
-\BOOKMARK [0][-]{chapter*.26}{Conclusion}{}% 14
-\BOOKMARK [0][-]{chapter*.27}{Liste des illustrations}{}% 15
-\BOOKMARK [0][-]{chapter*.28}{Bibliographie}{}% 16
+\BOOKMARK [0][-]{chapter.1}{Structure of proteic complex}{}% 2
+\BOOKMARK [0][-]{chapter.2}{Theoretical method}{}% 3
+\BOOKMARK [1][-]{section.2.1}{Dimension 2}{chapter.2}% 4
+\BOOKMARK [1][-]{section.2.2}{Dimension 3}{chapter.2}% 5
+\BOOKMARK [0][-]{chapter.3}{Implementing the method}{}% 6
+\BOOKMARK [1][-]{subsection.3.0.1}{CGAL}{chapter.3}% 7
+\BOOKMARK [2][-]{subsection.3.0.2}{Displaying Method}{subsection.3.0.1}% 8
+\BOOKMARK [0][-]{chapter*.12}{Conclusion}{}% 9
+\BOOKMARK [0][-]{chapter*.13}{Liste des illustrations}{}% 10
+\BOOKMARK [0][-]{chapter*.14}{Bibliography}{}% 11

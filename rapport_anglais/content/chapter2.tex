@@ -1,222 +1,154 @@
-\chapter{Développement Logiciel}
+\chapter{Theoretical method}
+A protein is thus represented as a point cloud where each of these points
+represents an atom of the protein. Aiming at optimizing the time to go through
+this point cloud and modelling the interface between both
+ proteins, we use the triangulation of Delaunay \cite{Triangulation}.
 
-Dans cette partie, expliquerons le développement du programme en différentes étapes :
-l'architecture du programme, la récupération des données, la construction de la surface
-et l'affichage (voir figure \ref{fig::flow_chart}).
-
-\begin{figure}[ht]
-\centering
-  \includegraphics[width=\textwidth]{figures/flow_chart.png}
-  \caption{Flow chart du programme}
-  \label{fig::flow_chart}
-\end{figure}
-
-\section{Architecture Logicielle}
-\begin{itemize}
-  \item C / C++ / Libraries
-  \item Compilation Cmake
-\end{itemize}
-Les différentes étapes
-
-
-\section{Récupération de données + stockage}
-\begin{itemize}
-  \item .pdb files + pdb reader
-  \item Tableau et méthode de stockage (C++ structures)
-  \item CGAL structures : Delaunay + Polyhedron
-\end{itemize}
-
-Le point de départ du projet est de lire un fichier \textit{.pdb} et de le stocker
-de manière à créer les structures fournies par CGAL. Nous avons utilisé une partie du programme
-\textbf{Hex} développé en C par David Ritchie qui permet de \textit{parser} le fichier
-\textit{.pdb} pour récupérer les données utiles du complexe étudié. Ces informations constituent
-la référence utilisée lors de la construction de l'interface lorsque des détails
-sur les atomes (chaîne, etc.) doivent êre connus. La fonction utilisée pour cela
-renvoie un pointeur vers un tableau recensant toutes les informations utiles, c'est-à-dire
-une image du fichier \textit{.pdb} que nous appellerons \textit{Image pdb} (voir
-figure \ref{fig::read_pdb}).
+This triangulation is unique and can be explained like this:
+every circumscribed circle of a triangle of the point cloud contains only the
+points of the aforementioned triangle (see figure \ref{fig::explication_delaunay}).
+We shall explain at first the method to determine the interface in two dimensions(size).
 
 \begin{figure}[ht]
 \centering
-  \includegraphics[width=\textwidth]{figures/pdb_image.png}
-  \caption{Récupération des données du fichier \textit{.pdb}}
-  \label{fig::read_pdb}
+  \includegraphics[width=\textwidth]{figures/explication_delaunay.png}
+  \caption{Delaunay Triangulation}
+  \label{fig::explication_delaunay}
 \end{figure}
 
-Pour créer une structure de Delaunay, CGAL prend normalement une liste de points stockée
-sous forme de tableau. Cependant, utiliser cette méthode simple ne premettrait pas d'accéder aux
-informations contenues dans le fichier \textit{.pdb}. En effet, chaque vertice (point), de la
-triangulation de Delaunay doit être indexé de manière à retrouver les informations voulues dans la
-liste d'atome fournie par le fichier de départ. Les index doivent donc être choisis
-au moment de la lecture de l'\textit{Image pdb} pour correspondre à la place de l'atome
-dans le tableau.
-Il existe deux méthodes pour insérer un index à une variable de type Vertex dans CGAL :
-\begin{itemize}
-  \item on modifie la classe Vertex en ajoutant un attribut
-  \item on utilise une classe différente fournie par CGAL
-\end{itemize}
-Nous avons choisi d'utiliser la seconde méthode (voir figure \ref{fig::vertex_base}) pour
-sa simplicité. Lors de l'instanciation, cette classe prend notamment en paramètre
-\textit{template} un type qui de variable qui sera accessible comme l'attribut \textit{info()}.
+\section{Dimension 2}
+
+It is necessary to apply this triangulation to the complex of which
+ we want to determine the interface, meaning on the coordinates of the atoms that
+ form the point cloud (see figure \ref{fig::delaunay_tr}).
+  The two proteins of the complex are differentiated by their colors (red and blue)
+   on the figure.
+   We select then the useful part of this triangulation (see figure \ref{fig::delaunay_reduced}):
+    we keep only the triangles which contain at least a point at the interface.
+
+A point is at the interface if it is in a triangle containing at least
+a point of every protein. Reducing the size of the triangulation will
+be useful afterward to accelerate the processing time and the recovering of the data
+concerning the interface.
 
 \begin{figure}[ht]
 \centering
-  \includegraphics[width=0.8\textwidth]{figures/vertex_base.png}
-  \caption{Déclaration de la classe \textit{Vertex\_base\_with\_info}}
-  \label{fig::vertex_base}
+\begin{subfigure}{0.4\textwidth}
+  \centering
+  \includegraphics[width=\textwidth]{figures/delaunay.png}
+  \caption{Delaunay Triangulation}
+  \label{fig::delaunay_tr}
+\end{subfigure}%
+\begin{subfigure}{0.2\textwidth}
+  \centering
+  $\Longrightarrow$
+\end{subfigure}%
+\begin{subfigure}{0.4\textwidth}
+  \centering
+  \includegraphics[width=\textwidth]{figures/delaunay_reduced.png}
+  \caption{Reduced Triangulation}
+  \label{fig::delaunay_reduced}
+\end{subfigure}
+\caption{Réducing a triangulation}
+\label{fig::delaunays}
 \end{figure}
 
-Le type de l'index est donc un entier positif qui fera partie de la structure Delaunay
-et sera accessible lors du parcours de ces structures. Cependant, la structure de Delaunay
-requiert l'ajout d'un index lors de son instanciation. Un vecteur de paires contenant
-un point 3D et une variable du type de l'attribut \textit{info()} (voir figure
-\ref{fig::vector_atom_index}) convient.
+We focus now on the determination of the interface itself.
+By keeping only the useful edges (see figure \ref{fig::delaunays_process_1}),
+ that is those connecting two points belonging to two different proteins,
+ we can approximate the interface of contact thanks to the Voronoï diagram.
 
 \begin{figure}[ht]
 \centering
-  \includegraphics[width=\textwidth]{figures/vector_atom_index.png}
-  \caption{Déclaration du vecteur contenant les atomes et leurs index}
-  \label{fig::vector_atom_index}
+\begin{subfigure}{0.45\textwidth}
+  \centering
+  \includegraphics[width=\textwidth]{figures/process_d_1.png}
+  \caption{Delaunay Triangulation}
+  \label{fig::process_d_1}
+\end{subfigure}%
+\begin{subfigure}{0.1\textwidth}
+  \centering
+  $\Longrightarrow$
+\end{subfigure}%
+\begin{subfigure}{0.45\textwidth}
+  \centering
+  \includegraphics[width=\textwidth]{figures/process_d_2.png}
+  \caption{Edges at the interface}
+  \label{fig::process_d_2}
+\end{subfigure}
+\caption{Triangulations et useful area}
+\label{fig::delaunays_process_1}
 \end{figure}
 
-La fonction complète permettant d'écrire un fichier\textit{.pdb} dans une structure
-\textit{CGAL::Delaunay} est disponible en annexe (voir figure \ref{fig::read_pdb}).
-On remarque la présence de la \textit{map} C++ \textit{is\_interface}
-(voir figure \ref{fig::is_interface}) qui sera utilisée par la suite
-pour sélectionner les tétrahèdres présents à l'interface (voir figure \ref{fig::delaunays}).
+
+This diagram is the dual of the Delaunay triangulation and represents points
+equally distant from the points of the triangulation (see figure \ref{fig::process_d_3}).
+By keeping only the parts of the Voronoï diagram which correspond
+ to the previously selected edges (to see figure \ref{fig::process_d_4}),
+  we obtain a line strait by pieces which approximates the interface of contact in dimension 2.
 
 \begin{figure}[ht]
 \centering
-  \includegraphics[width=0.5\textwidth]{figures/is_interface.png}
-  \caption{Déclaration de la map is\_interface}
-  \label{fig::is_interface}
+\begin{subfigure}{0.45\textwidth}
+  \centering
+  \includegraphics[width=\textwidth]{figures/process_d_3.png}
+  \caption{Voronoï Diagramme}
+  \label{fig::process_d_3}
+\end{subfigure}%
+\begin{subfigure}{0.1\textwidth}
+  \centering
+  $\Longrightarrow$
+\end{subfigure}%
+\begin{subfigure}{0.45\textwidth}
+  \centering
+  \includegraphics[width=\textwidth]{figures/process_d_4.png}
+  \caption{Interface}
+  \label{fig::process_d_4}
+\end{subfigure}
+\caption{Calculation of the surface}
+\label{fig::delaunays_process_2}
 \end{figure}
 
-\section{Construction de la surface}
-\begin{itemize}
-  \item Tesselation $\to$ Arêtes à l'interface $\to$ Dual (Surface)
-  \item Index + Informations : Lien entre le .pdb (Chaîne, Atome, etc.) et les points de la surface
-  \item smoothing
-\end{itemize}
 
-Lorsque les strucures de Delaunay ont été créées, il devient possible de calculer l'interface
-entre les deux protéines du complexe, ce qui constitue la partie centrale du projet.
-En implémentant la méthode vue dans la partie Triangulation de Delaunay, nous pouvons générer
-une surface qui pourra être affichée. Cette surface est un regroupement de polyhèdres
-de nombre de côtés variable.
+\section{Dimension 3}
 
-
-
-Dans la première partie de l'implémentation, nous stockons la surface dans \textit{vecteur}
-(\textit{all\_faces\_indexes})
-et une \textit{map} (\textit{surf\_points}) (voir figure \ref{fig::init_surf_vector}) qui permettent de garder
-en mémoire les coordonnées des points
-et les indices permettant d'afficher les faces. La \textit{map} recense tous les points
-de la surface une fois, c'est-à-dire que les points utilisés dans différentes face de la surface
-ne sont présent qu'une seule fois dans la map. Cela permet de réduire considérablement
-la quantité de données et d'accélerer l'affichage. A chaque point de la map correspond
-un indice initialisé à 0 et qui sera mis à jour lors de l'écriture des fichiers utilisés
-pour l'affichage. Ensuite, le \textit{vecteur} regroupe toutes les faces de la surface
-sous forme de vecteurs de point 3D. Le vecteur \textit{all\_faces\_indexes} contiendra
-donc autant de vecteurs que le nombre de faces de la surface.
-
+If we transpose the method seen above in dimension 3, the triangles formed
+ by points become tetrahedrons on which we will work to calculate the interface.
+  In the same way, a tetrahedron will be considered
+at the interface if it contains at least an atom of every protein.
+Furthermore, the dual of an edge becomes a surface surrounding this
+ edge (see figure \ref{fig::dual_3d}). By gathering
+  these pieces, we obtain a surface in three dimensions which models
+  the contact area between both proteins of the studied complex.
 
 \begin{figure}[ht]
 \centering
-  \includegraphics[width=\textwidth]{figures/init_surf_vect.png}
-  \caption{Déclaration des vecteurs stockant la surface}
-  \label{fig::init_surf_vector}
+  \includegraphics[width=\textwidth]{figures/dual_3d.png}
+  \caption{Dual of an edge Dimension 3}
+  \label{fig::dual_3d}
 \end{figure}
 
-Nous allons maintenant détailler les différentes parties de la fonction écrite pour
-le calcul de l'interface (\textit{calculateInterface()}) qui est disponible en
-annexe (voir figure \ref{fig::calculate_interface}).
-
-Dans un premier temps, nous utilisons un itérateur fourni par CGAL pour parcourir
-les arêtes de la triangulation (voir figure \ref{fig::iter_edges}).
-\begin{figure}[ht]
-\centering
-  \includegraphics[width=\textwidth]{figures/iter_edges.png}
-  \caption{Itération sur les arêtes}
-  \label{fig::iter_edges}
-\end{figure}
-Dans cette itération, on vérifie pour chaque arête si elle est à l'interface, c'est-à-dire
-si elle possède un atome de chaque chaîne. Pour cela, nous nous référons à l'\textit{Image pdb}
-grâce à l'indice stocké dans l'attribut \textit{info()} de chaque vertice. Il est possible
-d'accéder à la valeur de la chaîne (A ou B) avec la commande en figure \ref{fig::init_surf_vector}.
-\begin{figure}[ht]
-\centering
-  \includegraphics[width=0.6\textwidth]{figures/access_chain.png}
-  \caption{Accès à la chaîne à laquelle appartient une vertice}
-  \label{fig::access_chain}
-\end{figure}
-Dans cette commande, \textit{first} correspond à la cellule en cours d'accès et
-\textit{second} à l'indice de la première vertice de l'arête (\textit{third} permettra
-d'accéder à la seconde vertice de l'arête).
-
-Après cette vérification, nous utilisons un circulateur pour "tourner" autour de l'arête
-concernée. En effet, le dual de Voronoï d'une arête dans un espace en trois dimension
-est un polyèdre. Celui-ci est composé des points qui sont les duaux des cellules (tétrahèdres)
-adjacentes à l'arête étudiée. Le circulateur permet donc de parcourir les cellules adjacentes
-des arêtes à l'interface. Chacun de ces point est alors stockés dans le \textit{vecteur} et
-la \textit{map} de la manière expliquée plus haut.
-
-Il est important d'expliquer d'autres vérifications qui sont efféctuées avant de stocker
-chaque point. Par exemple, il existe dans la structure \textit{Delaunay} de CGAL
-un point "infini" permettant de "fermer" la triangulation dans l'espace. Ce point, bien
-qu'utile aux calculs effectués par CGAL, ne doit pas être pris en compte car il n'est pas réel.
-Nous vérifions donc qu'aucun des tetrahèdres adjacents à l'arête parcourue ne contient
-ce point spécifique. De plus, si l'on récupère tous les points générés par le calcul du
-diagramme de Voronoï, certains d'entre eux se trouveront en dehors de la zone utile à l'analyse
-de l'interface. Pour éliminer ces points, nous avons procédé en amont au calcul
-du barycentre de la protéine puis nous avons recensé la distance maximale entre un point du complexe
-et son barycentre. Si la distance entre un point d'une face et le barycentre calculé
-est supérieure à un certain pourcentage (ici 130\%) de la distance maximale, alors
-la face ne sera pas gardée (voir figure \ref{fig::check_max_dist}).
-\begin{figure}[ht]
-\centering
-  \includegraphics[width=\textwidth]{figures/check_max_dist.png}
-  \caption{Vérification de la distance au barycentre}
-  \label{fig::check_max_dist}
-\end{figure}
-
-Nous utilisons ensuite une autre classe CGAL (\textit{Polyhedron}) qui permet de stocker
-une surface en trois dimension. L'avantage de cette classe est qu'elle possède
-une méthode permettant d'appliquer une subdivision de Catmull-Clark (voir figure
-\ref{fig::subdivide}). Cette subdivision permet de lisser la surface par morceaux
-pour l'affichage.
-\begin{figure}[ht]
-\centering
-  \includegraphics[width=0.8\textwidth]{figures/subdivide.png}
-  \caption{Subdivision de Catmull-Clark}
-  \label{fig::subdivide}
-\end{figure}
-
-\section{Affichage}
-\begin{itemize}
-  \item .off files $\to$ écriture avec indexation
-\end{itemize}
-
-Pour l'affichage des protéines et de l'interface, nous avons choisi les fichiers
-\textit{.off} qui permettent de stocker une liste de points (colorés ou non) et
-d'indiquer les liens entre chacun de ces points (voir figure \ref{fig::off_file}).
+The triangulation in three dimensions of a point cloud corresponding to
+ the atoms of a complex gives the figure \ref{fig::delaunays_3d}.
 
 \begin{figure}[ht]
 \centering
-  \includegraphics[width=0.3\textwidth]{figures/off_file.png}
-  \caption{Exemple de fichier \textit{.off}}
-  \label{fig::off_file}
+\begin{subfigure}{0.45\textwidth}
+  \centering
+  \includegraphics[width=\textwidth]{figures/small_prot.png}
+  \caption{Part of a complexe}
+  \label{fig::small_prot}
+\end{subfigure}%
+\begin{subfigure}{0.1\textwidth}
+  \centering
+  $\Longrightarrow$
+\end{subfigure}%
+\begin{subfigure}{0.45\textwidth}
+  \centering
+  \includegraphics[width=\textwidth]{figures/3d_triangulation04.png}
+  \caption{Triangulation}
+  \label{fig::prot_delaunay}
+\end{subfigure}
+\caption{3D Triangulation of a complex}
+\label{fig::delaunays_3d}
 \end{figure}
-
-La première ligne indique le type de fichier (OFF) et la présence ou non de coloration :
-[C] si oui un espace vide sinon. La seconde ligne donne, dans cet ordre, le nombre
-de points, le nombre de cellules (polyhèdres) et le nombre d'arêtes ce dernier n'étant
-pas nécessaire à la lecture du fichier. Dans notre exemple, les lignes 4 à 22 listent
-les coordonnées des points et la couleur associée à chacun. La couleur est stockée en RGB
-(Rouge, Vert, Bleu) avec des entiers entre 0 et 255 ou des flottants entre 0.0 et 1.0.
-
-Au delà de la ligne 23, les cellules sont listées, avec comme premier entier à chaque
-ligne, le nombre de points de la cellule. Comme notre exemple représente une triangulation
-de Delaunay, ce nombre vaut 3 car chaque face de la triangulation correspond à un
-triangle. A la suite de cet entier viennent les indices des points composant la cellule
-(ou la face). Cet indice correspond à la place des coordonnées listées plus haut.

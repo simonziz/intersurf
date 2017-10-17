@@ -66,7 +66,8 @@ void savePointsOFF(const char* filename, Delaunay m_dt, PdbImage *pdb)
 
 /// Function to write the surface into a .off file
 
-void saveSurface0FF(const char* filename, std::map<K::Point_3, unsigned int > surf_points, std::vector<std::vector<K::Point_3> > all_faces_indexes)
+void saveSurface0FF(const char* filename, std::map<K::Point_3, unsigned int > surf_points,
+                    std::vector<std::vector<K::Point_3> > all_faces_indexes)
 {
     // Open file to write .off
     std::ofstream fout;

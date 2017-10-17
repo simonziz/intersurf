@@ -12,25 +12,26 @@ et l'affichage (voir figure \ref{fig::flow_chart}).
 \end{figure}
 
 \section{Architecture Logicielle}
-\begin{itemize}
-  \item C / C++ / Libraries
-  \item Compilation Cmake
-\end{itemize}
+
 Les différentes étapes du programme nécessitent la mise en commun de plusieurs langages
 \begin{itemize}
   \item C : lecture du fichier \textit{.pdb}
   \item C++ : traitement des nuages de points avec CGAL
 \end{itemize}
 De plus, de nombreuses bibliothèques on été utilisées pour permettre le bon fonctionnement
-CGAL
+CGAL telles que \textit{Boost} ou \textit{QT5}. Le problème étant que l'installation pouvant
+être indépendante de CGAL, les chemins pour la compilation peuvent différer.
+
+La documentation CGAL indique que la compilation s'effectue via un Cmake. Nous avons donc choisi
+de compiler le projet entier de cette manière, afin d'obtenir un seul executable.
+Cette méthode de compilation a l'avantage de ne pas nécessiter de modification lors de l'ajout
+de fichier au projet. Cependant, ayant son propre langage, elle est plus longue à prendre en
+main et pose des difficultés lorsque le projet regroupe un grand nombre de bibliothèques
+ou de dépendances, ce qui est notre cas.
 
 
 \section{Récupération de données + stockage}
-\begin{itemize}
-  \item .pdb files + pdb reader
-  \item Tableau et méthode de stockage (C++ structures)
-  \item CGAL structures : Delaunay + Polyhedron
-\end{itemize}
+
 
 Le point de départ du projet est de lire un fichier \textit{.pdb} et de le stocker
 de manière à créer les structures fournies par CGAL. Nous avons utilisé une partie du programme
@@ -53,7 +54,7 @@ Pour créer une structure de Delaunay, CGAL prend normalement une liste de point
 sous forme de tableau. Cependant, utiliser cette méthode simple ne premettrait pas d'accéder aux
 informations contenues dans le fichier \textit{.pdb}. En effet, chaque vertice (point), de la
 triangulation de Delaunay doit être indexé de manière à retrouver les informations voulues dans la
-liste d'atome fournie par le fichier de départ. Les index doivent donc être choisis
+liste d'atomes fournie par le fichier de départ. Les indices doivent donc être choisis
 au moment de la lecture de l'\textit{Image pdb} pour correspondre à la place de l'atome
 dans le tableau.
 Il existe deux méthodes pour insérer un index à une variable de type Vertex dans CGAL :
@@ -74,14 +75,14 @@ sa simplicité. Lors de l'instanciation, cette classe prend notamment en paramè
 
 Le type de l'index est donc un entier positif qui fera partie de la structure Delaunay
 et sera accessible lors du parcours de ces structures. Cependant, la structure de Delaunay
-requiert l'ajout d'un index lors de son instanciation. Un vecteur de paires contenant
+requiert l'ajout d'un indice lors de son instanciation. Un vecteur de paires contenant
 un point 3D et une variable du type de l'attribut \textit{info()} (voir figure
 \ref{fig::vector_atom_index}) convient.
 
 \begin{figure}[ht]
 \centering
   \includegraphics[width=\textwidth]{figures/vector_atom_index.png}
-  \caption{Déclaration du vecteur contenant les atomes et leurs index}
+  \caption{Déclaration du vecteur contenant les atomes et leurs indices}
   \label{fig::vector_atom_index}
 \end{figure}
 
@@ -98,12 +99,11 @@ pour sélectionner les tétrahèdres présents à l'interface (voir figure \ref{
   \label{fig::is_interface}
 \end{figure}
 
+
+
+
 \section{Construction de la surface}
-\begin{itemize}
-  \item Tesselation $\to$ Arêtes à l'interface $\to$ Dual (Surface)
-  \item Index + Informations : Lien entre le .pdb (Chaîne, Atome, etc.) et les points de la surface
-  \item smoothing
-\end{itemize}
+
 
 Lorsque les strucures de Delaunay ont été créées, il devient possible de calculer l'interface
 entre les deux protéines du complexe, ce qui constitue la partie centrale du projet.
@@ -115,15 +115,15 @@ de nombre de côtés variable.
 
 Dans la première partie de l'implémentation, nous stockons la surface dans \textit{vecteur}
 (\textit{all\_faces\_indexes})
-et une \textit{map} (\textit{surf\_points}) (voir figure \ref{fig::init_surf_vector}) qui permettent de garder
-en mémoire les coordonnées des points
+et une \textit{map} (\textit{surf\_points}) (voir figure \ref{fig::init_surf_vector})
+qui permettent de garder en mémoire les coordonnées des points
 et les indices permettant d'afficher les faces. La \textit{map} recense tous les points
 de la surface une fois, c'est-à-dire que les points utilisés dans différentes face de la surface
-ne sont présent qu'une seule fois dans la map. Cela permet de réduire considérablement
+ne sont présents qu'une seule fois dans la map. Cela permet de réduire considérablement
 la quantité de données et d'accélerer l'affichage. A chaque point de la map correspond
 un indice initialisé à 0 et qui sera mis à jour lors de l'écriture des fichiers utilisés
 pour l'affichage. Ensuite, le \textit{vecteur} regroupe toutes les faces de la surface
-sous forme de vecteurs de point 3D. Le vecteur \textit{all\_faces\_indexes} contiendra
+sous forme de vecteurs de points 3D. Le vecteur \textit{all\_faces\_indexes} contiendra
 donc autant de vecteurs que le nombre de faces de la surface.
 
 
@@ -149,7 +149,7 @@ les arêtes de la triangulation (voir figure \ref{fig::iter_edges}).
 Dans cette itération, on vérifie pour chaque arête si elle est à l'interface, c'est-à-dire
 si elle possède un atome de chaque chaîne. Pour cela, nous nous référons à l'\textit{Image pdb}
 grâce à l'indice stocké dans l'attribut \textit{info()} de chaque vertice. Il est possible
-d'accéder à la valeur de la chaîne (A ou B) avec la commande en figure \ref{fig::init_surf_vector}.
+d'accéder à la valeur de la chaîne (A ou B) avec la commande en figure \ref{fig::access_chain}.
 \begin{figure}[ht]
 \centering
   \includegraphics[width=0.6\textwidth]{figures/access_chain.png}
@@ -164,7 +164,7 @@ Après cette vérification, nous utilisons un circulateur pour "tourner" autour 
 concernée. En effet, le dual de Voronoï d'une arête dans un espace en trois dimension
 est un polyèdre. Celui-ci est composé des points qui sont les duaux des cellules (tétrahèdres)
 adjacentes à l'arête étudiée. Le circulateur permet donc de parcourir les cellules adjacentes
-des arêtes à l'interface. Chacun de ces point est alors stockés dans le \textit{vecteur} et
+des arêtes à l'interface. Chacun de ces points est alors stocké dans le \textit{vecteur} et
 la \textit{map} de la manière expliquée plus haut.
 
 Il est important d'expliquer d'autres vérifications qui sont efféctuées avant de stocker
@@ -186,8 +186,37 @@ la face ne sera pas gardée (voir figure \ref{fig::check_max_dist}).
   \label{fig::check_max_dist}
 \end{figure}
 
-Nous utilisons ensuite une autre classe CGAL (\textit{Polyhedron}) qui permet de stocker
-une surface en trois dimension. L'avantage de cette classe est qu'elle possède
+
+La surface est donc stockée dans un \textit{vecteur} et une \textit{map} qui permettront
+d'écrire les fichiers \textit{.off} que nous utiliserons pour l'affichage (voir partie
+suivante). Ces fichiers ont l'avantage d'être directement lisibles, s'ils sont valides,
+grâce une autre classe CGAL (\textit{Polyhedron}) qui permet de stocker
+une surface en trois dimension.
+Or, la validité de cette surface peut poser problème. En, effet, la classe \textit{Polyhedron}
+suppose que les arêtes sont orientées (voir figure \ref{fig::polyheder}). La surface
+sera considérée comme invalide si l'orientation des arêtes dans une face change de sens.
+\begin{figure}[ht]
+\centering
+  \includegraphics[width=0.8\textwidth]{figures/polyheder.png}
+  \caption{Classe Polyhedron}
+  \label{fig::polyheder}
+\end{figure}
+
+Pour assurer la validité de la surface, il faut garder le même sens de parcours
+tout au long du remplissage de la surface. Nous choisissons pour cela arbitrairement le sens
+du circulateur en fonction de la première vertice rencontrée (voir figure \ref{fig::choix_sens}).
+Nous nous assurons ainsi que le parcours du nuage de points s'effectue toujours dans le même
+sens.
+\begin{figure}[ht]
+\centering
+  \includegraphics[width=0.8\textwidth]{figures/choix_sens.png}
+  \caption{Choix du sens de circulation}
+  \label{fig::choix_sens}
+\end{figure}
+
+
+
+ L'avantage de cette classe est qu'elle possède
 une méthode permettant d'appliquer une subdivision de Catmull-Clark (voir figure
 \ref{fig::subdivide}). Cette subdivision permet de lisser la surface par morceaux
 pour l'affichage.
@@ -199,9 +228,6 @@ pour l'affichage.
 \end{figure}
 
 \section{Affichage}
-\begin{itemize}
-  \item .off files $\to$ écriture avec indexation
-\end{itemize}
 
 Pour l'affichage des protéines et de l'interface, nous avons choisi les fichiers
 \textit{.off} qui permettent de stocker une liste de points (colorés ou non) et
@@ -216,7 +242,7 @@ d'indiquer les liens entre chacun de ces points (voir figure \ref{fig::off_file}
 
 La première ligne indique le type de fichier (OFF) et la présence ou non de coloration :
 [C] si oui un espace vide sinon. La seconde ligne donne, dans cet ordre, le nombre
-de points, le nombre de cellules (polyhèdres) et le nombre d'arêtes ce dernier n'étant
+de points, le nombre de cellules (polyhèdres) et le nombre d'arêtes, ce dernier n'étant
 pas nécessaire à la lecture du fichier. Dans notre exemple, les lignes 4 à 22 listent
 les coordonnées des points et la couleur associée à chacun. La couleur est stockée en RGB
 (Rouge, Vert, Bleu) avec des entiers entre 0 et 255 ou des flottants entre 0.0 et 1.0.
@@ -224,5 +250,43 @@ les coordonnées des points et la couleur associée à chacun. La couleur est st
 Au delà de la ligne 23, les cellules sont listées, avec comme premier entier à chaque
 ligne, le nombre de points de la cellule. Comme notre exemple représente une triangulation
 de Delaunay, ce nombre vaut 3 car chaque face de la triangulation correspond à un
-triangle. A la suite de cet entier viennent les indices des points composant la cellule
+triangle (cela ne sera plus valable pour la surface dont les faces peuvent comporter un nombre
+quelconque de points). A la suite de cet entier viennent les indices des points composant la cellule
 (ou la face). Cet indice correspond à la place des coordonnées listées plus haut.
+
+La fonction qui permet d'écrire ce fichier depuis la \textit{map} et le \textit{vecteur}
+qui stockent la surface est disponible en annexe (voir figure \ref{fig::save_surface_off}).
+Les deux points principaux sont le parcours de la \textit{map} pour écrire les coordonnées
+des points (voir figure \ref{fig::go_map}) grâce à la bibliothèque standard du C++ (\textit{std::ofstream}).
+Dans cette boucle, nous mettons à jour l'indice
+de chaque point pour lui donner la valeur de sa place dans la liste des points.
+
+\begin{figure}[ht]
+\centering
+  \includegraphics[width=\textwidth]{figures/go_map.png}
+  \caption{Parcours de la \textit{map}}
+  \label{fig::go_map}
+\end{figure}
+
+Ensuite, nous parcourons le \textit{vecteur} stockant les point de chaque face pour en écrire
+les indices en respectant la structure du fichier \textit{.off.} (voir figure \ref{fig::go_vector}).
+\begin{figure}[ht]
+\centering
+  \includegraphics[width=\textwidth]{figures/go_vector.png}
+  \caption{Parcours du \textit{vecteur}}
+  \label{fig::go_vector}
+\end{figure}
+
+La fonction décrite permet d'obtenir des fichiers qui seront lisible par un logiciel de
+visualisation tel que MeshLab. Ces fichiers sont également conformes à ce qui est
+attendu par la classe \textit{Polyhedron}.
+
+D'autre part, nous utilisons une méthode semblable pour écrire les fichiers \textit{.off}
+qui permettent d'afficher les triangulations. Ainsi, nous itérons une première fois
+sur les vertices pour lister les points. Comme précedemment, nous utilisons une \textit{map}
+pour garder en mémoire l'ordre des points via une indexation. Ensuite, nous itérons sur
+les faces de la triangulation et nous récupérons les indices de chaque point dans la
+\textit{map} créée à cet effet.
+
+
+Finalement, ces fichiers permettent de visualiser le complexe et son interface.

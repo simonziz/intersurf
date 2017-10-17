@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.9.6)  11 OCT 2017 17:45
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.9.6)  12 OCT 2017 18:37
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1953,208 +1953,134 @@ LaTeX Font Info:    Font shape `T1/LinuxLibertineMonoT-TLF/m/n' will be
  (/home/simon/Documents/pfe/intersurf/rapport_anglais/content/remerciements.tex) [1
 
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2
-
-]
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
 (/home/simon/Documents/pfe/intersurf/rapport_anglais/main.toc)
 \tf@toc=\write7
 \openout7 = `main.toc'.
 
- [3
-
-] [4
+ [2
 
 ] (/home/simon/Documents/pfe/intersurf/rapport_anglais/content/introduction.tex) (/home/simon/Documents/pfe/intersurf/rapport_anglais/content/chapter1.tex [1
+
 
 ]
 Chapitre 1.
 
-LaTeX Warning: Reference `fig:: pdb_file' on page 2 undefined on input line 24.
+LaTeX Warning: Reference `fig:: pdb_file' on page 2 undefined on input line 22.
 
-<figures/pdb_example.png, id=111, 607.26875pt x 435.6275pt>
+<figures/pdb_example.png, id=79, 607.26875pt x 435.6275pt>
 File: figures/pdb_example.png Graphic file (type png)
  <use figures/pdb_example.png>
-Package pdftex.def Info: figures/pdb_example.png used on input line 32.
+Package pdftex.def Info: figures/pdb_example.png used on input line 30.
 (pdftex.def)             Requested size: 469.47049pt x 336.78357pt.
- [2
 
-] <figures/explication_delaunay.png, id=120, 541.02126pt x 306.14375pt>
+
+LaTeX Warning: Reference `fig:: pdb_file' on page 2 undefined on input line 41.
+
+) (/home/simon/Documents/pfe/intersurf/rapport_anglais/content/chapter2.tex [2
+
+] [3 </home/simon/Documents/pfe/intersurf/rapport_anglais/figures/pdb_example.png>]
+Chapitre 2.
+<figures/explication_delaunay.png, id=93, 541.02126pt x 306.14375pt>
 File: figures/explication_delaunay.png Graphic file (type png)
  <use figures/explication_delaunay.png>
-Package pdftex.def Info: figures/explication_delaunay.png used on input line 64.
+Package pdftex.def Info: figures/explication_delaunay.png used on input line 14.
 (pdftex.def)             Requested size: 469.47049pt x 265.66554pt.
- <figures/delaunay.png, id=123, 567.11874pt x 391.4625pt>
+ <figures/delaunay.png, id=96, 567.11874pt x 391.4625pt>
 File: figures/delaunay.png Graphic file (type png)
  <use figures/delaunay.png>
-Package pdftex.def Info: figures/delaunay.png used on input line 87.
+Package pdftex.def Info: figures/delaunay.png used on input line 38.
 (pdftex.def)             Requested size: 187.78532pt x 129.61906pt.
- <figures/delaunay_reduced.png, id=124, 567.11874pt x 391.4625pt>
+ <figures/delaunay_reduced.png, id=97, 567.11874pt x 391.4625pt>
 File: figures/delaunay_reduced.png Graphic file (type png)
  <use figures/delaunay_reduced.png>
-Package pdftex.def Info: figures/delaunay_reduced.png used on input line 97.
+Package pdftex.def Info: figures/delaunay_reduced.png used on input line 48.
 (pdftex.def)             Requested size: 187.78532pt x 129.61906pt.
+ [4
 
-Underfull \vbox (badness 1242) has occurred while \output is active []
-
- [3 </home/simon/Documents/pfe/intersurf/rapport_anglais/figures/pdb_example.png>] <figures/process_d_1.png, id=133, 691.58376pt x 606.265pt>
+ </home/simon/Documents/pfe/intersurf/rapport_anglais/figures/explication_delaunay.png>] <figures/process_d_1.png, id=106, 691.58376pt x 606.265pt>
 File: figures/process_d_1.png Graphic file (type png)
  <use figures/process_d_1.png>
-Package pdftex.def Info: figures/process_d_1.png used on input line 115.
+Package pdftex.def Info: figures/process_d_1.png used on input line 65.
 (pdftex.def)             Requested size: 211.26028pt x 185.1927pt.
- <figures/process_d_2.png, id=134, 691.58376pt x 606.265pt>
+ <figures/process_d_2.png, id=107, 691.58376pt x 606.265pt>
 File: figures/process_d_2.png Graphic file (type png)
  <use figures/process_d_2.png>
-Package pdftex.def Info: figures/process_d_2.png used on input line 125.
+Package pdftex.def Info: figures/process_d_2.png used on input line 75.
 (pdftex.def)             Requested size: 211.26028pt x 185.1927pt.
- <figures/process_d_3.png, id=137, 691.58376pt x 606.265pt>
+ <figures/process_d_3.png, id=110, 691.58376pt x 606.265pt>
 File: figures/process_d_3.png Graphic file (type png)
  <use figures/process_d_3.png>
-Package pdftex.def Info: figures/process_d_3.png used on input line 144.
+Package pdftex.def Info: figures/process_d_3.png used on input line 94.
 (pdftex.def)             Requested size: 211.26028pt x 185.1927pt.
- <figures/process_d_4.png, id=138, 691.58376pt x 606.265pt>
+ <figures/process_d_4.png, id=111, 691.58376pt x 606.265pt>
 File: figures/process_d_4.png Graphic file (type png)
  <use figures/process_d_4.png>
-Package pdftex.def Info: figures/process_d_4.png used on input line 154.
+Package pdftex.def Info: figures/process_d_4.png used on input line 104.
 (pdftex.def)             Requested size: 211.26028pt x 185.1927pt.
- [4 </home/simon/Documents/pfe/intersurf/rapport_anglais/figures/explication_delaunay.png> </home/simon/Documents/pfe/intersurf/rapport_anglais/figures/delaunay.png> </home/simon/Documents/pfe/intersurf/rapport_anglais/figures/delaunay_reduced.png>] <figures/dual_3d.png, id=148, 512.91624pt x 280.04625pt>
+ [5 </home/simon/Documents/pfe/intersurf/rapport_anglais/figures/delaunay.png> </home/simon/Documents/pfe/intersurf/rapport_anglais/figures/delaunay_reduced.png> </home/simon/Documents/pfe/intersurf/rapport_anglais/figures/process_d_1.png> </home/simon/Documents/pfe/intersurf/rapport_anglais/figures/process_d_2.png>] <figures/dual_3d.png, id=122, 512.91624pt x 280.04625pt>
 File: figures/dual_3d.png Graphic file (type png)
  <use figures/dual_3d.png>
-Package pdftex.def Info: figures/dual_3d.png used on input line 176.
+Package pdftex.def Info: figures/dual_3d.png used on input line 126.
 (pdftex.def)             Requested size: 469.47049pt x 256.32953pt.
- <figures/small_prot.png, id=150, 641.39626pt x 324.21124pt>
+ <figures/small_prot.png, id=124, 641.39626pt x 324.21124pt>
 File: figures/small_prot.png Graphic file (type png)
  <use figures/small_prot.png>
-Package pdftex.def Info: figures/small_prot.png used on input line 188.
+Package pdftex.def Info: figures/small_prot.png used on input line 138.
 (pdftex.def)             Requested size: 211.26028pt x 106.7872pt.
- <figures/3d_triangulation04.png, id=151, 490.08093pt x 461.47406pt>
+ <figures/3d_triangulation04.png, id=125, 490.08093pt x 461.47406pt>
 File: figures/3d_triangulation04.png Graphic file (type png)
-
-<use figures/3d_triangulation04.png>
-Package pdftex.def Info: figures/3d_triangulation04.png used on input line 198.
+ <use figures/3d_triangulation04.png>
+Package pdftex.def Info: figures/3d_triangulation04.png used on input line 148.
 (pdftex.def)             Requested size: 211.26028pt x 198.92287pt.
- [5 </home/simon/Documents/pfe/intersurf/rapport_anglais/figures/process_d_1.png> </home/simon/Documents/pfe/intersurf/rapport_anglais/figures/process_d_2.png> </home/simon/Documents/pfe/intersurf/rapport_anglais/figures/process_d_3.png> </home/simon/Documents/pfe/intersurf/rapport_anglais/figures/process_d_4.png>] [6 </home/simon/Documents/pfe/intersurf/rapport_anglais/figures/dual_3d.png> </home/simon/Documents/pfe/intersurf/rapport_anglais/figures/small_prot.png> </home/simon/Documents/pfe/intersurf/rapport_anglais/figures/3d_triangulation04.png (PNG copy)>] <figures/tetrahedron_cgal.png, id=164, 344.28625pt x 214.8025pt>
+) (/home/simon/Documents/pfe/intersurf/rapport_anglais/content/chapter3.tex [6 </home/simon/Documents/pfe/intersurf/rapport_anglais/figures/process_d_3.png> </home/simon/Documents/pfe/intersurf/rapport_anglais/figures/process_d_4.png> </home/simon/Documents/pfe/intersurf/rapport_anglais/figures/dual_3d.png>] [7 </home/simon/Documents/pfe/intersurf/rapport_anglais/figures/small_prot.png> </home/simon/Documents/pfe/intersurf/rapport_anglais/figures/3d_triangulation04.png (PNG copy)>]
+Chapitre 3.
+
+Package hyperref Warning: Difference (2) between bookmark levels is greater 
+(hyperref)                than one, level fixed on input line 3.
+
+<figures/tetrahedron_cgal.png, id=138, 344.28625pt x 214.8025pt>
 File: figures/tetrahedron_cgal.png Graphic file (type png)
  <use figures/tetrahedron_cgal.png>
-Package pdftex.def Info: figures/tetrahedron_cgal.png used on input line 238.
+Package pdftex.def Info: figures/tetrahedron_cgal.png used on input line 26.
 (pdftex.def)             Requested size: 234.73524pt x 146.4538pt.
- [7
-
- </home/simon/Documents/pfe/intersurf/rapport_anglais/figures/tetrahedron_cgal.png>] <figures/access_it.png, id=171, 831.105pt x 64.24pt>
-File: figures/access_it.png Graphic file (type png)
- <use figures/access_it.png>
-Package pdftex.def Info: figures/access_it.png used on input line 285.
-(pdftex.def)             Requested size: 469.47049pt x 36.28781pt.
- <figures/circ_ex.png, id=173, 665.48625pt x 87.32625pt>
-File: figures/circ_ex.png Graphic file (type png)
- <use figures/circ_ex.png>
-Package pdftex.def Info: figures/circ_ex.png used on input line 298.
-(pdftex.def)             Requested size: 469.47049pt x 61.60498pt.
-)
-(/home/simon/Documents/pfe/intersurf/rapport_anglais/content/chapter2.tex [8 </home/simon/Documents/pfe/intersurf/rapport_anglais/figures/access_it.png> </home/simon/Documents/pfe/intersurf/rapport_anglais/figures/circ_ex.png>]
-Chapitre 2.
-<figures/flow_chart.png, id=181, 1339.0025pt x 392.46625pt>
-File: figures/flow_chart.png Graphic file (type png)
- <use figures/flow_chart.png>
-Package pdftex.def Info: figures/flow_chart.png used on input line 9.
-(pdftex.def)             Requested size: 469.47049pt x 137.60477pt.
- <figures/pdb_image.png, id=183, 693.59125pt x 35.13126pt>
-File: figures/pdb_image.png Graphic file (type png)
- <use figures/pdb_image.png>
-Package pdftex.def Info: figures/pdb_image.png used on input line 41.
-(pdftex.def)             Requested size: 469.47049pt x 23.78009pt.
- [9
-
- </home/simon/Documents/pfe/intersurf/rapport_anglais/figures/flow_chart.png (PNG copy)>] <figures/vertex_base.png, id=191, 552.0625pt x 17.06375pt>
-File: figures/vertex_base.png Graphic file (type png)
- <use figures/vertex_base.png>
-Package pdftex.def Info: figures/vertex_base.png used on input line 64.
-(pdftex.def)             Requested size: 375.57782pt x 11.60916pt.
- <figures/vector_atom_index.png, id=193, 735.74875pt x 22.0825pt>
-File: figures/vector_atom_index.png Graphic file (type png)
- <use figures/vector_atom_index.png>
-Package pdftex.def Info: figures/vector_atom_index.png used on input line 77.
-(pdftex.def)             Requested size: 469.47049pt x 14.09096pt.
- <figures/is_interface.png, id=197, 300.12125pt x 19.07124pt>
-File: figures/is_interface.png Graphic file (type png)
- <use figures/is_interface.png>
-Package pdftex.def Info: figures/is_interface.png used on input line 90.
-(pdftex.def)             Requested size: 234.73524pt x 14.91681pt.
- [10 </home/simon/Documents/pfe/intersurf/rapport_anglais/figures/pdb_image.png> </home/simon/Documents/pfe/intersurf/rapport_anglais/figures/vertex_base.png> </home/simon/Documents/pfe/intersurf/rapport_anglais/figures/vector_atom_index.png>]
-Overfull \hbox (34.1976pt too wide) in paragraph at lines 110--122
-[]\T1/ptm/m/n/12 Dans la pre-mière par-tie de l'im-plé-men-ta-tion, nous sto-ckons la sur-face dans \T1/ptm/m/it/12 vec-teur \T1/ptm/m/n/12 (\T1/ptm/m/it/12 all_faces_indexes\T1/ptm/m/n/12 )
- []
-
-<figures/init_surf_vect.png, id=207, 766.865pt x 31.11626pt>
-File: figures/init_surf_vect.png Graphic file (type png)
- <use figures/init_surf_vect.png>
-Package pdftex.def Info: figures/init_surf_vect.png used on input line 126.
-(pdftex.def)             Requested size: 469.47049pt x 19.04924pt.
-
-
-LaTeX Warning: Reference `fig::calculate_interface' on page 11 undefined on input line 133.
-
-<figures/iter_edges.png, id=209, 827.09pt x 16.06pt>
-File: figures/iter_edges.png Graphic file (type png)
- <use figures/iter_edges.png>
-Package pdftex.def Info: figures/iter_edges.png used on input line 139.
-(pdftex.def)             Requested size: 469.47049pt x 9.11606pt.
- <figures/access_chain.png, id=211, 410.53375pt x 14.0525pt>
-File: figures/access_chain.png Graphic file (type png)
- <use figures/access_chain.png>
-Package pdftex.def Info: figures/access_chain.png used on input line 149.
-(pdftex.def)             Requested size: 281.68515pt x 9.64197pt.
- <figures/check_max_dist.png, id=213, 806.01125pt x 85.31876pt>
-File: figures/check_max_dist.png Graphic file (type png)
- <use figures/check_max_dist.png>
-Package pdftex.def Info: figures/check_max_dist.png used on input line 178.
-(pdftex.def)             Requested size: 469.47049pt x 49.69449pt.
- [11 </home/simon/Documents/pfe/intersurf/rapport_anglais/figures/is_interface.png> </home/simon/Documents/pfe/intersurf/rapport_anglais/figures/init_surf_vect.png> </home/simon/Documents/pfe/intersurf/rapport_anglais/figures/iter_edges.png>] <figures/subdivide.png, id=221, 518.93875pt x 47.17625pt>
-File: figures/subdivide.png Graphic file (type png)
- <use figures/subdivide.png>
-Package pdftex.def Info: figures/subdivide.png used on input line 190.
-(pdftex.def)             Requested size: 375.57782pt x 34.14537pt.
- <figures/off_file.png, id=223, 248.93pt x 633.36626pt>
+ <figures/off_file.png, id=140, 248.93pt x 633.36626pt>
 File: figures/off_file.png Graphic file (type png)
  <use figures/off_file.png>
-Package pdftex.def Info: figures/off_file.png used on input line 206.
+Package pdftex.def Info: figures/off_file.png used on input line 51.
 (pdftex.def)             Requested size: 140.84258pt x 358.35515pt.
-) [12 </home/simon/Documents/pfe/intersurf/rapport_anglais/figures/access_chain.png> </home/simon/Documents/pfe/intersurf/rapport_anglais/figures/check_max_dist.png> </home/simon/Documents/pfe/intersurf/rapport_anglais/figures/subdivide.png>] (/home/simon/Documents/pfe/intersurf/rapport_anglais/content/chapter3.tex
-[13 </home/simon/Documents/pfe/intersurf/rapport_anglais/figures/off_file.png>]
-Chapitre 3.
-<figures/final_no_surf.png, id=238, 673.01437pt x 482.55281pt>
-File: figures/final_no_surf.png Graphic file (type png)
- <use figures/final_no_surf.png>
-Package pdftex.def Info: figures/final_no_surf.png used on input line 15.
-(pdftex.def)             Requested size: 375.57782pt x 269.2926pt.
- <figures/final_with_surf.png, id=239, 673.01437pt x 482.55281pt>
-File: figures/final_with_surf.png Graphic file (type png)
- <use figures/final_with_surf.png>
-Package pdftex.def Info: figures/final_with_surf.png used on input line 22.
-(pdftex.def)             Requested size: 375.57782pt x 269.2926pt.
- [14
+ [8
 
- </home/simon/Documents/pfe/intersurf/rapport_anglais/figures/final_no_surf.png (PNG copy)>]) (/home/simon/Documents/pfe/intersurf/rapport_anglais/content/conclusion.tex [15 </home/simon/Documents/pfe/intersurf/rapport_anglais/figures/final_with_surf.png (PNG copy)>]) [16
+ </home/simon/Documents/pfe/intersurf/rapport_anglais/figures/tetrahedron_cgal.png>]) (/home/simon/Documents/pfe/intersurf/rapport_anglais/content/conclusion.tex [9 </home/simon/Documents/pfe/intersurf/rapport_anglais/figures/off_file.png>]) [10
 
 ] (/home/simon/Documents/pfe/intersurf/rapport_anglais/main.lof)
 \tf@lof=\write8
 \openout8 = `main.lof'.
 
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [17
+ [11
 
 
-] [18] (/home/simon/Documents/pfe/intersurf/rapport_anglais/main.bbl
+] [12
 
-LaTeX Warning: Empty `thebibliography' environment on input line 8.
+] (/home/simon/Documents/pfe/intersurf/rapport_anglais/main.bbl
+LaTeX Font Info:    Try loading font information for T1+pcr on input line 10.
+ (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1pcr.fd
+File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
+)
+Underfull \hbox (badness 4940) in paragraph at lines 14--18
+[]\T1/ptm/m/n/12 Structure d'une pro-téine.  [][]$\T1/pcr/m/n/12 http : / / www2 . cegep-[]ste-[]foy . qc . ca / profs /
+ []
 
-) [19
 
+Underfull \hbox (badness 10000) in paragraph at lines 14--18
+\T1/pcr/m/n/12 gbourbonnais / pascal / fya / chimcell / notesmolecules / proteines _ 2 .
+ []
 
-] [20
+) [13
 
-] [21
+] [14
+
+] [15
 
 ]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 80.
@@ -2163,25 +2089,25 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 80.
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 80.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 80.
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: C69FA08B1A16BEA71ADB8A3BBD7682CB;984.
+(rerunfilecheck)             Checksum: 613099E3AACFBD2C3CD79840072EC2A0;624.
 
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 43755 strings out of 493029
- 844412 string characters out of 6136235
- 952138 words of memory out of 5000000
- 46347 multiletter control sequences out of 15000+600000
- 122780 words of font info for 149 fonts, out of 8000000 for 9000
+ 43667 strings out of 493029
+ 842246 string characters out of 6136235
+ 948190 words of memory out of 5000000
+ 46292 multiletter control sequences out of 15000+600000
+ 123401 words of font info for 151 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 66i,9n,96p,10377b,969s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/txfonts/rtxr.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/txfonts/txsy.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on /home/simon/Documents/pfe/intersurf/rapport_anglais/main.pdf (25 pages, 646110 bytes).
+ 66i,9n,96p,10377b,922s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/txfonts/rtxr.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/txfonts/txsy.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on /home/simon/Documents/pfe/intersurf/rapport_anglais/main.pdf (17 pages, 280420 bytes).
 PDF statistics:
- 337 PDF objects out of 1000 (max. 8388607)
- 275 compressed objects within 3 object streams
- 67 named destinations out of 1000 (max. 500000)
- 276 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 229 PDF objects out of 1000 (max. 8388607)
+ 189 compressed objects within 2 object streams
+ 43 named destinations out of 1000 (max. 500000)
+ 166 words of extra memory for PDF output out of 10000 (max. 10000000)
 

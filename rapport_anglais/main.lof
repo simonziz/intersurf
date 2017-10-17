@@ -1,27 +1,13 @@
 \select@language {french}
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {1.1}{\ignorespaces Example of a .pdb file\relax }}{3}{figure.caption.3}
-\contentsline {figure}{\numberline {1.2}{\ignorespaces Triangulation de Delaunay\relax }}{4}{figure.caption.4}
-\contentsline {figure}{\numberline {1.3}{\ignorespaces R\IeC {\'e}duction d'une triangulation\relax }}{4}{figure.caption.5}
-\contentsline {figure}{\numberline {1.4}{\ignorespaces Triangulations et zone utile\relax }}{5}{figure.caption.6}
-\contentsline {figure}{\numberline {1.5}{\ignorespaces Recherche de la surface de contact\relax }}{5}{figure.caption.7}
-\contentsline {figure}{\numberline {1.6}{\ignorespaces Dual d'une ar\IeC {\^e}te en Dimension 3\relax }}{6}{figure.caption.8}
-\contentsline {figure}{\numberline {1.7}{\ignorespaces Triangulation 3D d'un complexe\relax }}{6}{figure.caption.9}
-\contentsline {figure}{\numberline {1.8}{\ignorespaces Structure d'un tetrah\IeC {\`e}dre dans CGAL\relax }}{7}{figure.caption.10}
-\contentsline {figure}{\numberline {1.9}{\ignorespaces Utilisation d'un it\IeC {\'e}rateur\relax }}{8}{figure.caption.11}
-\contentsline {figure}{\numberline {1.10}{\ignorespaces Utilisation d'un circulateur\relax }}{8}{figure.caption.12}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces Flow chart du programme\relax }}{9}{figure.caption.13}
-\contentsline {figure}{\numberline {2.2}{\ignorespaces R\IeC {\'e}cup\IeC {\'e}ration des donn\IeC {\'e}es du fichier \textit {.pdb}\relax }}{10}{figure.caption.14}
-\contentsline {figure}{\numberline {2.3}{\ignorespaces D\IeC {\'e}claration de la classe \textit {Vertex\_base\_with\_info}\relax }}{10}{figure.caption.15}
-\contentsline {figure}{\numberline {2.4}{\ignorespaces D\IeC {\'e}claration du vecteur contenant les atomes et leurs index\relax }}{10}{figure.caption.16}
-\contentsline {figure}{\numberline {2.5}{\ignorespaces D\IeC {\'e}claration de la map is\_interface\relax }}{11}{figure.caption.17}
-\contentsline {figure}{\numberline {2.6}{\ignorespaces D\IeC {\'e}claration des vecteurs stockant la surface\relax }}{11}{figure.caption.18}
-\contentsline {figure}{\numberline {2.7}{\ignorespaces It\IeC {\'e}ration sur les ar\IeC {\^e}tes\relax }}{11}{figure.caption.19}
-\contentsline {figure}{\numberline {2.8}{\ignorespaces Acc\IeC {\`e}s \IeC {\`a} la cha\IeC {\^\i }ne \IeC {\`a} laquelle appartient une vertice\relax }}{12}{figure.caption.20}
-\contentsline {figure}{\numberline {2.9}{\ignorespaces V\IeC {\'e}rification de la distance au barycentre\relax }}{12}{figure.caption.21}
-\contentsline {figure}{\numberline {2.10}{\ignorespaces Subdivision de Catmull-Clark\relax }}{12}{figure.caption.22}
-\contentsline {figure}{\numberline {2.11}{\ignorespaces Exemple de fichier \textit {.off}\relax }}{13}{figure.caption.23}
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Delaunay Triangulation\relax }}{4}{figure.caption.4}
+\contentsline {figure}{\numberline {2.2}{\ignorespaces R\IeC {\'e}ducing a triangulation\relax }}{5}{figure.caption.5}
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Triangulations et useful area\relax }}{5}{figure.caption.6}
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Calculation of the surface\relax }}{6}{figure.caption.7}
+\contentsline {figure}{\numberline {2.5}{\ignorespaces Dual of an edge Dimension 3\relax }}{6}{figure.caption.8}
+\contentsline {figure}{\numberline {2.6}{\ignorespaces 3D Triangulation of a complex\relax }}{7}{figure.caption.9}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Complexe\relax }}{14}{figure.caption.24}
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Affichage de l'interface entre deux prot\IeC {\'e}ines\relax }}{15}{figure.caption.25}
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Structure of a tetrahedron in CGAL\relax }}{8}{figure.caption.10}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Example of a \textit {.off} file\relax }}{9}{figure.caption.11}
