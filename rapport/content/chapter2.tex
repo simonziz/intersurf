@@ -1,6 +1,6 @@
 \chapter{Développement Logiciel}
 
-Dans cette partie, expliquerons le développement du programme en différentes étapes :
+Dans cette partie, nous expliquerons le développement du programme en différentes étapes :
 l'architecture du programme, la récupération des données, la construction de la surface
 et l'affichage (voir figure \ref{fig::flow_chart}).
 
@@ -18,8 +18,8 @@ Les différentes étapes du programme nécessitent la mise en commun de plusieur
   \item C : lecture du fichier \textit{.pdb}
   \item C++ : traitement des nuages de points avec CGAL
 \end{itemize}
-De plus, de nombreuses bibliothèques on été utilisées pour permettre le bon fonctionnement
-CGAL telles que \textit{Boost} ou \textit{QT5}. Le problème étant que l'installation pouvant
+De plus, de nombreuses bibliothèques ont été utilisées pour permettre le bon fonctionnement
+de \gls{cgal} telles que \textit{Boost} ou \textit{QT5}. Le problème étant que l'installation pouvant
 être indépendante de CGAL, les chemins pour la compilation peuvent différer.
 
 La documentation CGAL indique que la compilation s'effectue via un Cmake. Nous avons donc choisi
@@ -30,29 +30,23 @@ main et pose des difficultés lorsque le projet regroupe un grand nombre de bibl
 ou de dépendances, ce qui est notre cas.
 
 
-\section{Récupération de données + stockage}
+\section{Récupération de données et stockage}
 
 
 Le point de départ du projet est de lire un fichier \textit{.pdb} et de le stocker
-de manière à créer les structures fournies par CGAL. Nous avons utilisé une partie du programme
-\textbf{Hex} développé en C par David Ritchie qui permet de \textit{parser} le fichier
+de manière à créer les structures utilisées par CGAL. Nous avons utilisé une partie du programme
+\textbf{Hex} développé en C par David Ritchie qui permet d'analyser le fichier
 \textit{.pdb} pour récupérer les données utiles du complexe étudié. Ces informations constituent
 la référence utilisée lors de la construction de l'interface lorsque des détails
-sur les atomes (chaîne, etc.) doivent êre connus. La fonction utilisée pour cela
+sur les atomes doivent être connus. Par exemple, si l'on veut connaître la chaîne à
+laquelle appartient un atome, il faut remonter jusqu'à ce fichier. La fonction utilisée pour cela
 renvoie un pointeur vers un tableau recensant toutes les informations utiles, c'est-à-dire
 une image du fichier \textit{.pdb} que nous appellerons \textit{Image pdb} (voir
-figure \ref{fig::read_pdb}).
-
-\begin{figure}[ht]
-\centering
-  \includegraphics[width=\textwidth]{figures/pdb_image.png}
-  \caption{Récupération des données du fichier \textit{.pdb}}
-  \label{fig::read_pdb}
-\end{figure}
+figure \ref{fig::read_pdb} en Annexe).
 
 Pour créer une structure de Delaunay, CGAL prend normalement une liste de points stockée
 sous forme de tableau. Cependant, utiliser cette méthode simple ne premettrait pas d'accéder aux
-informations contenues dans le fichier \textit{.pdb}. En effet, chaque vertice (point), de la
+informations contenues dans le fichier \textit{.pdb}. En effet, chaque sommet de la
 triangulation de Delaunay doit être indexé de manière à retrouver les informations voulues dans la
 liste d'atomes fournie par le fichier de départ. Les indices doivent donc être choisis
 au moment de la lecture de l'\textit{Image pdb} pour correspondre à la place de l'atome
@@ -62,42 +56,19 @@ Il existe deux méthodes pour insérer un index à une variable de type Vertex d
   \item on modifie la classe Vertex en ajoutant un attribut
   \item on utilise une classe différente fournie par CGAL
 \end{itemize}
-Nous avons choisi d'utiliser la seconde méthode (voir figure \ref{fig::vertex_base}) pour
+Nous avons choisi d'utiliser la seconde méthode, qui est native dans \gls{cgal}, pour
 sa simplicité. Lors de l'instanciation, cette classe prend notamment en paramètre
-\textit{template} un type qui de variable qui sera accessible comme l'attribut \textit{info()}.
+\textit{template} un type de variable qui sera accessible comme l'attribut \textit{info()}.
 
-\begin{figure}[ht]
-\centering
-  \includegraphics[width=0.8\textwidth]{figures/vertex_base.png}
-  \caption{Déclaration de la classe \textit{Vertex\_base\_with\_info}}
-  \label{fig::vertex_base}
-\end{figure}
-
-Le type de l'index est donc un entier positif qui fera partie de la structure Delaunay
+Cette variable constitue l'indice et doit donc être un entier positif qui fera partie de la structure Delaunay
 et sera accessible lors du parcours de ces structures. Cependant, la structure de Delaunay
 requiert l'ajout d'un indice lors de son instanciation. Un vecteur de paires contenant
-un point 3D et une variable du type de l'attribut \textit{info()} (voir figure
-\ref{fig::vector_atom_index}) convient.
-
-\begin{figure}[ht]
-\centering
-  \includegraphics[width=\textwidth]{figures/vector_atom_index.png}
-  \caption{Déclaration du vecteur contenant les atomes et leurs indices}
-  \label{fig::vector_atom_index}
-\end{figure}
+un point 3D et une variable du type de l'attribut \textit{info()} convient.
 
 La fonction complète permettant d'écrire un fichier\textit{.pdb} dans une structure
 \textit{CGAL::Delaunay} est disponible en annexe (voir figure \ref{fig::read_pdb}).
-On remarque la présence de la \textit{map} C++ \textit{is\_interface}
-(voir figure \ref{fig::is_interface}) qui sera utilisée par la suite
+On remarque la présence de la \textit{map} C++ \textit{is\_interface} qui sera utilisée par la suite
 pour sélectionner les tétrahèdres présents à l'interface (voir figure \ref{fig::delaunays}).
-
-\begin{figure}[ht]
-\centering
-  \includegraphics[width=0.5\textwidth]{figures/is_interface.png}
-  \caption{Déclaration de la map is\_interface}
-  \label{fig::is_interface}
-\end{figure}
 
 
 
@@ -109,16 +80,22 @@ Lorsque les strucures de Delaunay ont été créées, il devient possible de cal
 entre les deux protéines du complexe, ce qui constitue la partie centrale du projet.
 En implémentant la méthode vue dans la partie Triangulation de Delaunay, nous pouvons générer
 une surface qui pourra être affichée. Cette surface est un regroupement de polyhèdres
-de nombre de côtés variable.
+dont le nombre de côtés varie.
 
 
 
 Dans la première partie de l'implémentation, nous stockons la surface dans \textit{vecteur}
 (\textit{all\_faces\_indexes})
-et une \textit{map} (\textit{surf\_points}) (voir figure \ref{fig::init_surf_vector})
+et une \textit{map} (\textit{surf\_points})
 qui permettent de garder en mémoire les coordonnées des points
-et les indices permettant d'afficher les faces. La \textit{map} recense tous les points
-de la surface une fois, c'est-à-dire que les points utilisés dans différentes face de la surface
+et les indices permettant d'afficher les faces. Une \textit{map} est une structure de données
+utilisée notamment en C++. Ces données sont stockées sous forme de paires (ou couples)
+de variables appelées clef et valeur. Il est alors possible d'accéder à une variable
+valeur de la \textit{map} grâce à la clef qui lui correspond, chaque clef étant unique.
+Dans notre cas, les clefs seront les points 3D de la surface, avec pour valeur les indices
+de ces points.
+La \textit{map}  recense tous les points
+de la surface une fois, c'est-à-dire que les points utilisés dans différentes faces de la surface
 ne sont présents qu'une seule fois dans la map. Cela permet de réduire considérablement
 la quantité de données et d'accélerer l'affichage. A chaque point de la map correspond
 un indice initialisé à 0 et qui sera mis à jour lors de l'écriture des fichiers utilisés
@@ -126,39 +103,25 @@ pour l'affichage. Ensuite, le \textit{vecteur} regroupe toutes les faces de la s
 sous forme de vecteurs de points 3D. Le vecteur \textit{all\_faces\_indexes} contiendra
 donc autant de vecteurs que le nombre de faces de la surface.
 
-
-\begin{figure}[ht]
-\centering
-  \includegraphics[width=\textwidth]{figures/init_surf_vect.png}
-  \caption{Déclaration des vecteurs stockant la surface}
-  \label{fig::init_surf_vector}
-\end{figure}
-
 Nous allons maintenant détailler les différentes parties de la fonction écrite pour
 le calcul de l'interface (\textit{calculateInterface()}) qui est disponible en
 annexe (voir figure \ref{fig::calculate_interface}).
 
 Dans un premier temps, nous utilisons un itérateur fourni par CGAL pour parcourir
-les arêtes de la triangulation (voir figure \ref{fig::iter_edges}).
-\begin{figure}[ht]
-\centering
-  \includegraphics[width=\textwidth]{figures/iter_edges.png}
-  \caption{Itération sur les arêtes}
-  \label{fig::iter_edges}
-\end{figure}
-Dans cette itération, on vérifie pour chaque arête si elle est à l'interface, c'est-à-dire
+les arêtes de la triangulation. Dans cette itération, on vérifie pour chaque arête
+si elle est à l'interface, c'est-à-dire
 si elle possède un atome de chaque chaîne. Pour cela, nous nous référons à l'\textit{Image pdb}
-grâce à l'indice stocké dans l'attribut \textit{info()} de chaque vertice. Il est possible
+grâce à l'indice stocké dans l'attribut \textit{info()} de chaque sommet. Il est possible
 d'accéder à la valeur de la chaîne (A ou B) avec la commande en figure \ref{fig::access_chain}.
 \begin{figure}[ht]
 \centering
   \includegraphics[width=0.6\textwidth]{figures/access_chain.png}
-  \caption{Accès à la chaîne à laquelle appartient une vertice}
+  \caption{Accès à la chaîne à laquelle appartient un sommet}
   \label{fig::access_chain}
 \end{figure}
 Dans cette commande, \textit{first} correspond à la cellule en cours d'accès et
-\textit{second} à l'indice de la première vertice de l'arête (\textit{third} permettra
-d'accéder à la seconde vertice de l'arête).
+\textit{second} à l'indice du premier sommet de l'arête (\textit{third} permettra
+d'accéder au second sommet de l'arête).
 
 Après cette vérification, nous utilisons un circulateur pour "tourner" autour de l'arête
 concernée. En effet, le dual de Voronoï d'une arête dans un espace en trois dimension
@@ -178,13 +141,7 @@ de l'interface. Pour éliminer ces points, nous avons procédé en amont au calc
 du barycentre de la protéine puis nous avons recensé la distance maximale entre un point du complexe
 et son barycentre. Si la distance entre un point d'une face et le barycentre calculé
 est supérieure à un certain pourcentage (ici 130\%) de la distance maximale, alors
-la face ne sera pas gardée (voir figure \ref{fig::check_max_dist}).
-\begin{figure}[ht]
-\centering
-  \includegraphics[width=\textwidth]{figures/check_max_dist.png}
-  \caption{Vérification de la distance au barycentre}
-  \label{fig::check_max_dist}
-\end{figure}
+la face ne sera pas gardée.
 
 
 La surface est donc stockée dans un \textit{vecteur} et une \textit{map} qui permettront
@@ -198,13 +155,13 @@ sera considérée comme invalide si l'orientation des arêtes dans une face chan
 \begin{figure}[ht]
 \centering
   \includegraphics[width=0.8\textwidth]{figures/polyheder.png}
-  \caption{Classe Polyhedron}
+  \caption{Classe Polyhedron \cite{CGAL}}
   \label{fig::polyheder}
 \end{figure}
 
 Pour assurer la validité de la surface, il faut garder le même sens de parcours
 tout au long du remplissage de la surface. Nous choisissons pour cela arbitrairement le sens
-du circulateur en fonction de la première vertice rencontrée (voir figure \ref{fig::choix_sens}).
+du circulateur en fonction du premier sommet rencontré (voir figure \ref{fig::choix_sens}).
 Nous nous assurons ainsi que le parcours du nuage de points s'effectue toujours dans le même
 sens.
 \begin{figure}[ht]
@@ -217,15 +174,10 @@ sens.
 
 
  L'avantage de cette classe est qu'elle possède
-une méthode permettant d'appliquer une subdivision de Catmull-Clark (voir figure
-\ref{fig::subdivide}). Cette subdivision permet de lisser la surface par morceaux
+une méthode permettant d'appliquer une subdivision de Catmull-Clark.
+Cette subdivision permet de lisser la surface par morceaux
 pour l'affichage.
-\begin{figure}[ht]
-\centering
-  \includegraphics[width=0.8\textwidth]{figures/subdivide.png}
-  \caption{Subdivision de Catmull-Clark}
-  \label{fig::subdivide}
-\end{figure}
+
 
 \section{Affichage}
 
@@ -252,38 +204,53 @@ ligne, le nombre de points de la cellule. Comme notre exemple représente une tr
 de Delaunay, ce nombre vaut 3 car chaque face de la triangulation correspond à un
 triangle (cela ne sera plus valable pour la surface dont les faces peuvent comporter un nombre
 quelconque de points). A la suite de cet entier viennent les indices des points composant la cellule
-(ou la face). Cet indice correspond à la place des coordonnées listées plus haut.
+(ou la face). Cet indice correspond à la place des coordonnées listées plus haut. Ainsi,
+sans notre exemple, le point listé ligne 4 a pour indice 0, celui en ligne 5 a pour indice 1
+et ainsi de suite.
 
 La fonction qui permet d'écrire ce fichier depuis la \textit{map} et le \textit{vecteur}
-qui stockent la surface est disponible en annexe (voir figure \ref{fig::save_surface_off}).
+stockant la surface est disponible en annexe (voir figure \ref{fig::save_surface_off}).
 Les deux points principaux sont le parcours de la \textit{map} pour écrire les coordonnées
-des points (voir figure \ref{fig::go_map}) grâce à la bibliothèque standard du C++ (\textit{std::ofstream}).
+des points grâce à la bibliothèque standard du C++ (\textit{std::ofstream}).
 Dans cette boucle, nous mettons à jour l'indice
-de chaque point pour lui donner la valeur de sa place dans la liste des points.
+de chaque point pour lui donner la valeur de sa place dans la liste des points (voir
+pseudo code).
 
-\begin{figure}[ht]
-\centering
-  \includegraphics[width=\textwidth]{figures/go_map.png}
-  \caption{Parcours de la \textit{map}}
-  \label{fig::go_map}
-\end{figure}
+
+\begin{lstlisting}
+Initialiser un compteur à 0
+Pour tous les points de la map   //Parcours avec à un iterateur
+  Ecrire les coordonnées du point courant dans le fichier .off
+  Sauter une ligne dans le fichier .off
+  Mettre à jour la valeur correspondant au point courant avec le compteur
+  Incrementer le compteur
+Fin Pour
+\end{lstlisting}
+
 
 Ensuite, nous parcourons le \textit{vecteur} stockant les point de chaque face pour en écrire
-les indices en respectant la structure du fichier \textit{.off.} (voir figure \ref{fig::go_vector}).
-\begin{figure}[ht]
-\centering
-  \includegraphics[width=\textwidth]{figures/go_vector.png}
-  \caption{Parcours du \textit{vecteur}}
-  \label{fig::go_vector}
-\end{figure}
+les indices en respectant la structure du fichier \textit{.off.} (voir pseudo code).
 
-La fonction décrite permet d'obtenir des fichiers qui seront lisible par un logiciel de
+\begin{lstlisting}
+Pour toutes les faces du vecteur   //Boucle for
+  Ecrire le nombre de points de la face courante dans le fichier .off
+  Pour tous les points de la face
+    Ecrire l'indice correspondant au point courant dans le fichier .off
+    Si le point courant n'est pas le dernier de la face
+      Ajouter un espace
+    Fin Si
+  Fin Pour
+  Sauter une ligne dans le fichier .off
+Fin Pour
+\end{lstlisting}
+
+La fonction décrite permet d'obtenir des fichiers qui seront lisibles par un logiciel de
 visualisation tel que MeshLab. Ces fichiers sont également conformes à ce qui est
 attendu par la classe \textit{Polyhedron}.
 
 D'autre part, nous utilisons une méthode semblable pour écrire les fichiers \textit{.off}
 qui permettent d'afficher les triangulations. Ainsi, nous itérons une première fois
-sur les vertices pour lister les points. Comme précedemment, nous utilisons une \textit{map}
+sur les sommets pour lister les points. Comme précedemment, nous utilisons une \textit{map}
 pour garder en mémoire l'ordre des points via une indexation. Ensuite, nous itérons sur
 les faces de la triangulation et nous récupérons les indices de chaque point dans la
 \textit{map} créée à cet effet.

@@ -14,7 +14,7 @@ Les protéines assurent diverses fonctions au sein de la cellule vivante et dans
 Elles peuvent avoir un rôle enzymatique, structurel, permettre la mobilité des molécules, la
 régulation de l'expression génétique ou encore transmettre des signaux cellulaires.
 Les chaînes protéiques constituant les protéines sont synthétisées dans la cellule. Le
-matériel génétique de la cellule détermine l'ordre d'enchainement des acides aminés.
+matériel génétique de la cellule détermine l'ordre d'enchaînement des acides aminés.
 Les protéines adoptent alors une structure en trois dimensions qui leur permet d'assurer
  leur fonction biologique. Les protéines peuvent interagir ensemble afin d'assurer certaines
 fonctions biologiques. Ces interactions forment des complexes protéiques. Les structures
@@ -24,8 +24,8 @@ médicament. La cristallographie est utilisée pour étudier la structure des pr
 l'échelle atomique. Elle s'appuie sur le phénomène physique de diffraction des ondes
 électromagnétiques (rayons X).
 
-Le complexe que nous étudions dans ce projet est le rassemblement de
-deux protéines. La structure de ce comlexe peut être analysée en étudiant l'interface
+Le complexe que nous étudions dans ce projet est l'interaction entre
+deux protéines. La structure de ce complexe peut être analysée en étudiant l'interface
 entre les deux protéines le composant. On comprend dès lors que modéliser cette interface
 pour la visualiser peut avoir une importance cruciale en recherche biologique et médicinale.
 
@@ -67,7 +67,8 @@ ce nuage de points et de modéliser l'interface entre les deux protéines,
  chaque cercle circonscrit à un triangle du nuage de point ne contient que les points
  dudit triangle (voir figure \ref{fig::explication_delaunay}).
  Nous expliquerons dans un premier
- temps la méthode pour déterminer l'interface en deux dimensions.
+ temps la méthode pour déterminer l'interface en deux dimensions avant de la transposer à la
+ dimension 3.
 
 \begin{figure}[ht]
 \centering
@@ -81,7 +82,7 @@ ce nuage de points et de modéliser l'interface entre les deux protéines,
 Il faut appliquer cette triangulation au complexe dont on veut déterminer l'interface, c'est-à dire
 aux points donnés par les coordonnées des atomes qui composent le complexe
 (voir figure \ref{fig::delaunay_tr}). Les protéines du complexe sont différenciées
-par leurs couleurs (rouge et bleu) sur le schéma. Nous sélectionnons alors la partie utile de
+par leur couleur (rouge et bleu) sur le schéma. Nous sélectionnons alors la partie utile de
 cette triangulation (voir figure \ref{fig::delaunay_reduced}) : nous ne gardons que
 les triangles qui contiennent au moins un point à l'interface.
 Un point est à l'interface s'il appartient à un triangle contenant au moins un point
@@ -141,10 +142,14 @@ au diagramme de Voronoï.
 \end{figure}
 
 
-Ce diagramme est le dual de la triangulation de Delaunay et représente les points à
+Ce diagramme est le dual de la triangulation de Delaunay. Il est representé par les
+médiatrices des segments qui constitue la triangulation.
+ Il contient donc l'ensemble des points à
 égale distance des points de la triangulation (voir figure \ref{fig::process_d_3}).
-En ne gardant que les parties du diagramme de Voronoï qui correspondent aux arêtes sélectionnées
-précédemment (voir figure \ref{fig::process_d_4}), nous obtenons une droite par morceaux
+On ne garde que les parties du diagramme de Voronoï qui correspondent aux arêtes sélectionnées
+précédemment, c'est-à-dire les segments du diagramme de Voronoï qui intersectent
+avec les arêtes de la triangulation de Delaunay (voir figure \ref{fig::process_d_4}).
+Nous obtenons alors une droite par morceaux
 qui approxime l'interface de contact en dimension 2.
 
 \begin{figure}[ht]
@@ -219,13 +224,13 @@ Pour développer la méthode vue précédemment, nous avons choisi d'utiliser CG
 (Computational Geometry Algorithms Library) \cite{CGAL}.
 CGAL est un projet logiciel qui fournit un accès libre à de nombreux algorithmes géométriques
 efficaces et fiables sous forme d'une bibliothèque C++. CGAL est utilisé dans des
-domaines diverses ayant besoin de calcul géométrique, tels que des systèmes
+domaines divers ayant besoin de calcul géométrique, tels que des systèmes
 d'information géographiques, la conception assistée par ordinateur, la biologie
 moléculaire, l'imagerie médicale, l'infographie et la robotique.
 
 Nous nous sommes particulièrement intéressés à une partie de CGAL qui permet le
 stockage de nuages de points sous forme de triangulations de Delaunay. L'avantage
-de cette bibliothèque réside dans les structure et les méthodes accélérant les différentes
+de cette bibliothèque réside dans les structures et les méthodes accélérant les différentes
 étapes du calcul de l'interface entre deux protéines.
 
 \subsection*{Structures}
@@ -241,30 +246,36 @@ composant une trianguation de Delaunay (voir figure \ref{fig::tetrahedron_cgal})
 \begin{figure}[ht]
 \centering
   \includegraphics[width=0.5\textwidth]{figures/tetrahedron_cgal.png}
-  \caption{Structure d'un tetrahèdre dans CGAL}
+  \caption{Structure d'un tetrahèdre dans CGAL \cite{CGAL}}
   \label{fig::tetrahedron_cgal}
 \end{figure}
 
-Un tetrahèdre est représenté par quatre entités :
+Un tétrahèdre est représenté par quatre entités :
 \begin{itemize}
-  \item Vertex (vertice) : contient un point (coordonnées 3D)
-  \item Edge (arête) : une arête contenant deux vertex ordonnés et une cellule
-  \item Facet (face) : une face stockée grâce à une cellule et le vertex qui lui est opposé dans cette cellule
-  \item Cell (cellule) : un tetrahèdre qui donne accès à quatre vertex et quatre cellules adjacentes
+  \item Vertex (sommet) : contient un point (coordonnées 3D)
+  \item Cell (cellule) : un tétrahèdre qui donne accès à quatre sommets et quatre cellules adjacentes (les
+  cellules qui ont une face commune avec la cellule courante)
+  \item Edge (arête) : une arête contenant deux sommet ordonnés (l'arête va d'un point
+  à un autre avec un sens établi) et une cellule
+  \item Facet (face) : une face stockée grâce à une cellule et au sommet qui lui
+  est opposé dans cette cellule
 \end{itemize}
 
-Il est important de comprendre la structure mise en place dans CGAL car il sera
-nécessaire d'accéder au différentes parties d'un tétrahèdre. Par exemple, lorsque
+Il est important de comprendre la structure mise en place dans \gls{cgal} car il sera
+nécessaire d'accéder aux différentes parties d'un tétrahèdre. Par exemple, lorsque
 nous travaillons sur les arêtes pour rechercher l'interface, nous avons besoin de
-connaître les vertices qui la compose.
+connaître les sommets qui la composent.
 
 Il existe également une seconde strucure de données, \textit{Polyhedron}, qui sera
 utilisée pour stocker la surface. Cette classe permet de travailler sur des surfaces
-en trois dimensions c'est-à-dire que les morceaux des cette surface sont en deux dimensions.
+en trois dimensions c'est-à-dire que les morceaux de cette surface sont en deux dimensions.
 Le fonctionnement est sensiblement identique à la classe \textit{Delaunay\_Triangulation\_3}.
+En effet, chaque polygone est également composé d'arêtes et de sommets auxquels on peut
+accéder pour en récupérer les informations.
 
-La compréhension des structures fournies par CGAL fut donc une partie fondamentale du
-projet. En effet la maîtrise des accesseurs est cruciale afin d'optimiser les parcours
+La compréhension des structures fournies par CGAL constitue donc une partie fondamentale du
+projet. En effet la maîtrise des accesseurs (c'est-à-dire les méthodes qui permettent
+d'accéder à chaque entité composant un térahèdre) est cruciale afin d'optimiser les parcours
 dans les nuages de points via les itérateurs.
 
 
@@ -274,16 +285,19 @@ dans les nuages de points via les itérateurs.
 \subsection*{Itérateurs}
 
 Les itérateurs sont une généralisation de pointeurs qui permettent de travailler sur
-différentes structures de données.
+différentes structures de données. L'avantage est qu'ils sont liés aux différentes entités
+qui composent un tétrahèdre. On peut comparer l'utilisation d'un itérateur à une boucle
+\textit{for} dont l'ordre de parcours a été choisi au préalable afin d'optimiser
+le temps de parcours.
 Il existe des itérateurs permettant de parcourir une triangulation de Delaunay
 selon chacune des entités formant celle-ci : vertice, arête, face, cellule. Quelle
-que soit l'entité utilisée, il est possible d'accéder au trois autres entités et
+que soit l'entité utilisée, il est possible d'accéder aux trois autres entités et
 aux données qu'elles contiennent. Les itérateurs fonctionnent dans CGAL grâce aux
-\textit{Handles}. Celle-ci sont des références indirectes qui fonctionnent sensiblement
-comme des pointeurs. Lorsqu'on itère sur un des types composant les tétrahèdre, une
+\textit{Handles}. Celles-ci sont des références indirectes qui fonctionnent sensiblement
+comme des pointeurs. Lorsqu'on itère sur un des types composant les tétrahèdres, une
 \textit{Handle} vers le type concerné est renvoyée. Par exemple, pour une itération sur des
 vertices, on peut accéder à l'indice stocké dans \textit{info()} par la commande
-fournie en figure \ref{fig::tetrahedron_cgal}.
+fournie en figure \ref{fig::access_it}.
 
 \begin{figure}[ht]
 \centering
@@ -294,8 +308,8 @@ fournie en figure \ref{fig::tetrahedron_cgal}.
 
 
 Il existe également des circulateurs qui, bien que semblables aux itérateurs par le fait
-qu'ils parcourent des structures de données, fonctionnent différemment. Commme leur nom
-l'indique , ils permettent de "tourner" autour d'une entité. Par exemple ils peuvent
+qu'ils parcourent des structures de données, fonctionnent différemment. Comme leur nom
+l'indique, ils permettent de "tourner" autour d'une entité. Par exemple ils peuvent
 servir à parcourir toutes les cellules adjacentes d'une cellule donnée. Ils s'utilisent
 sous la forme d'une boucle \textit{do...while} (voir figure \ref{fig::circ_ex}).
 \begin{figure}[ht]

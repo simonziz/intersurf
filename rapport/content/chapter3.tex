@@ -35,7 +35,7 @@ Deux types de visualisation de la surface sont possibles :
   \item sans lissage (voir figure \ref{fig::surf_no_smooth}) : les morceaux de la surface correspondent
   directement aux duaux de chaque arête
   \item avec lissage (voir figure \ref{fig::surf_smooth}) : le lissage de la surface
-  permet d'approximer avec plus de précision l'interface de contact
+  permet d'obtenir une surface continue.
 \end{itemize}
 
 \begin{figure}[ht]
@@ -53,8 +53,8 @@ Deux types de visualisation de la surface sont possibles :
 \end{figure}
 
 Finalement, l'objectif principal, qui était d'afficher un complexe protéique avec son
-interface de contact sous forme d'une surface lisse en trois dimension a été rempli.
-Cependant, nous avons, pour arriver à ce résultat, rencontrer un certains nombre de difficultés que nous
+interface de contact sous forme d'une surface lisse en trois dimensions a été rempli.
+Cependant, nous avons, pour arriver à ce résultat, rencontré un certain nombre de difficultés que nous
 détaillons dans la partie suivante.
 
 
@@ -63,25 +63,27 @@ Les deux difficultés principales auxquelles nous avons été confrontés au lon
 sont les suivantes :
 \begin{itemize}
   \item comment compiler le projet sachant qu'il regroupe différentes méthodes d'implémentation
-  \item l'utilisation de CGAl qui bien qu'efficace peut parfois se montrer rigide
+  \item l'utilisation de \gls{cgal} qui bien qu'efficace peut parfois se montrer rigide
 \end{itemize}
 
-Ainsi, la compilation du projet s'est trouvée compliquée par le fait que CGAL peut être difficile
+Ainsi, la compilation du projet s'est trouvée compliquée par le fait que \gls{cgal} peut être difficile
 à intégrer à un projet de grande envergure. En effet, la documentation permet de
-comprendre facilement comment compiler un petit projet utilisant CGAL. En revanche, l'utilisation de Cmake
+comprendre facilement comment compiler un petit projet utilisant \gls{cgal}. En revanche, l'utilisation de Cmake
 pour rassembler les différentes partie peut être laborieuse. Ainsi, compiler un tel projet
 requiert de maîtriser la méthode de compilation par Cmake. Cela permet également de comprendre
 que le développement d'un tel projet, en partant de rien, suppose de maîtriser différentes
 méthodes de compilation.
 
-Ensuite, CGAL est destiné à un utilisateur expert et se trouve être difficile à prendre
+Ensuite, \gls{cgal} est destiné à un utilisateur expert et se trouve être difficile à prendre
 en main pour un utilisateur novice. En effet, il est absolument nécessaire, avant de
-démarrer l'implémentation d'un projet, d'être familier avec les structures fournies par CGAL.
-Etant donnée la taille de CGAL, on comprend aisément qu'un temps important doit être
-consacré à cela. Ceci pouvant finalement faire perdre du temps.
+démarrer l'implémentation d'un projet, d'être familier avec les structures fournies par \gls{cgal}.
+Etant donnée la taille de \gls{cgal}, on comprend aisément qu'un temps important doit être
+consacré à cela. Ceci pouvant finalement faire perdre du temps par rapport à l'utilisation de méthodes
+et de structures personnelles. En revanche, une fois prise en main, il est important de souligner la puissance
+de calcul et l'aide au développement que fournit \gls{cgal}.
 
 Pour illustrer ceci, il est important de replacer le projet dans son contexte. Nous avons
-choisi, au départ, d'utiliser au maximum les fonctionnalités fournies par CGAL.
+choisi, au départ, d'utiliser au maximum les fonctionnalités fournies par \gls{cgal}.
 Dans cette optique, j'ai perdu un temps conséquent à vouloir toujours fonctionner de cette manière.
 CGAL fournit en effet nombre de structures (\textit{vector}, \textit{map}) semblables
 à celles présentes dans la bibliothèque standard (\textit{std}) du C++. En revanche, l'utilisation
@@ -90,7 +92,7 @@ Ainsi, nous avons choisi de revenir à des structures connues. Par exemple, pour
 surface, seules les classes de la bibliothèque standard sont utilisées, ce qui s'est
 révélé être le choix le plus efficace.
 
-L'objectif ici n'est pas d'infirmer la puissance de calcul offerte par CGAL ou son utilité.
+L'objectif ici n'est pas d'infirmer la puissance de calcul offerte par \gls{cgal} ou son utilité.
 L'utilisation de la triangulation de Delaunay aurait été beaucoup plus difficile
 à implémenter sans cette bibliothèque. Il semble simplement important de préciser qu'il peut être
 parfois plus efficace de développer certaines méthodes en se passant d'une bibilothèque extérieure.
@@ -111,7 +113,7 @@ De plus, l'un des objectifs du projet est de modifier dynamiquement la surface d
 en fonction des mouvements des atomes de la protéines. Le complexe peut changer de structure
 avec des mouvements, voire des ajouts et des suppression d'atomes. La méthode aurait été
 de recalculer par endroits (en fonction des modifications) la triangulation de Delaunay.
-Grâce au structures fournies par CGAL, il est possible d'ajouter ou de supprimer
+Grâce au structures fournies par \gls{cgal}, il est possible d'ajouter ou de supprimer
 un point dans une triangulation sans la recalculer entièrement. Un déplacement d'atome
 revient à une suppression puis un ajout en conservant l'indice. En utilisant des fichiers \textit{.pdb}
 fournissant différents états d'un complexe, nous aurions voulu implémenter une méthode
@@ -122,7 +124,7 @@ d'états différents.
 Toujours dans cette optique dynamique, l'utilisation d'OpenGL aurait été recommandée.
 En effet, on peut imaginer une visualisation des différents états en une seule fois (sous
 forme de vidéo par exemple). Dans ce cas, la génération d'un fichier \textit{.off}
-semmble trop lourde et probablement trop lente. La conservation des différents états de
+semble trop lourde et probablement trop lente. La conservation des différents états de
 la surface n'est pas forcément nécessaire.
 
 Finalement, grâce à l'architecture choisie pour le projet , il est possible de le

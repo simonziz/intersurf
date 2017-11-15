@@ -1,0 +1,90 @@
+\ifglsentryexists{inria}{}%
+{%
+\gls@defglossaryentry{inria}%
+{%
+name={INRIA},%
+sort={INRIA},%
+type={main},%
+first={INRIA},%
+firstplural={INRIAs},%
+text={INRIA},%
+plural={INRIAs},%
+description={Institut National de Recherche en Informatique et en Automatique},%
+descriptionplural={Institut National de Recherche en Informatique et en Automatique},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{capsid}{}%
+{%
+\gls@defglossaryentry{capsid}%
+{%
+name={CAPSID},%
+sort={CAPSID},%
+type={main},%
+first={CAPSID},%
+firstplural={CAPSIDs},%
+text={CAPSID},%
+plural={CAPSIDs},%
+description={Computational Algorithms for Protein Structures and Interactions},%
+descriptionplural={Computational Algorithms for Protein Structures and Interactions},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{cgal}{}%
+{%
+\gls@defglossaryentry{cgal}%
+{%
+name={CGAL},%
+sort={CGAL},%
+type={main},%
+first={CGAL},%
+firstplural={CGALs},%
+text={CGAL},%
+plural={CGALs},%
+description={Computational Geometry Algorithms Library},%
+descriptionplural={Computational Geometry Algorithms Library},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+}%

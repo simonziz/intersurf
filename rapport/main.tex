@@ -2,8 +2,9 @@
 
 % mise en place du glossaire
 %\setglossarystyle{altlist} % apparence du glossaire
-%\makenoidxglossaries % génération du glossaire
-%\input{content/glossaire.tex} % appel du fichier contenant le glossaire
+\input{content/glossaire.tex} % appel du fichier contenant le glossaire
+\makeglossaries % génération du glossaire
+
 
 \begin{document}
 
@@ -56,12 +57,14 @@
 \cleardoublepage
 
 %%  GLOSSAIRE
-%\printnoidxglossary[sort=def] % affichage du glossaire
+\chapter*{Glossaire}
+\addcontentsline{toc}{chapter}{Glossaire}
+\printglossaries % affichage du glossaire
 %\cleardoublepage
 
 %liste des illustrations
 \listoffigures
-\cleardoublepage
+%\cleardoublepage
 
 %% BIBLIO
 \bibliography{content/ref.bib}
