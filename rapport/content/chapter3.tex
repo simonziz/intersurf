@@ -30,6 +30,7 @@ de colorer la surface en fonction du type de l'atome qui lui correspond ou de l'
 auquel celui-ci appartient.
 
 La visualisation dans MeshLab permet de bien comprendre comment les protéines du complexe interagissent.
+
 Deux types de visualisation de la surface sont possibles :
 \begin{itemize}
   \item sans lissage (voir figure \ref{fig::surf_no_smooth}) : les morceaux de la surface correspondent
@@ -52,8 +53,18 @@ Deux types de visualisation de la surface sont possibles :
   \label{fig::surf_smooth}
 \end{figure}
 
+Tout au long du développement logiciel, nous avons travaillé sur une petite partie de
+complexe, c'est-à-dire sur un nombre de points réduit (voir \ref{fig::prot_delaunay}).
+Ceci nous a facilité l'observation de la protéine et de sa surface, et de vérifier
+que les résultats étaient cohérents.
+De plus, nous avons utilisé le logiciel existant pour comparer les données obtenues.
+Nous avons par exemple pu comparer le nombre de points et d'arêtes des triangulations ou
+les coordonnées des points de la surface.
+
 Finalement, l'objectif principal, qui était d'afficher un complexe protéique avec son
 interface de contact sous forme d'une surface lisse en trois dimensions a été rempli.
+Il est également important de souligner que le projet a été implémenté de manière à
+pouvoir exploiter facilement les données fournies par le fichier \textit{.pdb}.
 Cependant, nous avons, pour arriver à ce résultat, rencontré un certain nombre de difficultés que nous
 détaillons dans la partie suivante.
 
@@ -111,7 +122,7 @@ MeshLab car les possibilités sont plus nombreuses.
 
 De plus, l'un des objectifs du projet est de modifier dynamiquement la surface de contact
 en fonction des mouvements des atomes de la protéines. Le complexe peut changer de structure
-avec des mouvements, voire des ajouts et des suppression d'atomes. La méthode aurait été
+avec des mouvements, voire des ajouts et des suppressions d'atomes. La méthode aurait été
 de recalculer par endroits (en fonction des modifications) la triangulation de Delaunay.
 Grâce au structures fournies par \gls{cgal}, il est possible d'ajouter ou de supprimer
 un point dans une triangulation sans la recalculer entièrement. Un déplacement d'atome
@@ -132,7 +143,7 @@ De plus, on peut exploiter la surface obtenue en affichant des informations sur
 les atomes. Par exemple, il serait possible de colorer la surface en fonction des propriétés
 des atomes (poids, liaison, acide aminé, etc.). Cela permettrait d'analyser plus facilement
 la surface. Il serait alors intéressant de projeter la surface en deux dimensions afin
-de comparer les complexes par superposition.
+de comparer les complexes en superposant les images obtenues.
 
 Finalement, grâce à l'architecture choisie pour le projet, il est possible de le
 modifier assez simplement dans le but d'ajouter des fonctionnalités.

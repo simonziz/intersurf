@@ -74,13 +74,8 @@ ce nuage de points et de modéliser l'interface entre les deux protéines,
 
 Cette triangulation est unique et peut être expliquée de la manière suivante :
 chaque cercle circonscrit à un triangle du nuage de point ne contient que les points
-dudit triangle (voir figure \ref{fig::explication_delaunay}).
-On peut construire une triangulation de Delaunay de manière incrémentale, c'est-à-dire
-en ajoutant les points un à un.
-
- Nous expliquerons dans un premier
- temps la méthode pour déterminer l'interface en deux dimensions avant de la transposer à la
- dimension 3.
+dudit triangle (voir figure \ref{fig::explication_delaunay}). De plus, les arêtes ne
+s'intersectent jamais.
 
 \begin{figure}[ht]
 \centering
@@ -88,6 +83,41 @@ en ajoutant les points un à un.
   \caption{Triangulation de Delaunay}
   \label{fig::explication_delaunay}
 \end{figure}
+
+On peut construire une triangulation de Delaunay de manière incrémentale, c'est-à-dire
+en ajoutant les points un à un. Lorsqu'on ajoute un point à une triangulation de Delaunay,
+on relie ce point aux points qui l'entourent. Cela nous donne une triangulation quelconque.
+On vérifie alors que les triangles ajoutés sont bien de Delaunay. Si ce n'est pas le cas,
+on utilise la méthode de basculement (voir figure \ref{fig::basculement}) pour modifier
+la triangulation. On bascule l'une des arête du triangle.On répète cette opération
+sur chaque nouveau triangle jusqu'à ce que la triangulation soit de Delaunay.
+
+\begin{figure}[ht]
+\centering
+\begin{subfigure}{0.4\textwidth}
+  \centering
+  \includegraphics[width=\textwidth]{figures/invalid.png}
+  \caption{Triangulation non valide}
+  \label{fig::invalid}
+\end{subfigure}%
+\begin{subfigure}{0.2\textwidth}
+  \centering
+  $\Longrightarrow$
+\end{subfigure}%
+\begin{subfigure}{0.4\textwidth}
+  \centering
+  \includegraphics[width=\textwidth]{figures/valid.png}
+  \caption{Triangulation valide}
+  \label{fig::valid}
+\end{subfigure}
+\caption{Méthode du basculement}
+\label{fig::basculement}
+\end{figure}
+L'ordre d'ajout des points est important pour la rapidité de l'algorithme. Les algorithmes
+développés dans CGAL permettent d'optimiser les opérations d'ajout de points.
+ Nous expliquerons dans un premier
+ temps la méthode pour déterminer l'interface en deux dimensions avant de la transposer à la
+ dimension 3.
 
 \subsection*{Dimension 2}
 
@@ -154,7 +184,8 @@ au diagramme de Voronoï.
 \end{figure}
 
 
-Ce diagramme est le dual de la triangulation de Delaunay. Il est representé par les
+Ce diagramme est le dual de la triangulation de Delaunay, c'est une représentation alternative
+de la triangulation. Il est representé par les
 médiatrices des segments qui constitue la triangulation.
  Il contient donc l'ensemble des points à
 égale distance des points de la triangulation (voir figure \ref{fig::process_d_3}).
@@ -308,15 +339,8 @@ aux données qu'elles contiennent. Les itérateurs fonctionnent dans CGAL grâce
 \textit{Handles}. Celles-ci sont des références indirectes qui fonctionnent sensiblement
 comme des pointeurs. Lorsqu'on itère sur un des types composant les tétrahèdres, une
 \textit{Handle} vers le type concerné est renvoyée. Par exemple, pour une itération sur des
-vertices, on peut accéder à l'indice stocké dans \textit{info()} par la commande
-fournie en figure \ref{fig::access_it}.
+vertices, on peut accéder à l'indice stocké dans \textit{info()}.
 
-\begin{figure}[ht]
-\centering
-  \includegraphics[width=\textwidth]{figures/access_it.png}
-  \caption{Utilisation d'un itérateur}
-  \label{fig::access_it}
-\end{figure}
 
 
 Il existe également des circulateurs qui, bien que semblables aux itérateurs par le fait
