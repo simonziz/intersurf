@@ -35,7 +35,7 @@ Deux types de visualisation de la surface sont possibles :
   \item sans lissage (voir figure \ref{fig::surf_no_smooth}) : les morceaux de la surface correspondent
   directement aux duaux de chaque arête
   \item avec lissage (voir figure \ref{fig::surf_smooth}) : le lissage de la surface
-  permet d'obtenir une surface continue.
+  permet d'obtenir une surface continue lors de l'affichage.
 \end{itemize}
 
 \begin{figure}[ht]
@@ -119,7 +119,8 @@ revient à une suppression puis un ajout en conservant l'indice. En utilisant de
 fournissant différents états d'un complexe, nous aurions voulu implémenter une méthode
 permettant d'afficher la surface à chacun de ces états. La problématique principale
 aurait été d'optimiser le temps de calcul pour permettre au programme de calculer un maximum
-d'états différents.
+d'états différents. L'observation dynamique est effet intéressante car elle permet d'analyser
+les déformations de la surface en fonction des mouvements des atomes.
 
 Toujours dans cette optique dynamique, l'utilisation d'OpenGL aurait été recommandée.
 En effet, on peut imaginer une visualisation des différents états en une seule fois (sous
@@ -127,5 +128,11 @@ forme de vidéo par exemple). Dans ce cas, la génération d'un fichier \textit{
 semble trop lourde et probablement trop lente. La conservation des différents états de
 la surface n'est pas forcément nécessaire.
 
-Finalement, grâce à l'architecture choisie pour le projet , il est possible de le
+De plus, on peut exploiter la surface obtenue en affichant des informations sur
+les atomes. Par exemple, il serait possible de colorer la surface en fonction des propriétés
+des atomes (poids, liaison, acide aminé, etc.). Cela permettrait d'analyser plus facilement
+la surface. Il serait alors intéressant de projeter la surface en deux dimensions afin
+de comparer les complexes par superposition.
+
+Finalement, grâce à l'architecture choisie pour le projet, il est possible de le
 modifier assez simplement dans le but d'ajouter des fonctionnalités.

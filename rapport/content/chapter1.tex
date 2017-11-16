@@ -1,4 +1,4 @@
-\chapter{Méthode + Théorie}
+\chapter{Méthode et Théorie}
 
 \section{Structure d'une protéine et d'un complexe}
 
@@ -35,8 +35,17 @@ Les données utilisables d'une protéine (ou d'un complexe) sont stockées grâc
 fichiers \textit{.pdb} (voir figure \ref{fig::pdb_file}). Ces fichiers, leur lecture et l'interprétation des données
 qu'ils contiennent, sont essentiels à l'observation des protéines. En effet, chaque
 ligne, exceptée la première, correspond à un atome composant la protéine étudiée.
-Ces lignes contiennent des informations telles que la chaîne à laquelle appartient
-l'atome, son acide aminé ou ses coordonnées dans l'espace (en $\si{\angstrom}$).
+Ces lignes contiennent des informations telles que :
+\begin{itemize}
+  \item l'atome : colonne 3
+  \item la chaîne à laquelle appartient l'atome : colonne 5
+  \item son acide aminé : colonne 4
+  \item ses coordonnées dans l'espace en $\si{\angstrom}$ : colonnes 7 à 9.
+  \item le type d'atome : colonne 12
+  \item l'indice de l'atome : colonne 2
+  \item la description du composant : colonne 1
+\end{itemize}
+
 
 \begin{figure}[ht]
   \includegraphics[width=\textwidth]{figures/pdb_example.png}
@@ -63,9 +72,12 @@ représente un atome de la protéine. Dans le but d'optimiser les temps de parco
 ce nuage de points et de modéliser l'interface entre les deux protéines,
  on utilise la triangulation de Delaunay \cite{Triangulation}.
 
- Cette triangulation est unique et peut être expliquée de la manière suivante :
- chaque cercle circonscrit à un triangle du nuage de point ne contient que les points
- dudit triangle (voir figure \ref{fig::explication_delaunay}).
+Cette triangulation est unique et peut être expliquée de la manière suivante :
+chaque cercle circonscrit à un triangle du nuage de point ne contient que les points
+dudit triangle (voir figure \ref{fig::explication_delaunay}).
+On peut construire une triangulation de Delaunay de manière incrémentale, c'est-à-dire
+en ajoutant les points un à un.
+
  Nous expliquerons dans un premier
  temps la méthode pour déterminer l'interface en deux dimensions avant de la transposer à la
  dimension 3.

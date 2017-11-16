@@ -22,7 +22,7 @@
 \RequirePackage{csquotes}
 \RequirePackage{graphicx}
 %glossaire
-\RequirePackage[xindy]{glossaries}
+\RequirePackage{glossaries}
 %références
 %\RequirePackage{biblatex}
 

@@ -1,0 +1,38 @@
+\chapter{Mise en Contexte}
+
+\section{Présentation de l'équipe}
+
+L'équipe \gls{capsid} rassemble des chercheurs de l'\gls{inria}, du \gls{cnrs}
+et de l'Université de Lorraine. L'équipe compte quatre
+chercheurs (David Ritchie, Isaure Chauvot de Beauchêne, Marie-Dominique Devignes et
+Bernard Maigret), un membre de l'Université de Lorraine (Sabeur Aridhi), un ingénieur
+(Antoine Chemardin) ainsi que trois étudiants en thèse.
+Les recherches de l'équipe se focalisent sur deux thèmes principaux :
+\begin{itemize}
+  \item la modélisation des interactions entre les protéines (simulation en dynamique
+  moléculaire)
+  \item la classification et la fouille de données des interactions et des structures
+  protéiques
+\end{itemize}
+La compréhension du fonctionnement des systèmes biologiques au niveau des structures
+moléculaires 3D est au centre des travaux de l'équipe.
+Le logiciel Hex, qui permet d'analyser les interactions entre protéines via les fichiers
+\textit{.pdb}, a notamment été développé par David Ritchie.
+
+\section{Logiciel Existant}
+
+Le logiciel \gls{intersurf} \cite{intersurf} a été développé au sein de l'\gls{inria}.
+Il permet d'extraire la surface d'interface entre deux protéines et fonctionne sous forme
+de module pour le logiciel \gls{vmd}. Ce dernier permet d'observer les
+structures des protéines afin de les analyser. La prise en main de \gls{vmd} et la compréhension de
+la publication concernant \gls{intersurf} a constitué la première partie de mon projet.
+Ce logiciel fonctionne de manière statique : il ne permet pas d'observer l'interface
+si les protéines subissent des déformations.
+L'objectif du projet est de développer un logiciel semblable en utilisant \gls{cgal}
+afin d'améliorer les temps de calcul. On cherche également à implémenter ceci de manière à permettre
+d'intégrer la composante dynamique. En effet, on veut être capable de calculer l'interface
+lorsque les protéines sont déformées pour en observer les différents états.
+
+L'utilité du logiciel existant réside notamment dans le fait qu'il permet d'obtenir
+un grand nombre d'informations sur les protéines et leur interface. Nous comparerons ces informations
+avec nos résultats de manière à vérifier la validité de l'implémentation.

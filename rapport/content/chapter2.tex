@@ -60,9 +60,11 @@ Nous avons choisi d'utiliser la seconde méthode, qui est native dans \gls{cgal}
 sa simplicité. Lors de l'instanciation, cette classe prend notamment en paramètre
 \textit{template} un type de variable qui sera accessible comme l'attribut \textit{info()}.
 
-Cette variable constitue l'indice et doit donc être un entier positif qui fera partie de la structure Delaunay
-et sera accessible lors du parcours de ces structures. Cependant, la structure de Delaunay
-requiert l'ajout d'un indice lors de son instanciation. Un vecteur de paires contenant
+Cette variable correspond à l'indice dont nous avons besoin. Ce doit donc être un
+entier positif qui fera partie de la structure Delaunay
+et sera accessible lors du parcours de ces structures. Cependant, cet indice doit être
+inséré en même temps que le sommet auquel il correspond lors de l'instanciation de
+la structure de Delaunay. Un vecteur de paires contenant
 un point 3D et une variable du type de l'attribut \textit{info()} convient.
 
 La fonction complète permettant d'écrire un fichier\textit{.pdb} dans une structure
@@ -79,10 +81,9 @@ pour sélectionner les tétrahèdres présents à l'interface (voir figure \ref{
 Lorsque les strucures de Delaunay ont été créées, il devient possible de calculer l'interface
 entre les deux protéines du complexe, ce qui constitue la partie centrale du projet.
 En implémentant la méthode vue dans la partie Triangulation de Delaunay, nous pouvons générer
-une surface qui pourra être affichée. Cette surface est un regroupement de polyhèdres
-dont le nombre de côtés varie.
-
-
+une surface qui pourra être affichée. Cette surface est un regroupement de polygones
+dont le nombre de côtés varie, contrairement à la triangulation de Delaunay sur le complexe
+qui est formé de triangles.
 
 Dans la première partie de l'implémentation, nous stockons la surface dans \textit{vecteur}
 (\textit{all\_faces\_indexes})
@@ -141,7 +142,8 @@ de l'interface. Pour éliminer ces points, nous avons procédé en amont au calc
 du barycentre de la protéine puis nous avons recensé la distance maximale entre un point du complexe
 et son barycentre. Si la distance entre un point d'une face et le barycentre calculé
 est supérieure à un certain pourcentage (ici 130\%) de la distance maximale, alors
-la face ne sera pas gardée.
+la face ne sera pas gardée. Le pourcentage est fixé de manière empirique et dépend
+du complexe considéré.
 
 
 La surface est donc stockée dans un \textit{vecteur} et une \textit{map} qui permettront
@@ -161,22 +163,20 @@ sera considérée comme invalide si l'orientation des arêtes dans une face chan
 
 Pour assurer la validité de la surface, il faut garder le même sens de parcours
 tout au long du remplissage de la surface. Nous choisissons pour cela arbitrairement le sens
-du circulateur en fonction du premier sommet rencontré (voir figure \ref{fig::choix_sens}).
+du circulateur en fonction de la chaîne à laquelle appartient le premier sommet rencontré.
 Nous nous assurons ainsi que le parcours du nuage de points s'effectue toujours dans le même
 sens.
-\begin{figure}[ht]
-\centering
-  \includegraphics[width=0.8\textwidth]{figures/choix_sens.png}
-  \caption{Choix du sens de circulation}
-  \label{fig::choix_sens}
-\end{figure}
 
 
 
  L'avantage de cette classe est qu'elle possède
-une méthode permettant d'appliquer une subdivision de Catmull-Clark.
-Cette subdivision permet de lisser la surface par morceaux
-pour l'affichage.
+une méthode permettant d'appliquer une subdivision de Catmull-Clark. Ceci consiste
+à ajouter un point à chaque face et un point à chaque arête pour diviser chaque face.
+La méthode comprend un degré qui correspond au nombre de subdivisions appliquées à
+la surface. Afin de ne pas augmenter trop fortement la quantité de données, nous choisirons
+un degré valant 2.
+Cette subdivision permet d'obtenir une surface plus lisse lors de l'affichage que nous détaillons
+dans la partie suivante.
 
 
 \section{Affichage}
@@ -205,7 +205,7 @@ de Delaunay, ce nombre vaut 3 car chaque face de la triangulation correspond à 
 triangle (cela ne sera plus valable pour la surface dont les faces peuvent comporter un nombre
 quelconque de points). A la suite de cet entier viennent les indices des points composant la cellule
 (ou la face). Cet indice correspond à la place des coordonnées listées plus haut. Ainsi,
-sans notre exemple, le point listé ligne 4 a pour indice 0, celui en ligne 5 a pour indice 1
+dans notre exemple, le point listé ligne 4 a pour indice 0, celui en ligne 5 a pour indice 1
 et ainsi de suite.
 
 La fonction qui permet d'écrire ce fichier depuis la \textit{map} et le \textit{vecteur}
@@ -245,7 +245,7 @@ Fin Pour
 \end{lstlisting}
 
 La fonction décrite permet d'obtenir des fichiers qui seront lisibles par un logiciel de
-visualisation tel que MeshLab. Ces fichiers sont également conformes à ce qui est
+visualisation tel que MeshLab \cite{mes}. Ces fichiers sont également conformes à ce qui est
 attendu par la classe \textit{Polyhedron}.
 
 D'autre part, nous utilisons une méthode semblable pour écrire les fichiers \textit{.off}
